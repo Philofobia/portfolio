@@ -1,0 +1,4 @@
+/*
+  Base styles: box-sizing, body bg/fg from tokens, ::selection, focus-visible ring,
+  reduced-motion overrides, scrollbar, lang-specific font fallback for [lang=ja].
+*/

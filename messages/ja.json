@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "title": "マルコ・フォビア — フルスタックエンジニア",
+    "description": "イタリア出身のフルスタックエンジニア。データベース設計から、ユーザーが日々触れるインターフェースまで、ウェブプロダクトを一貫して開発します。日本での就業を希望しています。"
+  },
+  "header": {
+    "nav": {
+      "work": "実績",
+      "stack": "技術スタック",
+      "experience": "経歴",
+      "contact": "連絡先"
+    },
+    "clocks": {
+      "milano": "ミラノ",
+      "tokyo": "東京"
+    },
+    "localeSwitch": "English",
+    "themeToggle": "テーマを切り替える",
+    "availability": "{date}より就業可能"
+  },
+  "hero": {
+    "label": "ポジション",
+    "titleLine1": "フルスタック",
+    "titleLine2": "エンジニア",
+    "subtitleLine1": "日本での",
+    "subtitleLine2": "就業を希望",
+    "intro": "データベース設計から、ユーザーが日々触れるインターフェースまで。ウェブプロダクトを一貫して開発します。",
+    "ctaWork": "実績を見る",
+    "ctaCv": "CVをダウンロード",
+    "marquee": "マルコ・フォビア"
+  },
+  "work": {
+    "number": "",
+    "title": "",
+    "subtitle": "",
+    "role": "",
+    "code": "",
+    "live": "",
+    "previous": "",
+    "next": "",
+    "dragHint": "",
+    "projects": {
+      "logistics": {
+        "title": "",
+        "description": "",
+        "role": ""
+      },
+      "commerce": {
+        "title": "",
+        "description": "",
+        "role": ""
+      },
+      "clinic": {
+        "title": "",
+        "description": "",
+        "role": ""
+      },
+      "cli": {
+        "title": "",
+        "description": "",
+        "role": ""
+      }
+    }
+  },
+  "stack": {
+    "number": "",
+    "title": "",
+    "subtitle": "",
+    "marquee": [],
+    "groups": {
+      "frontend": {
+        "title": "",
+        "description": ""
+      },
+      "backend": {
+        "title": "",
+        "description": ""
+      },
+      "data": {
+        "title": "",
+        "description": ""
+      },
+      "infra": {
+        "title": "",
+        "description": ""
+      },
+      "ways": {
+        "title": "",
+        "description": ""
+      }
+    }
+  },
+  "experience": {
+    "number": "",
+    "title": "",
+    "subtitle": "",
+    "range": "",
+    "intro": "",
+    "workLabel": "",
+    "educationLabel": "",
+    "work": [
+      {
+        "period": "",
+        "role": "",
+        "company": "",
+        "description": "",
+        "result": ""
+      }
+    ],
+    "education": [
+      {
+        "period": "",
+        "degree": "",
+        "school": ""
+      }
+    ]
+  },
+  "japan": {
+    "number": "",
+    "title": "",
+    "titleJa": "",
+    "facts": {
+      "residence": {
+        "label": "",
+        "value": "",
+        "note": ""
+      },
+      "japanese": {
+        "label": "",
+        "value": "",
+        "note": ""
+      },
+      "languages": {
+        "label": "",
+        "value": "",
+        "note": ""
+      },
+      "availableFrom": {
+        "label": "",
+        "value": "",
+        "note": ""
+      },
+      "basedIn": {
+        "label": "",
+        "value": "",
+        "note": ""
+      },
+      "lookingFor": {
+        "label": "",
+        "value": "",
+        "note": ""
+      }
+    },
+    "documents": {
+      "title": "",
+      "badge": "",
+      "rirekisho": {
+        "title": "",
+        "description": ""
+      },
+      "shokumukeirekisho": {
+        "title": "",
+        "description": ""
+      },
+      "resume": {
+        "title": "",
+        "description": ""
+      }
+    }
+  },
+  "about": {
+    "number": "",
+    "title": "",
+    "tagline": "",
+    "body": "",
+    "imageAlt": ""
+  },
+  "contact": {
+    "number": "",
+    "title": "",
+    "intro": "",
+    "copyEmail": "",
+    "copied": "",
+    "links": {
+      "github": "",
+      "linkedin": "",
+      "wantedly": ""
+    }
+  },
+  "footer": {
+    "copyright": "",
+    "switchLocale": "",
+    "backToTop": ""
+  },
+  "notFound": {
+    "title": "",
+    "body": "",
+    "back": ""
+  }
+}
