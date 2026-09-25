@@ -2,3 +2,23 @@
   Base styles: box-sizing, body bg/fg from tokens, ::selection, focus-visible ring,
   reduced-motion overrides, scrollbar, lang-specific font fallback for [lang=ja].
 */
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* Tailwind's preflight defaults borders to currentColor (ink); the design's are --line. */
+  *,
+  ::before,
+  ::after,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--line);
+  }
+}

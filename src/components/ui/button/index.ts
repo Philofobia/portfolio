@@ -1,5 +1,5 @@
 /**
- * Barrel: export { Button, ButtonLink, IconButton, CopyButton }.
+ * Barrel: export { Button, IconButton, CopyButton }.
  */
 
 export {};

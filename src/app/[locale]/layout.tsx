@@ -8,7 +8,7 @@
  * before first paint.
  */
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, IBM_Plex_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { themeScript } from "@/lib/theme";
@@ -23,6 +23,13 @@ const geist = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const plexJp = IBM_Plex_Sans_JP({
+  variable: "--font-plex-jp",
+  weight: ["300", "400"],
   display: "swap",
   preload: false,
 });
@@ -43,7 +50,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${geist.variable} ${geistMono.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${plexJp.variable}`}
       suppressHydrationWarning
     >
       <head>

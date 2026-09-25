@@ -1,8 +1,154 @@
 /*
   Design tokens (Tailwind v4 @theme).
-  Dark:  bg #1b1b1c · fg #f2efe6 · accent #8a97ff · rule rgba(242,239,230,.12)
-  Light: bg #f2f2f0 · fg #1b1b1c (toggled via html[data-theme])
-  Fonts: --font-sans (Geist), --font-mono (Geist Mono), --font-jp (Plex Sans JP)
-  Grid:  --cell 75px · --cols 18 · --gutter · section paddings
-  Type scale: display 80px / h2 46px / h3 24px / body 15px / mono label 12px .16em
+  Grid:  --cell 75 / 50 m · --cols 18 / 7 m · --gutter 45 / 20 m · section gap 2 cells
+  Space: 4 · 8 · 12 · 16 · 20 · 24 · 32 (Tailwind steps 1–8) · cell padding 24 / 20 m
+    · image inset 15 / 10 m · radius 0 · shadow none
+  Type scale (desktop / mobile <768): display 80/52 · h1 48/40 · h2 46/32 · h3 30/22
+    · h4 24/20 (all 200, caps) · body 15/14 300 1.6 · meta mono 12/11 400
 */
+
+/* Only the design's colors exist as utilities; no radius, no shadows anywhere. */
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-sunk: var(--bg-sunk);
+  --color-bg-hover: var(--bg-hover);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-line-faint: var(--line-faint);
+  --color-line-strong: var(--line-strong);
+  --color-grid: var(--grid);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-ring: var(--accent-ring);
+  --color-on-accent: var(--on-accent);
+
+  /* Japanese falls through to Plex JP. */
+  --font-sans: var(--font-geist), var(--font-plex-jp), system-ui, sans-serif;
+  --font-mono:
+    var(--font-geist-mono), var(--font-plex-jp), ui-monospace, monospace;
+  --font-jp: var(--font-plex-jp), var(--font-geist), sans-serif;
+
+  --text-display: var(--fs-display);
+  --text-display--line-height: 1;
+  --text-display--font-weight: 200;
+  --text-h1: var(--fs-h1);
+  --text-h1--line-height: 1.08;
+  --text-h1--font-weight: 200;
+  --text-h2: var(--fs-h2);
+  --text-h2--line-height: 1;
+  --text-h2--font-weight: 200;
+  --text-h3: var(--fs-h3);
+  --text-h3--line-height: 1.1;
+  --text-h3--font-weight: 200;
+  --text-h4: var(--fs-h4);
+  --text-h4--line-height: 1.2;
+  --text-h4--font-weight: 200;
+  --text-body: var(--fs-body);
+  --text-body--line-height: 1.6;
+  --text-body--font-weight: 300;
+  --text-meta: var(--fs-meta);
+  --text-meta--line-height: 1;
+  --text-meta--font-weight: 400;
+
+  /* p-cell, h-cell, gap-section, p-cell-pad, p-inset … */
+  --spacing-cell: var(--cell);
+  --spacing-section: calc(var(--cell) * 2);
+  --spacing-cell-pad: var(--cell-pad);
+  --spacing-inset: var(--inset);
+  --spacing-gutter: var(--gutter);
+}
+
+/* Grid & spacing: mobile first, --cell drives every layout length. */
+:root {
+  --cell: 3.125rem; /* 50px */
+  --cols: 7;
+  --gutter: 1.25rem; /* 20px */
+  --cell-pad: 1.25rem; /* 20px */
+  --inset: 0.625rem; /* 10px */
+}
+
+@media (width >= 48rem) {
+  :root {
+    --cell: 4.6875rem; /* 75px */
+    --cols: 18;
+    --gutter: 2.8125rem; /* 45px */
+    --cell-pad: 1.5rem; /* 24px */
+    --inset: 0.9375rem; /* 15px */
+  }
+}
+
+/* Type scale: mobile first, desktop from 48rem (Tailwind md). rem = design px ÷ 16. */
+:root {
+  --fs-display: 3.25rem;
+  --fs-h1: 2.5rem;
+  --fs-h2: 2rem;
+  --fs-h3: 1.375rem;
+  --fs-h4: 1.25rem;
+  --fs-body: 0.875rem;
+  --fs-meta: 0.6875rem;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --fs-display: 5rem;
+    --fs-h1: 3rem;
+    --fs-h2: 2.875rem;
+    --fs-h3: 1.875rem;
+    --fs-h4: 1.5rem;
+    --fs-body: 0.9375rem;
+    --fs-meta: 0.75rem;
+  }
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #1b1b1c;
+  --bg-sunk: #141415;
+  --bg-hover: #232325;
+  --ink: #ececee;
+  --ink-2: #a3a3ab;
+  /* ink-3 adjusted from the design (#707078 / #76767e light) to reach WCAG AA 4.5:1 on bg, bg-sunk and bg-hover. */
+  --ink-3: #898991;
+  --line: rgba(255, 255, 255, 0.15);
+  --line-soft: rgba(255, 255, 255, 0.12);
+  --line-faint: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.3);
+  --grid: rgba(255, 255, 255, 0.06);
+  --accent: #8a97ff;
+  --accent-hover: #a5afff;
+  --accent-dim: rgba(138, 151, 255, 0.25);
+  --accent-ring: rgba(138, 151, 255, 0.6);
+  --on-accent: #11132a;
+  --hero-filter: saturate(0.85);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1f1ef;
+  --bg-sunk: #e7e7e4;
+  --bg-hover: #e4e4e0;
+  --ink: #161618;
+  --ink-2: #55555c;
+  --ink-3: #65656d;
+  --line: rgba(0, 0, 0, 0.14);
+  --line-soft: rgba(0, 0, 0, 0.1);
+  --line-faint: rgba(0, 0, 0, 0.06);
+  --line-strong: rgba(0, 0, 0, 0.3);
+  --grid: rgba(0, 0, 0, 0.06);
+  --accent: #3246d6;
+  --accent-hover: #2537c0;
+  --accent-dim: rgba(50, 70, 214, 0.25);
+  --accent-ring: rgba(50, 70, 214, 0.45);
+  --on-accent: #ffffff;
+  --hero-filter: invert(1) grayscale(1) contrast(1.1);
+}
