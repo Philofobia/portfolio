@@ -1,5 +1,5 @@
 /**
- * One stack group: <h3> title · description · list of <Chip />.
+ * One stack group: <h3> title · description · list of <TechTag />.
  */
 
 export {};

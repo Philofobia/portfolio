@@ -11,6 +11,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { Geist, Geist_Mono, IBM_Plex_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { TechSprite } from "@/lib/tech-icons";
 import { themeScript } from "@/lib/theme";
 import "../globals.css";
 
@@ -57,6 +58,7 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <TechSprite />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

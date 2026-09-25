@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ThemePreview } from "./_components/ThemePreview";
 import { ButtonStories } from "./_stories/ButtonStories";
+import { StatusDotStories } from "./_stories/StatusDotStories";
+import { TechTagStories } from "./_stories/TechTagStories";
 
 export const metadata: Metadata = {
   title: "Storybook",
@@ -28,6 +30,8 @@ export default function StorybookPage() {
         </header>
 
         <ButtonStories />
+        <TechTagStories />
+        <StatusDotStories />
       </div>
     </main>
   );

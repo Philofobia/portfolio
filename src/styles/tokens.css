@@ -26,6 +26,7 @@
   --color-line-faint: var(--line-faint);
   --color-line-strong: var(--line-strong);
   --color-grid: var(--grid);
+  --color-icon: var(--icon);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-dim: var(--accent-dim);
@@ -124,6 +125,7 @@
   --line-faint: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.3);
   --grid: rgba(255, 255, 255, 0.06);
+  --icon: #8a8a92;
   --accent: #8a97ff;
   --accent-hover: #a5afff;
   --accent-dim: rgba(138, 151, 255, 0.25);
@@ -145,6 +147,7 @@
   --line-faint: rgba(0, 0, 0, 0.06);
   --line-strong: rgba(0, 0, 0, 0.3);
   --grid: rgba(0, 0, 0, 0.06);
+  --icon: #6a6a72;
   --accent: #3246d6;
   --accent-hover: #2537c0;
   --accent-dim: rgba(50, 70, 214, 0.25);
