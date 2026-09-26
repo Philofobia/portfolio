@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ThemePreview } from "./_components/ThemePreview";
 import { ButtonStories } from "./_stories/ButtonStories";
+import { CityClockStories } from "./_stories/CityClockStories";
 import { StatusDotStories } from "./_stories/StatusDotStories";
 import { TechTagStories } from "./_stories/TechTagStories";
 
@@ -32,6 +33,7 @@ export default function StorybookPage() {
         <ButtonStories />
         <TechTagStories />
         <StatusDotStories />
+        <CityClockStories />
       </div>
     </main>
   );
