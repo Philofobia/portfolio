@@ -16,12 +16,13 @@ Conventions the tree does not confess:
 - Locale routing runs in `src/proxy.ts` (Next 16 replaced `middleware.ts` with `proxy.ts`).
 - Section ids (`hero`, `work`, `stack`, `experience`, `japan`, `about`, `contact`) are the nav anchors; `src/content/nav.ts` is the single list.
 - Client components are the leaves (clocks, carousel, theme, copy button, canvas); sections and layout stay server components.
+- Client components receive only the message namespaces in `clientMessages` (`src/app/[locale]/layout.tsx`): a new client leaf that calls `useTranslations` adds its namespace there.
 
 ## Agent skills
 
 ### Issue tracker
 
-Local markdown under `.scratch/<feature>/` (no git remote yet). See `docs/agents/issue-tracker.md`.
+Local markdown under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
 
 ### Domain docs
 

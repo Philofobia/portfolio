@@ -6,13 +6,20 @@
  * below this file, never here. The one exception is the pre-paint theme
  * script (<ThemeScript />) that sets html[data-theme] before first paint; it is
  * a client component only so a locale switch does not re-render a live <script>.
+ *
+ * Only the message namespaces client components read are sent to the browser
+ * (clientMessages); server components translate from the full catalog.
+ * Metadata (title, description, canonical, hreflang) comes from lib/metadata.
  */
+import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { Geist, Geist_Mono, IBM_Plex_Sans_JP } from "next/font/google";
+import { getMessages } from "next-intl/server";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { ThemeScript } from "@/components/layout/ThemeScript";
 import { routing } from "@/i18n/routing";
-import { TechSprite } from "@/lib/tech-icons";
+import { buildMetadata } from "@/lib/metadata";
 import "../globals.css";
 
 const geist = Geist({
@@ -28,9 +35,12 @@ const geistMono = Geist_Mono({
   preload: false,
 });
 
-const plexJp = IBM_Plex_Sans_JP({
+const plexJp = localFont({
+  src: [
+    { path: "../../fonts/ibm-plex-sans-jp-300.woff2", weight: "300" },
+    { path: "../../fonts/ibm-plex-sans-jp-400.woff2", weight: "400" },
+  ],
   variable: "--font-plex-jp",
-  weight: ["300", "400"],
   display: "swap",
   preload: false,
 });
@@ -41,12 +51,25 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export async function generateMetadata({
+  params,
+}: LayoutProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return buildMetadata(locale);
+}
+
 export default async function RootLayout({
   children,
   params,
 }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
+
+  const messages = await getMessages();
+  // Namespaces used by client components (LocaleSwitcher, ThemeToggle, DualClock).
+  // Add one here when a new client component calls useTranslations.
+  const clientMessages = { header: messages.header };
 
   return (
     <html
@@ -58,8 +81,9 @@ export default async function RootLayout({
         <ThemeScript />
       </head>
       <body>
-        <TechSprite />
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

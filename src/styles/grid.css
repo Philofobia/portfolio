@@ -7,18 +7,35 @@
   In @layer components so Tailwind utilities on the same element win.
 */
 
+/*
+  CSS round() needs Chrome 125, Safari 15.4, Firefox 118. Without it the column fills
+  the gutters instead of snapping to whole cells. Every round() here also holds a var(),
+  which defers validation, so an unsupported one would not fall back to an earlier
+  declaration: the round() versions sit in @supports blocks instead.
+*/
 :root {
-  --grid-fit: calc(
-    round(down, 100% - 2 * var(--gutter) - var(--cell), 2 * var(--cell)) +
-      var(--cell)
-  );
+  --grid-fit: calc(100% - 2 * var(--gutter));
   --grid-shift: 0rem;
 }
 
 @media (width >= 48rem) {
   :root {
-    --grid-fit: round(down, 100% - 2 * var(--gutter), 2 * var(--cell));
     --grid-shift: calc(var(--cell) / 2);
+  }
+}
+
+@supports (width: round(1px, 1px)) {
+  :root {
+    --grid-fit: calc(
+      round(down, 100% - 2 * var(--gutter) - var(--cell), 2 * var(--cell)) +
+        var(--cell)
+    );
+  }
+
+  @media (width >= 48rem) {
+    :root {
+      --grid-fit: round(down, 100% - 2 * var(--gutter), 2 * var(--cell));
+    }
   }
 }
 
@@ -30,15 +47,14 @@
       linear-gradient(transparent calc(100% - 1px), var(--grid) 0),
       linear-gradient(90deg, transparent calc(100% - 1px), var(--grid) 0);
     background-size: var(--cell) var(--cell);
-    /* Whole device pixels, rounded like .grid-container's margin (odd widths). */
-    background-position: round(down, 50% + var(--grid-shift), 1px) 0;
+    background-position: calc(50% + var(--grid-shift)) 0;
   }
 
   /* Widest whole number of cells between the gutters, capped at --cols. */
   .grid-container {
     --grid-width: min(var(--cols) * var(--cell), var(--grid-fit));
     width: var(--grid-width);
-    margin-inline-start: round(down, (100% - var(--grid-width)) / 2, 1px);
+    margin-inline-start: calc((100% - var(--grid-width)) / 2);
   }
 
   .cells {
@@ -130,7 +146,23 @@
   }
 
   .panel {
-    min-height: round(up, 100svh, var(--cell));
+    min-height: 100svh;
     padding-block: var(--cell);
+  }
+
+  /* Last, so it overrides the fallbacks above (see the note at the top). */
+  @supports (width: round(1px, 1px)) {
+    /* Whole device pixels, rounded like .grid-container's margin (odd widths). */
+    .grid-bg {
+      background-position: round(down, 50% + var(--grid-shift), 1px) 0;
+    }
+
+    .grid-container {
+      margin-inline-start: round(down, (100% - var(--grid-width)) / 2, 1px);
+    }
+
+    .panel {
+      min-height: round(up, 100svh, var(--cell));
+    }
   }
 }

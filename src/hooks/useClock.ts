@@ -4,27 +4,52 @@
  * Ticking "now" for the clocks, SSR-safe. One instant feeds every clock, so the cities
  * never disagree on the minute; each CityClock formats it for its own zone.
  *
- * next-intl's useNow does the ticking. Its interval starts at mount, not on the minute,
- * so a 60s interval would show the old minute for up to 59s after it changed: it ticks
- * every second instead, and React leaves the DOM alone until the formatted text differs.
+ * The clocks show hours and minutes only, so the store ticks once per minute, on the
+ * minute: a timeout aimed at the next boundary, re-aimed after each tick. A timer that
+ * fires a little early finds the same minute, changes nothing and re-aims. The snapshot
+ * is cached per minute, so every render within a minute sees the same Date.
  *
  * Returns null on the server and during hydration: a statically rendered page would
  * otherwise ship the build's time and mismatch the client's.
  */
-import { useNow } from "next-intl";
 import { useSyncExternalStore } from "react";
 
-const TICK_MS = 1000;
+const MINUTE_MS = 60_000;
 
-const subscribe = () => () => {};
+let current: Date | null = null;
+const listeners = new Set<() => void>();
+let timer: ReturnType<typeof setTimeout> | undefined;
+
+function schedule() {
+  timer = setTimeout(
+    () => {
+      for (const listener of listeners) listener();
+      schedule();
+    },
+    MINUTE_MS - (Date.now() % MINUTE_MS),
+  );
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  if (listeners.size === 1) schedule();
+  return () => {
+    listeners.delete(listener);
+    if (listeners.size === 0) clearTimeout(timer);
+  };
+}
+
+function getSnapshot() {
+  const now = Date.now();
+  const minute = Math.floor(now / MINUTE_MS);
+  if (!current || Math.floor(current.getTime() / MINUTE_MS) !== minute) {
+    current = new Date(now);
+  }
+  return current;
+}
+
+const getServerSnapshot = () => null;
 
 export function useClock(): Date | null {
-  const now = useNow({ updateInterval: TICK_MS });
-  const hydrated = useSyncExternalStore(
-    subscribe,
-    () => true,
-    () => false,
-  );
-
-  return hydrated ? now : null;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

@@ -12,9 +12,18 @@ import { clocks } from "@/lib/time";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
 
 const instants: { label: string; now: Date | null }[] = [
-  { label: "2026-09-26 13:41Z · design", now: new Date("2026-09-26T13:41:00Z") },
-  { label: "2026-09-26 22:05Z · midnight", now: new Date("2026-09-26T22:05:00Z") },
-  { label: "2026-01-15 11:00Z · winter", now: new Date("2026-01-15T11:00:00Z") },
+  {
+    label: "2026-09-26 13:41Z · design",
+    now: new Date("2026-09-26T13:41:00Z"),
+  },
+  {
+    label: "2026-09-26 22:05Z · midnight",
+    now: new Date("2026-09-26T22:05:00Z"),
+  },
+  {
+    label: "2026-01-15 11:00Z · winter",
+    now: new Date("2026-01-15T11:00:00Z"),
+  },
   { label: "null · server, hydration", now: null },
 ];
 
@@ -31,7 +40,7 @@ export function CityClockStories() {
       <figure className="flex flex-col gap-3">
         <DualClock className="self-start border-y border-e border-line bg-bg" />
         <figcaption className="font-mono text-meta text-ink-3">
-          Live · useClock → next-intl useNow, one instant for both · muted ·
+          Live · useClock ticks on the minute, one instant for both · muted ·
           highlight (target city) · hidden &lt; 1024 in the header
         </figcaption>
       </figure>

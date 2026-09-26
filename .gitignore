@@ -45,4 +45,5 @@ Thumbs.db
 
 # claude
 .claude
-docs
+# design export (Claude Design) and its reference source
+/docs/Website wireframe design/

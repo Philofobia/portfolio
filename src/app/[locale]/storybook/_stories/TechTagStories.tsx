@@ -4,7 +4,7 @@
  * in the registry so a missing or misdrawn glyph shows up here first.
  */
 import { TechTag } from "@/components/ui/TechTag";
-import { techIcons, type TechId } from "@/lib/tech-icons";
+import { techIds, type TechId } from "@/lib/tech-icons";
 import { Story } from "../_components/Story";
 
 const cellRow: TechId[] = ["typescript", "nextdotjs", "postgresql"];
@@ -16,7 +16,7 @@ const rail: TechId[] = [
   "redis",
 ];
 const tags: TechId[] = ["typescript", "react", "go", "docker"];
-const all = Object.keys(techIcons) as TechId[];
+const all = techIds;
 
 export function TechTagStories() {
   return (
@@ -24,11 +24,11 @@ export function TechTagStories() {
       id="tech-tag"
       index="05"
       name="TechIcon · TechTag"
-      file="ui/TechTag.tsx · lib/tech-icons.tsx"
+      file="ui/TechTag.tsx · lib/tech-icons.tsx · app/tech-sprite.svg"
     >
       <div className="flex flex-wrap items-start gap-6">
         <figure className="flex flex-col gap-3">
-          <ul className="flex self-start divide-x divide-line border border-line bg-bg">
+          <ul className="flex divide-x divide-line self-start border border-line bg-bg">
             {cellRow.map((id) => (
               <TechTag key={id} id={id} as="cell" />
             ))}

@@ -20,8 +20,8 @@ export function ThemeToggleStories() {
         </div>
         <figcaption className="font-mono text-meta text-ink-3">
           Icon = current theme: moon on dark, sun on light · label = the action
-          · sets html[data-theme], persists to localStorage, first visit
-          follows prefers-color-scheme
+          · sets html[data-theme], persists to localStorage, first visit follows
+          prefers-color-scheme
         </figcaption>
       </figure>
     </Story>

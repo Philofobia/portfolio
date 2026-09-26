@@ -196,8 +196,8 @@
     "backToTop": ""
   },
   "notFound": {
-    "title": "",
-    "body": "",
-    "back": ""
+    "title": "Page not found",
+    "body": "This page doesn't exist or has moved.",
+    "back": "Back to home"
   }
 }

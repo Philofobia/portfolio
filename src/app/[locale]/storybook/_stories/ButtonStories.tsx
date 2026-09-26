@@ -4,7 +4,10 @@
  * Hover and focus-visible are live, not mocked: point at a button or Tab to it.
  */
 import { Button } from "@/components/ui/button/Button";
-import type { ButtonIcon, ButtonSize } from "@/components/ui/button/button.styles";
+import type {
+  ButtonIcon,
+  ButtonSize,
+} from "@/components/ui/button/button.styles";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
 
 const sizes: { size: ButtonSize; label: string; use: string }[] = [
@@ -123,7 +126,8 @@ export function ButtonStories() {
           </Button>
         </div>
         <figcaption className="font-mono text-meta text-ink-3">
-          Adjacent secondaries share a border (border-left: 0), for buttons and links alike.
+          Adjacent secondaries share a border (border-left: 0), for buttons and
+          links alike.
         </figcaption>
       </figure>
     </Story>
