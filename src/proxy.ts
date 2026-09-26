@@ -1,10 +1,8 @@
 /**
  * Next 16 proxy (replaces middleware.ts). Wraps next-intl createMiddleware(routing)
  * to redirect / → /{locale} based on Accept-Language and to enforce the prefix.
- * config.matcher: skip _next, api, static files.
- *
- * Stub: Next validates this file at startup, so it must export a function.
- * Replace the body with the next-intl proxy once the package is installed.
+ * config.matcher: skip _next, api and any path with a dot (static files, sitemap.xml,
+ * tech-sprite.svg).
  */
 
 import createMiddleware from "next-intl/middleware";

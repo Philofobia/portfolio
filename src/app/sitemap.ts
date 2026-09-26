@@ -1,16 +1,21 @@
 /**
- * sitemap.xml — one entry per locale.
- * TODO(phase 4): build paths with getPathname() from i18n/navigation so the
- * `ja` locale emits /jp, and add hreflang alternates.
+ * sitemap.xml — the home page once per locale, each with hreflang alternates for all
+ * locales. URLs come from lib/metadata's homePaths (getPathname), so `ja` is /jp.
  */
-import type {MetadataRoute} from 'next';
-import {routing} from '@/i18n/routing';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+import type { MetadataRoute } from "next";
+import { siteUrl } from "@/content/profile";
+import { routing } from "@/i18n/routing";
+import { homePaths } from "@/lib/metadata";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const paths = homePaths();
+  const languages = Object.fromEntries(
+    routing.locales.map((locale) => [locale, `${siteUrl}${paths[locale]}`]),
+  );
+
   return routing.locales.map((locale) => ({
-    url: `${siteUrl}/${locale}`,
-    lastModified: new Date()
+    url: `${siteUrl}${paths[locale]}`,
+    lastModified: new Date(),
+    alternates: { languages },
   }));
 }

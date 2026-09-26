@@ -5,15 +5,15 @@
  * `Intl`, `<html lang>` and hreflang all resolve correctly. The `prefixes` map is
  * cosmetic: it serves that locale at `/jp` while every API still sees `ja`.
  */
-import {defineRouting} from 'next-intl/routing';
+import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: ['en', 'ja'],
-  defaultLocale: 'en',
+  locales: ["en", "ja"],
+  defaultLocale: "en",
   localePrefix: {
-    mode: 'always',
+    mode: "always",
     prefixes: {
-      ja: '/jp'
-    }
-  }
+      ja: "/jp",
+    },
+  },
 });

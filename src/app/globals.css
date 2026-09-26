@@ -1,8 +1,5 @@
-/*
-  Global stylesheet.
-  - @import "tailwindcss";
-  - @import "../styles/tokens.css"; (design tokens as @theme)
-  - @import "../styles/base.css";   (resets, body, selection, focus ring)
-  - @import "../styles/grid.css";   (18-column × 75px cell grid background + section rules)
-  - @import "../styles/motion.css"; (marquee keyframes, reveal start states gated by html.js)
-*/
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/grid.css";
+@import "../styles/motion.css";

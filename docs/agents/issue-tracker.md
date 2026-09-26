@@ -31,4 +31,4 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 
 ## Switching tracker
 
-This repo has no git remote yet. Once it is pushed to GitHub, run `/setup-matt-pocock-skills` to move issues to GitHub Issues (`gh` CLI).
+The repo is on GitHub (`Philofobia/portfolio`), but issues stay local until the owner decides otherwise. To move them to GitHub Issues (`gh` CLI), run `/setup-matt-pocock-skills`.
