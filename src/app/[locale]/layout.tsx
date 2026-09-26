@@ -4,15 +4,15 @@
  * Server component: translations resolve here, so the markup ships fully
  * populated. Client behaviour (theme, clocks, carousel) belongs in leaves
  * below this file, never here. The one exception is the pre-paint theme
- * script: inline markup (not a client component) that sets html[data-theme]
- * before first paint.
+ * script (<ThemeScript />) that sets html[data-theme] before first paint; it is
+ * a client component only so a locale switch does not re-render a live <script>.
  */
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { Geist, Geist_Mono, IBM_Plex_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
+import { ThemeScript } from "@/components/layout/ThemeScript";
 import { routing } from "@/i18n/routing";
 import { TechSprite } from "@/lib/tech-icons";
-import { themeScript } from "@/lib/theme";
 import "../globals.css";
 
 const geist = Geist({
@@ -55,7 +55,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <ThemeScript />
       </head>
       <body>
         <TechSprite />

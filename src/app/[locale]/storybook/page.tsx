@@ -5,10 +5,13 @@
  */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ThemePreview } from "./_components/ThemePreview";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
+import { CityClockStories } from "./_stories/CityClockStories";
+import { LocaleSwitcherStories } from "./_stories/LocaleSwitcherStories";
 import { StatusDotStories } from "./_stories/StatusDotStories";
 import { TechTagStories } from "./_stories/TechTagStories";
+import { ThemeToggleStories } from "./_stories/ThemeToggleStories";
 
 export const metadata: Metadata = {
   title: "Storybook",
@@ -26,12 +29,15 @@ export default function StorybookPage() {
             <p className="font-mono text-meta text-ink-3">Component library</p>
             <h1 className="text-h1 uppercase">Storybook</h1>
           </div>
-          <ThemePreview />
+          <ThemeToggle />
         </header>
 
         <ButtonStories />
         <TechTagStories />
         <StatusDotStories />
+        <CityClockStories />
+        <LocaleSwitcherStories />
+        <ThemeToggleStories />
       </div>
     </main>
   );

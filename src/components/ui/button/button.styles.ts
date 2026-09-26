@@ -52,3 +52,10 @@ export function buttonIconClasses(icon: ButtonIcon) {
     nudgeClass[icon],
   );
 }
+
+/**
+ * One grid cell for single-glyph controls: IconButton and the LocaleSwitcher link.
+ * 56 on mobile (the design's mobile header row), one 75 cell from md.
+ */
+export const squareClasses =
+  "grid size-14 shrink-0 cursor-pointer place-items-center border border-line focus-visible:outline focus-visible:outline-offset-3 focus-visible:outline-accent not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 md:size-cell motion-safe:transition-colors motion-safe:duration-200";
