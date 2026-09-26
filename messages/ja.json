@@ -11,11 +11,14 @@
       "contact": "連絡先"
     },
     "clocks": {
-      "milano": "ミラノ",
+      "torino": "トリノ",
       "tokyo": "東京"
     },
     "localeSwitch": "English",
-    "themeToggle": "テーマを切り替える",
+    "themeToggle": {
+      "toLight": "ライトテーマに切り替える",
+      "toDark": "ダークテーマに切り替える"
+    },
     "availability": "{date}より就業可能"
   },
   "hero": {

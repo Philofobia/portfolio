@@ -11,11 +11,14 @@
       "contact": "Contact"
     },
     "clocks": {
-      "milano": "Milano",
+      "torino": "Torino",
       "tokyo": "Tokyo"
     },
     "localeSwitch": "日本語",
-    "themeToggle": "Switch theme",
+    "themeToggle": {
+      "toLight": "Switch to light theme",
+      "toDark": "Switch to dark theme"
+    },
     "availability": "Available from {date}"
   },
   "hero": {
