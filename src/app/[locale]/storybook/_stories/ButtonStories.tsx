@@ -3,11 +3,11 @@
  * trailing icons, the element each href renders, and flush secondaries sharing a border.
  * Hover and focus-visible are live, not mocked: point at a button or Tab to it.
  */
-import { Button } from "@/components/ui/button/Button";
+import { Button } from "@/components/atoms/Button";
 import type {
   ButtonIcon,
   ButtonSize,
-} from "@/components/ui/button/button.styles";
+} from "@/components/atoms/Button/button.styles";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
 
 const sizes: { size: ButtonSize; label: string; use: string }[] = [
@@ -25,7 +25,7 @@ const icons: { icon: ButtonIcon; text: string }[] = [
 
 export function ButtonStories() {
   return (
-    <Story id="button" index="04" name="Button" file="ui/button/Button.tsx">
+    <Story id="button" index="04" name="Button" file="atoms/Button">
       <StoryTable
         caption="Variant × state. Hover and Tab for the live hover and focus-visible states."
         rowHeader="Variant"

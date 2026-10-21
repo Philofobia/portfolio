@@ -6,8 +6,8 @@
  * placeholder the server renders before hydration. Switch to /jp for the Japanese labels.
  */
 import { useTranslations } from "next-intl";
-import { DualClock } from "@/components/layout/DualClock";
-import { CityClock } from "@/components/ui/CityClock";
+import { DualClock } from "@/components/molecules/DualClock";
+import { CityClock } from "@/components/molecules/CityClock";
 import { clocks } from "@/lib/time";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
 
@@ -35,7 +35,7 @@ export function CityClockStories() {
       id="city-clock"
       index="07"
       name="CityClock"
-      file="ui/CityClock.tsx · layout/DualClock.tsx · hooks/useClock.ts"
+      file="molecules/CityClock · molecules/DualClock · hooks/useClock.ts"
     >
       <figure className="flex flex-col gap-3">
         <DualClock className="self-start border-y border-e border-line bg-bg" />
