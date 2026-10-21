@@ -9,7 +9,7 @@
  * Button (whose i18n Link would add next-intl's navigation to every page's JS).
  */
 import { useLayoutEffect } from "react";
-import { buttonClasses } from "@/components/ui/button/button.styles";
+import { buttonClasses } from "@/components/atoms/Button/button.styles";
 import { applyResolvedTheme } from "@/lib/theme";
 import "./globals.css";
 

@@ -3,7 +3,7 @@
  * Next marks it noindex on its own. Header and footer join it once the layout has them.
  */
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button/Button";
+import { Button } from "@/components/atoms/Button";
 
 export default function NotFound() {
   const t = useTranslations("notFound");

@@ -17,7 +17,7 @@ import { getMessages } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
-import { ThemeScript } from "@/components/layout/ThemeScript";
+import { ThemeScript } from "@/components/atoms/ThemeScript";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/metadata";
 import "../globals.css";

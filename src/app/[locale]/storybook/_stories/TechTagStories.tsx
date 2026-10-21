@@ -3,7 +3,7 @@
  * and a vertical rail (hover a cell for its label), the inline tag list, and every icon
  * in the registry so a missing or misdrawn glyph shows up here first.
  */
-import { TechTag } from "@/components/ui/TechTag";
+import { TechTag } from "@/components/molecules/TechTag";
 import { techIds, type TechId } from "@/lib/tech-icons";
 import { Story } from "../_components/Story";
 
@@ -24,11 +24,14 @@ export function TechTagStories() {
       id="tech-tag"
       index="05"
       name="TechIcon · TechTag"
-      file="ui/TechTag.tsx · lib/tech-icons.tsx · app/tech-sprite.svg"
+      file="atoms/TechIcon · molecules/TechTag · lib/tech-icons.ts · app/tech-sprite.svg"
     >
       <div className="flex flex-wrap items-start gap-6">
         <figure className="flex flex-col gap-3">
-          <ul className="flex divide-x divide-line self-start border border-line bg-bg">
+          <ul
+            role="list"
+            className="flex divide-x divide-line self-start border border-line bg-bg"
+          >
             {cellRow.map((id) => (
               <TechTag key={id} id={id} as="cell" />
             ))}
@@ -39,7 +42,10 @@ export function TechTagStories() {
         </figure>
 
         <figure className="flex flex-col gap-3">
-          <ul className="flex w-(--cell) flex-col divide-y divide-line border border-line bg-bg">
+          <ul
+            role="list"
+            className="flex w-(--cell) flex-col divide-y divide-line border border-line bg-bg"
+          >
             {rail.map((id) => (
               <TechTag key={id} id={id} as="cell" />
             ))}
@@ -50,7 +56,10 @@ export function TechTagStories() {
         </figure>
 
         <figure className="flex flex-col gap-3">
-          <ul className="flex flex-wrap gap-x-5 gap-y-2.5 border border-line bg-bg p-5">
+          <ul
+            role="list"
+            className="flex flex-wrap gap-x-5 gap-y-2.5 border border-line bg-bg p-5"
+          >
             {tags.map((id) => (
               <TechTag key={id} id={id} />
             ))}
@@ -62,7 +71,10 @@ export function TechTagStories() {
       </div>
 
       <figure className="flex flex-col gap-3">
-        <ul className="flex flex-wrap gap-x-5 gap-y-2.5 border border-line bg-bg p-5">
+        <ul
+          role="list"
+          className="flex flex-wrap gap-x-5 gap-y-2.5 border border-line bg-bg p-5"
+        >
           {all.map((id) => (
             <TechTag key={id} id={id} />
           ))}

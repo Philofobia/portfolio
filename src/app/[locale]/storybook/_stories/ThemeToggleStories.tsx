@@ -3,7 +3,7 @@
  * place of the design's ◐. Live: it is the same toggle as the page header's, so clicking
  * either flips the whole storybook. Hover and Tab for the live states; resize past md for 56 → 75.
  */
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { Story } from "../_components/Story";
 
 export function ThemeToggleStories() {
@@ -12,7 +12,7 @@ export function ThemeToggleStories() {
       id="theme-toggle"
       index="08b"
       name="ThemeToggle"
-      file="layout/ThemeToggle.tsx · ui/button/IconButton.tsx · hooks/useTheme.ts"
+      file="atoms/ThemeToggle · atoms/IconButton · hooks/useTheme.ts"
     >
       <figure className="flex flex-col gap-3">
         <div className="flex border border-line bg-bg p-4">

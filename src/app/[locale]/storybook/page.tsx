@@ -5,7 +5,7 @@
  */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
 import { CityClockStories } from "./_stories/CityClockStories";
 import { LocaleSwitcherStories } from "./_stories/LocaleSwitcherStories";

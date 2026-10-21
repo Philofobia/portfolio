@@ -1,4 +1,4 @@
-import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
+import { LocaleSwitcher } from "@/components/atoms/LocaleSwitcher";
 import { Story } from "../_components/Story";
 
 export function LocaleSwitcherStories() {
@@ -7,7 +7,7 @@ export function LocaleSwitcherStories() {
       id="locale-switcher"
       index="08"
       name="LocaleSwitcher"
-      file="layout/LocaleSwitcher.tsx"
+      file="atoms/LocaleSwitcher"
     >
       <figure className="flex flex-col gap-3">
         <div className="flex border border-line bg-bg p-4">
