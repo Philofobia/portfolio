@@ -4,11 +4,18 @@
     "description": "Fullstack engineer from Italy. I build web products end to end, from the database schema to the interface people use every day. Open to roles in Japan."
   },
   "header": {
+    "skipToContent": "Skip to content",
+    "navLabel": "Main",
     "nav": {
       "work": "Work",
       "stack": "Stack",
       "experience": "Experience",
       "contact": "Contact"
+    },
+    "menu": {
+      "title": "Menu",
+      "open": "Open menu",
+      "close": "Close menu"
     },
     "clocks": {
       "torino": "Torino",

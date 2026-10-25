@@ -2,6 +2,7 @@
  * STORYBOOK (dev only) — every ui component in each of its variants and states, laid out
  * like the design's Component Library. 404 in production builds and kept out of search
  * indexes. One file per component in _stories/, rendered here in build order.
+ * Stories are specimens: components in fixed states, not the live site (no site header).
  */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -9,6 +10,7 @@ import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
 import { CityClockStories } from "./_stories/CityClockStories";
 import { LocaleSwitcherStories } from "./_stories/LocaleSwitcherStories";
+import { NavBarStories } from "./_stories/NavBarStories";
 import { StatusDotStories } from "./_stories/StatusDotStories";
 import { TechTagStories } from "./_stories/TechTagStories";
 import { ThemeToggleStories } from "./_stories/ThemeToggleStories";
@@ -38,6 +40,7 @@ export default function StorybookPage() {
         <CityClockStories />
         <LocaleSwitcherStories />
         <ThemeToggleStories />
+        <NavBarStories />
       </div>
     </main>
   );

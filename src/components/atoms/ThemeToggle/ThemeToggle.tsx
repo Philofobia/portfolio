@@ -8,10 +8,17 @@
  * paints before hydration; only the label waits for useTheme.
  */
 import { useTranslations } from "next-intl";
+import type { SquareFrame } from "@/components/atoms/Button/button.styles";
 import { IconButton } from "@/components/atoms/IconButton";
 import { useTheme } from "@/hooks/useTheme";
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({
+  frame,
+  className,
+}: {
+  frame?: SquareFrame;
+  className?: string;
+}) {
   const t = useTranslations("header.themeToggle");
   const { theme, toggle } = useTheme();
 
@@ -19,6 +26,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <IconButton
       label={t(theme === "dark" ? "toLight" : "toDark")}
       onClick={toggle}
+      frame={frame}
       className={className}
     >
       <svg

@@ -4,6 +4,17 @@
 */
 
 @layer base {
+  /* Anchor jumps land below the sticky header: 56 high on mobile, one cell from md. */
+  html {
+    scroll-padding-top: 3.5rem;
+  }
+
+  @media (width >= 48rem) {
+    html {
+      scroll-padding-top: var(--cell);
+    }
+  }
+
   body {
     background: var(--bg);
     color: var(--ink);

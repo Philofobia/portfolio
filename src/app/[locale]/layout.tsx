@@ -10,6 +10,8 @@
  * Only the message namespaces client components read are sent to the browser
  * (clientMessages); server components translate from the full catalog.
  * Metadata (title, description, canonical, hreflang) comes from lib/metadata.
+ * Each site page (home, 404) renders the Header itself, above its <main id="main"> (the
+ * skip link's target); the storybook renders none.
  */
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -67,7 +69,8 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
-  // Namespaces used by client components (LocaleSwitcher, ThemeToggle, DualClock).
+  // Namespaces used by client components (LocaleSwitcher, ThemeToggle, DualClock,
+  // ScrollSpyNav, MobileMenu).
   // Add one here when a new client component calls useTranslations.
   const clientMessages = { header: messages.header };
 

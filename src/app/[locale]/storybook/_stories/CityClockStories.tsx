@@ -38,10 +38,11 @@ export function CityClockStories() {
       file="molecules/CityClock · molecules/DualClock · hooks/useClock.ts"
     >
       <figure className="flex flex-col gap-3">
-        <DualClock className="self-start border-y border-e border-line bg-bg" />
+        <DualClock className="h-cell self-start border-y border-e border-line bg-bg" />
         <figcaption className="font-mono text-meta text-ink-3">
           Live · useClock ticks on the minute, one instant for both · muted ·
-          highlight (target city) · hidden &lt; 1024 in the header
+          highlight (target city) · the header drops Torino, then Tokyo, as its
+          bar narrows
         </figcaption>
       </figure>
 
@@ -62,7 +63,7 @@ export function CityClockStories() {
                 timeZone={timeZone}
                 now={now}
                 highlight={highlight}
-                className="border border-line"
+                className="h-cell border border-line"
               />
             ))}
           </StoryRow>
