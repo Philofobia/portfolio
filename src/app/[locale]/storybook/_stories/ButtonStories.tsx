@@ -114,7 +114,8 @@ export function ButtonStories() {
       </StoryTable>
 
       <figure className="flex flex-col gap-3">
-        <div className="flex">
+        {/* Three buttons (450) outgrow a phone: the row scrolls instead of the page. */}
+        <div className="flex overflow-x-auto">
           <Button size="sm" icon="→">
             Case study
           </Button>

@@ -55,7 +55,21 @@ export function buttonIconClasses(icon: ButtonIcon) {
 
 /**
  * One grid cell for single-glyph controls: IconButton and the LocaleSwitcher link.
- * 56 on mobile (the design's mobile header row), one 75 cell from md.
+ * 56 wide on mobile (the design's mobile header row), one 75 cell from md.
+ * frame 'box': freestanding, its own four borders, square.
+ * frame 'bar': a cell of a bar (the header): only the start border, and the bar's height,
+ * so the bar's bottom border stays on the last pixel of the grid cell.
  */
-export const squareClasses =
-  "grid size-14 shrink-0 cursor-pointer place-items-center border border-line focus-visible:outline focus-visible:outline-offset-3 focus-visible:outline-accent not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 md:size-cell motion-safe:transition-colors motion-safe:duration-200";
+export type SquareFrame = "box" | "bar";
+
+const squareFrameClass: Record<SquareFrame, string> = {
+  box: "size-14 border md:size-cell",
+  bar: "w-14 border-s md:w-cell",
+};
+
+export function squareClasses(frame: SquareFrame = "box") {
+  return cn(
+    "grid shrink-0 cursor-pointer place-items-center border-line focus-visible:outline focus-visible:outline-offset-3 focus-visible:outline-accent not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
+    squareFrameClass[frame],
+  );
+}

@@ -1,0 +1,38 @@
+/*
+  Custom variants and utilities for states and properties Tailwind has none for.
+
+  scroll-target-group — the container whose fragment links the browser tracks as scroll
+  markers (MWG "scrollspy"); unsupported browsers ignore it.
+
+  current-section: — the nav link of the section in view (MWG "scrollspy").
+  Where scroll-target-group is supported (Chrome 140+), the browser tracks the links inside
+  a scroll-target-group container and :target-current matches the current one, with no
+  script; hooks/useScrollSpy only mirrors it into aria-current at scrollend. Elsewhere
+  useScrollSpy's IntersectionObserver sets aria-current and the style follows that.
+  One source per browser, so two links are never lit at once while aria-current catches up.
+  Outside a scroll-target-group nothing tracks the links, so aria-current alone marks the
+  current one: the storybook's specimens, rendered with a fixed section.
+  `next build` warns "'target-current' is not recognized" (Lightning CSS does not know the
+  pseudo-class yet); it copies those rules through unchanged, so the warning is harmless.
+*/
+@custom-variant current-section {
+  &[aria-current="true"]:not(:where(.scroll-target-group *)) {
+    @slot;
+  }
+
+  @supports (scroll-target-group: auto) {
+    &:target-current {
+      @slot;
+    }
+  }
+
+  @supports not (scroll-target-group: auto) {
+    &[aria-current="true"] {
+      @slot;
+    }
+  }
+}
+
+@utility scroll-target-group {
+  scroll-target-group: auto;
+}

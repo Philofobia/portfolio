@@ -7,6 +7,8 @@
  * hand is hidden, so the static HTML never claims a time it cannot know.
  * highlight: the target city (accent dial and hand, full ink); muted otherwise.
  * Circles are reserved for the clocks and the hero emblem.
+ * Two cells wide; the height comes from the parent (the header bar stretches it, so the
+ * bar's border stays on the grid line), or from className when it stands alone (h-cell).
  */
 import type { CSSProperties } from "react";
 import { useFormatter, type Timezone } from "next-intl";
@@ -31,7 +33,7 @@ export function CityClock({
   return (
     <p
       className={cn(
-        "flex h-(--cell) w-37.5 shrink-0 items-center justify-center gap-2.5",
+        "flex w-37.5 shrink-0 items-center justify-center gap-2.5",
         className,
       )}
     >

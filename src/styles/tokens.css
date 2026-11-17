@@ -7,6 +7,17 @@
     · h4 24/20 (all 200, caps) · body 15/14 300 1.6 · meta mono 12/11 400
 */
 
+/*
+  Header bar widths for its container queries (@nav:, @clock:, @clocks:): the inline nav
+  needs 13 cells (975px), Tokyo's clock 15 (1125px), Torino's 17 (1275px). The grid column
+  snaps to an even number of cells, so each shows from the next even count.
+*/
+@theme {
+  --container-nav: 61rem;
+  --container-clock: 70.3125rem;
+  --container-clocks: 80rem;
+}
+
 /* Only the design's colors exist as utilities; no radius, no shadows anywhere. */
 @theme {
   --color-*: initial;
@@ -61,9 +72,10 @@
   --text-meta--line-height: 1;
   --text-meta--font-weight: 400;
 
-  /* p-cell, h-cell, gap-section, p-cell-pad, p-inset … */
+  /* p-cell, h-cell, gap-section, w-logo, p-cell-pad, p-inset … */
   --spacing-cell: var(--cell);
   --spacing-section: calc(var(--cell) * 2);
+  --spacing-logo: calc(var(--cell) * 3); /* the header's name mark: 3 cells */
   --spacing-cell-pad: var(--cell-pad);
   --spacing-inset: var(--inset);
   --spacing-gutter: var(--gutter);
