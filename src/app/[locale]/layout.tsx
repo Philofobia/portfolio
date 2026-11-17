@@ -69,10 +69,10 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
-  // Namespaces used by client components (LocaleSwitcher, ThemeToggle, DualClock,
-  // ScrollSpyNav, MobileMenu).
+  // Namespaces used by client components: header (LocaleSwitcher, ThemeToggle, DualClock,
+  // ScrollSpyNav, MobileMenu) and marquee (Marquee's pause button).
   // Add one here when a new client component calls useTranslations.
-  const clientMessages = { header: messages.header };
+  const clientMessages = { header: messages.header, marquee: messages.marquee };
 
   return (
     <html

@@ -9,7 +9,9 @@ import { notFound } from "next/navigation";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
 import { CityClockStories } from "./_stories/CityClockStories";
+import { HeroEmblemStories } from "./_stories/HeroEmblemStories";
 import { LocaleSwitcherStories } from "./_stories/LocaleSwitcherStories";
+import { MarqueeStories } from "./_stories/MarqueeStories";
 import { NavBarStories } from "./_stories/NavBarStories";
 import { StatusDotStories } from "./_stories/StatusDotStories";
 import { TechTagStories } from "./_stories/TechTagStories";
@@ -41,6 +43,8 @@ export default function StorybookPage() {
         <LocaleSwitcherStories />
         <ThemeToggleStories />
         <NavBarStories />
+        <MarqueeStories />
+        <HeroEmblemStories />
       </div>
     </main>
   );

@@ -143,7 +143,8 @@
   --accent-dim: rgba(138, 151, 255, 0.25);
   --accent-ring: rgba(138, 151, 255, 0.6);
   --on-accent: #11132a;
-  --hero-filter: saturate(0.85);
+  /* Hero emblem poster: the SVG is drawn in the dark --ink; the light theme inverts it. */
+  --emblem-filter: none;
 }
 
 :root[data-theme="light"] {
@@ -165,5 +166,6 @@
   --accent-dim: rgba(50, 70, 214, 0.25);
   --accent-ring: rgba(50, 70, 214, 0.45);
   --on-accent: #ffffff;
-  --hero-filter: invert(1) grayscale(1) contrast(1.1);
+  /* #ececee inverted is #131311, a hair from --ink (#161618). */
+  --emblem-filter: invert(1);
 }

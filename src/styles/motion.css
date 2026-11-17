@@ -1,4 +1,70 @@
 /*
   Keyframes: marquee (30s linear infinite), fade/slide reveal start states
   (only applied when html.js is present so no-JS users see everything).
+
+  Every animation here runs only under prefers-reduced-motion: no-preference: the static
+  state is the default and motion is opted into (MWG "motion"), never cancelled afterwards.
 */
+
+/*
+  Marquee band (atoms/Marquee). The track holds two identical copies; sliding it by half
+  its width brings the second copy exactly where the first started, so the loop is seamless.
+  --marquee-speed is the seconds per copy on desktop (the design's 30s). Below md the copy
+  is narrower (smaller type), so the duration shrinks with it (design: 22s at 390px) and
+  the band moves at about the same pixels per second on every screen.
+  data-paused: the band's pause button (WCAG 2.2.2); data-direction="right": reversed.
+*/
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@layer components {
+  .marquee-track {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: marquee calc(var(--marquee-speed, 30s) * 0.75) linear infinite;
+
+      @media (width >= 48rem) {
+        animation-duration: var(--marquee-speed, 30s);
+      }
+    }
+
+    &[data-direction="right"] {
+      animation-direction: reverse;
+    }
+
+    &[data-paused] {
+      animation-play-state: paused;
+    }
+  }
+}
+
+/*
+  Hero emblem reveal (molecules/HeroEmblem): when the dot-matrix canvas has drawn its first
+  frame, it wipes in from the top (clip-path inset) while the static poster under it wipes
+  out along the same edge, so no dot is ever drawn twice. The poster is the LCP image and
+  is painted, and measured, untouched first; the wipe only starts after hydration.
+*/
+@theme {
+  --animate-emblem-in: emblem-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-emblem-out: emblem-out 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes emblem-in {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  @keyframes emblem-out {
+    from {
+      clip-path: inset(0);
+    }
+    to {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+}
