@@ -1,6 +1,7 @@
 # Pull-request gate. Vercel deploys and builds previews on its own; this workflow only
 # decides whether a change is fit to merge: formatting, lint, types, message parity, a
-# production build (which also runs the Japanese font subset check) and its HTML.
+# production build (which also runs the Japanese font subset check), its HTML and its
+# performance budgets.
 name: CI
 
 on:
@@ -18,7 +19,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       # Only used for canonical, hreflang, sitemap and robots URLs.
       SITE_URL: https://example.com
@@ -54,3 +55,16 @@ jobs:
       # html-validate with the semantic-html skill preset, on the prerendered pages
       # (.htmlvalidate.mjs, .htmlvalidateignore).
       - run: pnpm html:check
+
+      # Headless Chrome through the DevTools protocol (no Lighthouse): byte budgets, LCP
+      # element and CLS fail the job; timings go to the job summary only.
+      - run: pnpm perf:check --trace-dir perf-traces
+
+      # One trace per page, to open in Chrome DevTools > Performance > "Load profile…".
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: ${{ !cancelled() }}
+        with:
+          name: perf-traces
+          path: perf-traces/
+          retention-days: 14
+          if-no-files-found: ignore
