@@ -1,0 +1,41 @@
+# Weekly, grouped dependency updates. Vercel builds a preview for each PR and CI gates it.
+version: 2
+updates:
+  - package-ecosystem: npm # also reads pnpm-lock.yaml
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Next and its ESLint config move in lockstep.
+      next:
+        patterns: ["next", "eslint-config-next"]
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+      dev-tooling:
+        dependency-type: development
+        update-types: [minor, patch]
+      runtime:
+        dependency-type: production
+        update-types: [minor, patch]
+    ignore:
+      # Held back on purpose; lift once the peer ranges widen.
+      # eslint-config-next's plugins (react, import, jsx-a11y) peer ESLint <= 9.
+      - dependency-name: eslint
+        update-types: ["version-update:semver-major"]
+      # typescript-eslint peers typescript <6.1.0.
+      - dependency-name: typescript
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
+      # Matches the supported runtime (Node 20+), not the newest one.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]

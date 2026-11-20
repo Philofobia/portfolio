@@ -24,10 +24,14 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Script        | Description                   |
-| ------------- | ----------------------------- |
-| `pnpm dev`    | Start the development server  |
-| `pnpm build`  | Build for production          |
-| `pnpm start`  | Serve the production build    |
-| `pnpm lint`   | Lint the code                 |
-| `pnpm format` | Format the code with Prettier |
+| Script                | Description                                                       |
+| --------------------- | ----------------------------------------------------------------- |
+| `pnpm dev`            | Start the development server                                      |
+| `pnpm build`          | Build for production                                              |
+| `pnpm start`          | Serve the production build                                        |
+| `pnpm lint`           | Lint the code                                                     |
+| `pnpm typecheck`      | Generate route types and run `tsc`                                |
+| `pnpm messages:check` | Check that `en` and `ja` messages share keys and arguments        |
+| `pnpm html:check`     | Validate the built HTML (run `pnpm build` first)                  |
+| `pnpm perf:check`     | Check performance budgets in headless Chrome (after `pnpm build`) |
+| `pnpm format`         | Format the code with Prettier                                     |

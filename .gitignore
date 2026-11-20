@@ -12,6 +12,7 @@ next-env.d.ts
 
 # testing
 /coverage
+/perf-traces
 
 # typescript
 *.tsbuildinfo
