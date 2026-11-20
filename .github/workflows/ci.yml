@@ -1,0 +1,56 @@
+# Pull-request gate. Vercel deploys and builds previews on its own; this workflow only
+# decides whether a change is fit to merge: formatting, lint, types, message parity, a
+# production build (which also runs the Japanese font subset check) and its HTML.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Only used for canonical, hreflang, sitemap and robots URLs.
+      SITE_URL: https://example.com
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Version comes from "packageManager" in package.json.
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Cheapest checks first, so a formatting slip fails in seconds.
+      - run: pnpm format:check
+      - run: pnpm messages:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+      - name: Cache Next.js build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**', 'messages/**') }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      - run: pnpm build
+
+      # html-validate with the semantic-html skill preset, on the prerendered pages
+      # (.htmlvalidate.mjs, .htmlvalidateignore).
+      - run: pnpm html:check
