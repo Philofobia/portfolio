@@ -33,7 +33,7 @@ export function CityClock({
   return (
     <p
       className={cn(
-        "flex w-37.5 shrink-0 items-center justify-center gap-2.5",
+        "flex w-cell-pair shrink-0 items-center justify-center gap-2.5",
         className,
       )}
     >

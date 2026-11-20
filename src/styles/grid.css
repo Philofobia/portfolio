@@ -93,56 +93,34 @@
     padding: var(--inset);
   }
 
-  /* CTA fill. */
+  /*
+    CTA fill. Its focus ring is drawn inside, on the fill: on-accent (~7:1), not ink
+    (2.2 dark / 2.6 light against the accent, under WCAG's 3:1).
+  */
   .cell-accent {
+    --focus-ring-color: var(--on-accent);
     background-color: var(--accent);
     color: var(--on-accent);
   }
 
   /*
-    Section header: index · title · aside. Mobile stacks them (aside below the
-    title); from 48rem one row on the cell's bottom edge, aside pushed right.
-    Title size comes from text-h2 (md) or text-display (xl).
+    Footer ruler (atoms/ScrollRuler): one major tick (ink-3) every cell, a minor one (line,
+    5 high from 7) every cell / 5, from the ruler's start. Its needle is in motion.css.
   */
-  .section-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-
-  .section-index,
-  .section-aside {
-    font-family: var(--font-mono);
-    font-size: var(--fs-meta);
-    line-height: 1;
-    color: var(--ink-3);
-  }
-
-  @media (width >= 48rem) {
-    .section-header {
-      flex-direction: row;
-      align-items: flex-end;
-      gap: 1rem;
-      min-height: var(--cell);
-      padding-bottom: 0.875rem;
-    }
-
-    /* Lifts the mono index onto the title's baseline. */
-    .section-index {
-      padding-bottom: 0.5em;
-    }
-
-    .section-aside {
-      margin-inline-start: auto;
-    }
-
-    .section-header-xl {
-      min-height: calc(var(--cell) * 2);
-    }
-
-    .section-header-xl .section-index {
-      padding-bottom: 0.83em;
-    }
+  .scroll-ruler {
+    position: relative;
+    height: 0.75rem;
+    container-type: inline-size;
+    background-image:
+      linear-gradient(to right, var(--ink-3) 1px, transparent 1px),
+      linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size:
+      var(--cell) 100%,
+      calc(var(--cell) / 5) 0.3125rem;
+    background-position:
+      0 0,
+      0 0.4375rem;
+    background-repeat: repeat-x;
   }
 
   .panel {

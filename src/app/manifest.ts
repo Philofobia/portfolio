@@ -3,6 +3,7 @@
  */
 import type { MetadataRoute } from "next";
 import { name } from "@/content/profile";
+import { DEFAULT_THEME, THEME_BACKGROUND } from "@/lib/theme";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -10,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: name,
     start_url: "/",
     display: "standalone",
-    background_color: "#1b1b1c",
-    theme_color: "#1b1b1c",
+    background_color: THEME_BACKGROUND[DEFAULT_THEME],
+    theme_color: THEME_BACKGROUND[DEFAULT_THEME],
     icons: [],
   };
 }

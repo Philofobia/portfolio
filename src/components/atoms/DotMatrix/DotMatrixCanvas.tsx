@@ -304,7 +304,7 @@ export function DotMatrixCanvas() {
       <span
         ref={ringRef}
         aria-hidden
-        className="pointer-events-none absolute top-0 left-0 size-[calc(var(--cell)*2)] rounded-full border border-accent-ring opacity-0 transition-opacity duration-200 data-active:opacity-100"
+        className="pointer-events-none absolute top-0 left-0 size-cells-2 rounded-full border border-accent-ring opacity-0 transition-opacity duration-200 data-active:opacity-100"
       />
     </div>
   );

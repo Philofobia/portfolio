@@ -33,11 +33,11 @@ export function Header() {
     <header className="sticky top-0 z-10">
       <a
         href="#main"
-        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:start-2 focus-visible:top-2 focus-visible:z-20 focus-visible:bg-accent focus-visible:px-4 focus-visible:py-3 focus-visible:text-on-accent focus-visible:outline focus-visible:outline-offset-3 focus-visible:outline-ink"
+        className="sr-only focus-ring-ink focus-visible:not-sr-only focus-visible:absolute focus-visible:start-2 focus-visible:top-2 focus-visible:z-20 focus-visible:bg-accent focus-visible:px-4 focus-visible:py-3 focus-visible:text-on-accent focus-visible:focus-ring"
       >
         {t("skipToContent")}
       </a>
-      <div className="grid-container @container flex h-14 border-b border-line bg-bg max-md:ms-0 max-md:w-full md:h-cell">
+      <div className="grid-container @container flex h-bar border-b border-line bg-bg max-md:ms-0 max-md:w-full md:h-cell">
         <div className="flex min-w-0 flex-1 scroll-target-group">
           <Logo className="flex-1 ps-cell-pad @nav:w-logo @nav:flex-none @nav:border-e @nav:border-line" />
           <ScrollSpyNav className="hidden @nav:flex" />

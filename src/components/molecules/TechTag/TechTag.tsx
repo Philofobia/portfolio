@@ -26,7 +26,7 @@ export function TechTag({
     return (
       <li
         className={cn(
-          "group relative grid h-(--cell) min-w-(--cell) place-items-center hover:bg-bg-hover motion-safe:transition-colors motion-safe:duration-200",
+          "group relative grid h-cell min-w-cell place-items-center hover:bg-bg-hover motion-safe:transition-colors motion-safe:duration-200",
           className,
         )}
       >

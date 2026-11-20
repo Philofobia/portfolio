@@ -27,12 +27,12 @@ export type MarqueeSize = "lg" | "sm";
 
 const sizeClass: Record<MarqueeSize, { band: string; separator: string }> = {
   lg: {
-    band: "h-14 md:h-cell",
+    band: "h-bar md:h-cell",
     separator:
       "px-4.5 text-[1.25rem] md:px-7.5 md:text-[1.875rem]" /* design 18/30 · 20/30px */,
   },
   sm: {
-    band: "h-14",
+    band: "h-bar",
     separator: "px-4.5 text-[1.25rem]",
   },
 };

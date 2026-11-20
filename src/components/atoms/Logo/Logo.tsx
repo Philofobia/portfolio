@@ -20,7 +20,7 @@ export function Logo({
       {...rest}
       href="#hero"
       className={cn(
-        "flex items-center text-body tracking-[0.08em] whitespace-nowrap uppercase focus-visible:outline focus-visible:-outline-offset-3 focus-visible:outline-accent",
+        "flex items-center text-body tracking-[0.08em] whitespace-nowrap uppercase focus-visible:focus-ring-inset",
         className,
       )}
     >

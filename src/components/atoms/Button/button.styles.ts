@@ -8,30 +8,33 @@
 import { cn } from "@/lib/cn";
 
 export type ButtonVariant = "primary" | "secondary";
-export type ButtonSize = "lg" | "md" | "sm";
+export type ButtonSize = "lg" | "md" | "sm" | "card";
 export type ButtonIcon = "↓" | "↗" | "→" | "⤓";
 
 const base =
-  "group inline-flex w-37.5 shrink-0 cursor-pointer items-center justify-center gap-[0.25em] focus-visible:outline focus-visible:outline-offset-3 disabled:cursor-not-allowed motion-safe:transition-colors motion-safe:duration-200";
+  "group inline-flex w-cell-pair shrink-0 cursor-pointer items-center justify-center gap-[0.25em] focus-visible:focus-ring disabled:cursor-not-allowed motion-safe:transition-colors motion-safe:duration-200";
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent font-normal text-on-accent focus-visible:outline-ink not-disabled:hover:bg-accent-hover disabled:bg-accent-dim disabled:text-ink-3",
+    "bg-accent font-normal text-on-accent focus-ring-ink not-disabled:hover:bg-accent-hover disabled:bg-accent-dim disabled:text-ink-3",
   secondary:
-    "border border-line focus-visible:outline-accent not-disabled:hover:bg-bg-hover disabled:border-line-faint disabled:text-ink-3 [[data-variant=secondary]+&]:border-l-0",
+    "border border-line not-disabled:hover:bg-bg-hover disabled:border-line-faint disabled:text-ink-3 [[data-variant=secondary]+&]:border-l-0",
 };
 
 const sizeClass: Record<ButtonSize, string> = {
-  lg: "h-18.75 text-[0.9375rem]",
-  md: "h-14 text-[0.9375rem]",
-  sm: "h-12.5 text-[0.875rem]",
+  lg: "h-cell-lg text-ui",
+  md: "h-bar text-ui",
+  sm: "h-cell-sm text-ui-sm",
+  // Card actions that follow the card's own width (an @container ancestor): sm and sharing
+  // the row below a 48rem container (ProjectCard stack), lg at 150 wide from it (row).
+  card: "h-cell-sm flex-1 text-ui-sm @3xl:h-cell-lg @3xl:flex-none @3xl:text-ui",
 };
 
 const nudgeClass: Record<ButtonIcon, string> = {
-  "↓": "group-not-disabled:group-hover:translate-y-[3px]",
-  "⤓": "group-not-disabled:group-hover:translate-y-[3px]",
-  "→": "group-not-disabled:group-hover:translate-x-[3px]",
-  "↗": "group-not-disabled:group-hover:translate-x-[3px] group-not-disabled:group-hover:-translate-y-[3px]",
+  "↓": "group-not-disabled:group-hover:translate-y-nudge",
+  "⤓": "group-not-disabled:group-hover:translate-y-nudge",
+  "→": "group-not-disabled:group-hover:translate-x-nudge",
+  "↗": "group-not-disabled:group-hover:translate-x-nudge group-not-disabled:group-hover:-translate-y-nudge",
 };
 
 export function buttonClasses({
@@ -63,13 +66,20 @@ export function buttonIconClasses(icon: ButtonIcon) {
 export type SquareFrame = "box" | "bar";
 
 const squareFrameClass: Record<SquareFrame, string> = {
-  box: "size-14 border md:size-cell",
-  bar: "w-14 border-s md:w-cell",
+  box: "size-bar border md:size-cell",
+  bar: "w-bar border-s md:w-cell",
 };
 
 export function squareClasses(frame: SquareFrame = "box") {
   return cn(
-    "grid shrink-0 cursor-pointer place-items-center border-line focus-visible:outline focus-visible:outline-offset-3 focus-visible:outline-accent not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
+    "grid shrink-0 cursor-pointer place-items-center border-line focus-visible:focus-ring not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
     squareFrameClass[frame],
   );
 }
+
+/**
+ * A quiet mono text link (the footer's locale switch and Back to top): ink-2, ink on
+ * hover, accent focus ring. Kept here with the other control looks.
+ */
+export const textLinkClasses =
+  "font-mono text-meta text-ink-2 hover:text-ink focus-visible:focus-ring motion-safe:transition-colors motion-safe:duration-200";

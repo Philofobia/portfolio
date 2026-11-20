@@ -28,7 +28,7 @@ export function MenuSheet({
 
   return (
     <div className={className}>
-      <div className="flex h-14 border-b border-line md:h-cell">
+      <div className="flex h-bar border-b border-line md:h-cell">
         <Logo onClick={onNavigate} className="flex-1 ps-cell-pad" />
         <form method="dialog" className="contents">
           <IconButton type="submit" frame="bar" label={t("menu.close")}>

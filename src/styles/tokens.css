@@ -1,6 +1,10 @@
 /*
   Design tokens (Tailwind v4 @theme).
-  Grid:  --cell 75 / 50 m · --cols 18 / 7 m · --gutter 45 / 20 m · section gap 2 cells
+  Grid:  --cell 75 / 50 m (--cell-lg / --cell-sm: the two sizes, also used as fixed control
+    heights) · --cols 18 / 7 m · --gutter 45 / 20 m · section gap 2 cells
+  Controls: --bar 56 (mobile bar, rows and touch targets) · cell-pair 2 lg cells (150: buttons, clocks)
+    · --nudge 3 (hover shift of an arrow glyph) · focus ring 1px outside +3 / 2px inside
+  UI type (fixed, not responsive): ui 15 · ui-sm 14 · ui-xs 13 · measure 70ch
   Space: 4 · 8 · 12 · 16 · 20 · 24 · 32 (Tailwind steps 1–8) · cell padding 24 / 20 m
     · image inset 15 / 10 m · radius 0 · shadow none
   Type scale (desktop / mobile <768): display 80/52 · h1 48/40 · h2 46/32 · h3 30/22
@@ -72,18 +76,34 @@
   --text-meta--line-height: 1;
   --text-meta--font-weight: 400;
 
+  /* Fixed-size UI text: button and control labels, notes, mono periods. */
+  --text-ui: var(--fs-ui);
+  --text-ui-sm: var(--fs-ui-sm);
+  --text-ui-xs: var(--fs-ui-xs);
+
   /* p-cell, h-cell, gap-section, w-logo, p-cell-pad, p-inset … */
   --spacing-cell: var(--cell);
+  --spacing-cell-sm: var(--cell-sm); /* 50: a mobile cell, at every width */
+  --spacing-cell-lg: var(--cell-lg); /* 75: a desktop cell, at every width */
+  --spacing-bar: var(--bar); /* h-bar, size-bar: 56 rows and touch controls */
+  --spacing-cell-pair: calc(
+    var(--cell-lg) * 2
+  ); /* w-cell-pair: 150, buttons and header clocks */
+  --spacing-nudge: var(--nudge); /* translate-x-nudge: arrow glyph on hover */
   --spacing-section: calc(var(--cell) * 2);
   --spacing-logo: calc(var(--cell) * 3); /* the header's name mark: 3 cells */
   --spacing-cell-pad: var(--cell-pad);
   --spacing-inset: var(--inset);
   --spacing-gutter: var(--gutter);
+
+  --container-measure: var(--measure); /* max-w-measure: line length of prose */
 }
 
 /* Grid & spacing: mobile first, --cell drives every layout length. */
 :root {
-  --cell: 3.125rem; /* 50px */
+  --cell-sm: 3.125rem; /* 50px */
+  --cell-lg: 4.6875rem; /* 75px */
+  --cell: var(--cell-sm);
   --cols: 7;
   --gutter: 1.25rem; /* 20px */
   --cell-pad: 1.25rem; /* 20px */
@@ -92,12 +112,28 @@
 
 @media (width >= 48rem) {
   :root {
-    --cell: 4.6875rem; /* 75px */
+    --cell: var(--cell-lg);
     --cols: 18;
     --gutter: 2.8125rem; /* 45px */
     --cell-pad: 1.5rem; /* 24px */
     --inset: 0.9375rem; /* 15px */
   }
+}
+
+/* Controls: sizes that stay the same at every width. */
+:root {
+  --bar: 3.5rem; /* 56px */
+  --nudge: 0.1875rem; /* 3px */
+  --measure: 70ch;
+  --fs-ui: 0.9375rem; /* 15px */
+  --fs-ui-sm: 0.875rem; /* 14px */
+  --fs-ui-xs: 0.8125rem; /* 13px */
+
+  /* Focus ring (variants.css focus-ring / focus-ring-inset): accent, or ink on accent fills. */
+  --focus-ring-width: 1px;
+  --focus-ring-offset: 3px;
+  --focus-ring-inset-width: 2px;
+  --focus-ring-color: var(--accent);
 }
 
 /* Type scale: mobile first, desktop from 48rem (Tailwind md). rem = design px ÷ 16. */

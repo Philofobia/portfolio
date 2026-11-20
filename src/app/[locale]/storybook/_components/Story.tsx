@@ -2,7 +2,8 @@
  * Storybook building blocks, laid out like the design's Component Library.
  * Story: one named <section> per component, headed by build number, name and source file.
  * StoryTable: a variant matrix as a real <table> (row = variant, column = state or example);
- * it scrolls sideways inside its own focusable region on narrow screens.
+ * it scrolls sideways inside its own focusable region (a <section> named by the caption,
+ * html-validate prefers it to role="region") on narrow screens.
  * StoryRow: one table row; its label is the row header and each child becomes a cell.
  */
 import { Children, useId, type ReactNode } from "react";
@@ -52,8 +53,7 @@ export function StoryTable({
   const captionId = useId();
 
   return (
-    <div
-      role="region"
+    <section
       aria-labelledby={captionId}
       tabIndex={0}
       className="overflow-x-auto border border-line"
@@ -80,7 +80,7 @@ export function StoryTable({
         </thead>
         <tbody>{children}</tbody>
       </table>
-    </div>
+    </section>
   );
 }
 

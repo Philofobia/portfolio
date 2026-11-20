@@ -4,14 +4,22 @@
 */
 
 @layer base {
-  /* Anchor jumps land below the sticky header: 56 high on mobile, one cell from md. */
+  /* Anchor jumps land below the sticky header: one bar (56) on mobile, one cell from md. */
   html {
-    scroll-padding-top: 3.5rem;
+    scroll-padding-top: var(--bar);
   }
 
   @media (width >= 48rem) {
     html {
       scroll-padding-top: var(--cell);
+    }
+  }
+
+  /* In-page anchors (nav, Back to top) glide instead of jumping, unless motion is reduced.
+     Route changes stay instant: <html data-scroll-behavior="smooth"> (root layout). */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
     }
   }
 

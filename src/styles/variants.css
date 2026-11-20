@@ -1,5 +1,6 @@
 /*
-  Custom variants and utilities for states and properties Tailwind has none for.
+  Custom variants and utilities for states and properties Tailwind has none for, and the
+  utilities that turn foundation tokens into classes (cells-N sizes, focus rings).
 
   scroll-target-group — the container whose fragment links the browser tracks as scroll
   markers (MWG "scrollspy"); unsupported browsers ignore it.
@@ -36,4 +37,69 @@
 
 @utility scroll-target-group {
   scroll-target-group: auto;
+}
+
+/*
+  link-hover: / group-link-hover: — a stretched-link card (MWG card) while its link is
+  hovered: the card itself, or a part of it inside the .group card. Like Tailwind's hover:
+  and the .cell hover, real pointers only, so a tap does not leave the card stuck in hover.
+  (has-[a:hover]: alone has no hover media query.)
+*/
+@custom-variant link-hover {
+  @media (hover: hover) {
+    &:has(a:hover) {
+      @slot;
+    }
+  }
+}
+
+@custom-variant group-link-hover {
+  @media (hover: hover) {
+    :where(.group):has(a:hover) & {
+      @slot;
+    }
+  }
+}
+
+/*
+  Whole-cell sizes: h-cells-2, min-h-cells-3, w-cells-6, size-cells-2… are N × --cell, so a
+  module stays on the grid at both cell sizes (75 desktop, 50 mobile). One cell is h-cell.
+*/
+@utility h-cells-* {
+  height: calc(var(--cell) * --value(integer));
+}
+
+@utility min-h-cells-* {
+  min-height: calc(var(--cell) * --value(integer));
+}
+
+@utility w-cells-* {
+  width: calc(var(--cell) * --value(integer));
+}
+
+@utility size-cells-* {
+  width: calc(var(--cell) * --value(integer));
+  height: calc(var(--cell) * --value(integer));
+}
+
+/*
+  Focus rings, one look everywhere (tokens.css --focus-ring-*). Apply under a variant:
+  focus-visible:focus-ring       1px, 3px outside: buttons, links, free-standing controls.
+  focus-visible:focus-ring-inset 2px, drawn inside: cells that sit flush with neighbours
+                                 (an outside ring would be covered by them).
+  has-[a:focus-visible]:focus-ring-inset  the ring of a card whose stretched link has focus.
+  focus-ring-ink                 ink instead of accent, on accent fills.
+*/
+@utility focus-ring {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@utility focus-ring-inset {
+  outline: var(--focus-ring-inset-width) solid var(--focus-ring-color);
+  outline-offset: calc(var(--focus-ring-inset-width) * -1);
+}
+
+@utility focus-ring-ink {
+  --focus-ring-color: var(--ink);
 }
