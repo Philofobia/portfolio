@@ -1,5 +1,5 @@
 /**
- * Name mark 'MARCO FOBIA' linking to top (#hero).
+ * Name mark 'MARCO PARISI' linking to top (#hero).
  *
  * The name comes from content/profile (a proper noun, the same in every locale); caps
  * and .08em tracking are styling, so assistive tech reads the name, not letters.

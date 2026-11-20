@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "fonts:jp": "node scripts/jp-font.mjs",
+    "images:hero": "node scripts/hero-emblem.mjs",
     "format": "prettier --write src messages scripts \"*.{ts,mjs,json}\"",
     "format:check": "prettier --check src messages scripts \"*.{ts,mjs,json}\""
   },

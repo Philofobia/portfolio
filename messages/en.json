@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Marco Fobia — Fullstack Engineer",
+    "title": "Marco Parisi — Fullstack Engineer",
     "description": "Fullstack engineer from Italy. I build web products end to end, from the database schema to the interface people use every day. Open to roles in Japan."
   },
   "header": {
@@ -37,7 +37,11 @@
     "intro": "I build web products end to end, from the database schema to the interface people use every day.",
     "ctaWork": "View work",
     "ctaCv": "Download CV",
-    "marquee": "MARCO FOBIA"
+    "emblemAlt": "Tokyo Tower at night, drawn as a field of dots"
+  },
+  "marquee": {
+    "pause": "Pause the scrolling band",
+    "play": "Play the scrolling band"
   },
   "work": {
     "number": "",

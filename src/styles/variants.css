@@ -12,8 +12,9 @@
   One source per browser, so two links are never lit at once while aria-current catches up.
   Outside a scroll-target-group nothing tracks the links, so aria-current alone marks the
   current one: the storybook's specimens, rendered with a fixed section.
-  `next build` warns "'target-current' is not recognized" (Lightning CSS does not know the
-  pseudo-class yet); it copies those rules through unchanged, so the warning is harmless.
+  Lightning CSS warns "'target-current' is not recognized" (it does not know the
+  pseudo-class yet) but copies those rules through unchanged; next.config.ts silences that
+  one warning with turbopack.ignoreIssue (postcss.config.mjs leaves the CSS pass to Turbopack).
 */
 @custom-variant current-section {
   &[aria-current="true"]:not(:where(.scroll-target-group *)) {
