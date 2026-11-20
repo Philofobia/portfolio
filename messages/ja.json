@@ -47,9 +47,13 @@
     "number": "",
     "title": "",
     "subtitle": "",
-    "role": "",
-    "code": "",
-    "live": "",
+    "role": "担当",
+    "code": "コード",
+    "live": "公開サイト",
+    "caseStudy": "事例を見る",
+    "private": "非公開",
+    "counter": "全{total}件中{index}件目",
+    "stackLabel": "使用技術",
     "previous": "",
     "next": "",
     "dragHint": "",
@@ -109,6 +113,7 @@
     "title": "",
     "subtitle": "",
     "range": "",
+    "now": "現在",
     "intro": "",
     "workLabel": "",
     "educationLabel": "",
@@ -193,8 +198,9 @@
     "number": "",
     "title": "",
     "intro": "",
-    "copyEmail": "",
-    "copied": "",
+    "copyEmail": "メールをコピー",
+    "copied": "コピーしました",
+    "copyFailed": "コピーできませんでした",
     "links": {
       "github": "",
       "linkedin": "",
@@ -202,9 +208,9 @@
     }
   },
   "footer": {
-    "copyright": "",
-    "switchLocale": "",
-    "backToTop": ""
+    "copyright": "© {year}",
+    "switchLocale": "View in English",
+    "backToTop": "トップへ戻る"
   },
   "notFound": {
     "title": "ページが見つかりません",

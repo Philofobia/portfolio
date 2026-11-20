@@ -1,6 +1,7 @@
 /**
  * Base button. Variants: 'primary' (accent fill), 'secondary' (outline).
- * Sizes: 'lg' 75 (desktop hero) | 'md' 56 (mobile CTA) | 'sm' 50 (card actions); always two cells (150) wide.
+ * Sizes: 'lg' 75 (desktop hero) | 'md' 56 (mobile CTA) | 'sm' 50 (card actions); two cells (150) wide.
+ * 'card': sm sharing the row in a narrow card, lg 150 wide from a 48rem @container (ProjectCard).
  * Props: variant, size, icon? ('↓' | '↗' | '→' | '⤓', trailing; hover nudges it 3px its way),
  * href? / download?, ...native attributes of the element rendered.
  * With href it renders a link: i18n <Link> for internal paths ('/…'), plain <a> for

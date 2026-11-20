@@ -47,9 +47,13 @@
     "number": "",
     "title": "",
     "subtitle": "",
-    "role": "",
-    "code": "",
-    "live": "",
+    "role": "Role",
+    "code": "Code",
+    "live": "Live",
+    "caseStudy": "Case study",
+    "private": "Private",
+    "counter": "Project {index} of {total}",
+    "stackLabel": "Built with",
     "previous": "",
     "next": "",
     "dragHint": "",
@@ -109,6 +113,7 @@
     "title": "",
     "subtitle": "",
     "range": "",
+    "now": "now",
     "intro": "",
     "workLabel": "",
     "educationLabel": "",
@@ -193,8 +198,9 @@
     "number": "",
     "title": "",
     "intro": "",
-    "copyEmail": "",
-    "copied": "",
+    "copyEmail": "Copy email",
+    "copied": "Copied",
+    "copyFailed": "Copy failed",
     "links": {
       "github": "",
       "linkedin": "",
@@ -202,9 +208,9 @@
     }
   },
   "footer": {
-    "copyright": "",
-    "switchLocale": "",
-    "backToTop": ""
+    "copyright": "© {year}",
+    "switchLocale": "日本語で見る",
+    "backToTop": "Back to top"
   },
   "notFound": {
     "title": "Page not found",

@@ -77,6 +77,8 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      // base.css scrolls smoothly (motion-safe); this makes Next jump instantly on route changes.
+      data-scroll-behavior="smooth"
       className={`${geist.variable} ${geistMono.variable} ${plexJp.variable}`}
       suppressHydrationWarning
     >

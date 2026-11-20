@@ -16,7 +16,7 @@ export function HeroEmblemStories() {
       file="molecules/HeroEmblem · atoms/DotMatrix · dynamic(), ssr:false"
     >
       <figure className="flex flex-col gap-3">
-        <HeroEmblem className="w-full md:w-[calc(var(--cell)*6)]" />
+        <HeroEmblem className="w-full md:w-cells-6" />
         <figcaption className="font-mono text-meta text-ink-3">
           96-column hex lattice · tower dots in --ink by brightness · sky dots
           at 15% (= --line), smaller next to the tower · base fades out · poster

@@ -1,6 +1,6 @@
 /*
-  Keyframes: marquee (30s linear infinite), fade/slide reveal start states
-  (only applied when html.js is present so no-JS users see everything).
+  Keyframes: marquee (30s linear infinite), hero emblem wipe, scroll reveals (CSS only,
+  view() timelines: no-JS users and unsupported browsers see everything).
 
   Every animation here runs only under prefers-reduced-motion: no-preference: the static
   state is the default and motion is opted into (MWG "motion"), never cancelled afterwards.
@@ -65,6 +65,82 @@
     }
     to {
       clip-path: inset(100% 0 0 0);
+    }
+  }
+}
+
+/*
+  Scroll reveals (MWG scroll-entry-exit-effects): each element runs its keyframes on its own
+  view() timeline while it enters the viewport, so the effect plays as it scrolls in and
+  holds once in view. Elements already in view at load are past their entry range: shown
+  as is, never hidden (no LCP or layout cost).
+  Scroll-driven animations are Baseline Newly available (2026-10): decorative, so
+  progressive enhancement with no fallback, as the guide says. The (animation-range: entry)
+  test filters out browsers with partial support.
+  .reveal-rise: fades in and rises 24px (SectionHeading lines, ProjectCard).
+  .reveal-zoom: scales 1.04 → 1 inside its frame (ProjectCard image).
+*/
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+@keyframes reveal-zoom {
+  from {
+    scale: 1.04;
+  }
+}
+
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      .reveal-rise {
+        animation: reveal-rise auto linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+      }
+
+      .reveal-zoom {
+        animation: reveal-zoom auto linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 50%;
+      }
+    }
+  }
+}
+
+/*
+  Footer ruler needle (atoms/ScrollRuler, MWG scroll-progress-indicator): crosses the ruler
+  as the page scrolls, on the root scroller's timeline. Decorative and progressive: drawn
+  only where scroll-driven animations exist and motion is allowed. It moves with translate
+  (compositor only), by the ruler's width in container units.
+*/
+@keyframes ruler-needle {
+  to {
+    translate: calc(100cqi - 1px) 0;
+  }
+}
+
+@layer components {
+  .scroll-ruler-needle {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .scroll-ruler-needle {
+        position: absolute;
+        inset-block-start: -0.375rem;
+        inset-inline-start: 0;
+        display: block;
+        width: 1px;
+        height: 1.125rem;
+        background-color: var(--accent);
+        animation: ruler-needle auto linear both;
+        animation-timeline: scroll(root);
+      }
     }
   }
 }

@@ -40,7 +40,7 @@ export function HeroEmblem({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative h-[calc(var(--cell)*6)] overflow-hidden border border-line bg-bg",
+        "relative h-cells-6 overflow-hidden border border-line bg-bg",
         className,
       )}
     >

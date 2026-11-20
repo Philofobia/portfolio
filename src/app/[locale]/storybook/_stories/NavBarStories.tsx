@@ -70,8 +70,8 @@ export function NavBarStories() {
       </figure>
 
       <div className="flex flex-wrap items-start gap-x-section gap-y-6">
-        <figure className="flex flex-col gap-3">
-          <div className="flex h-14 w-96 border border-line bg-bg md:h-cell">
+        <figure className="flex max-w-full flex-col gap-3">
+          <div className="flex h-bar w-96 max-w-full border border-line bg-bg md:h-cell">
             <Logo className="flex-1 ps-cell-pad" />
             <LocaleSwitcher frame="bar" />
             <ThemeToggle frame="bar" />
@@ -84,10 +84,10 @@ export function NavBarStories() {
           </figcaption>
         </figure>
 
-        <figure className="flex flex-col gap-3">
+        <figure className="flex max-w-full flex-col gap-3">
           <MenuSheet
             current="work"
-            className="w-96 border-x border-t border-line bg-bg"
+            className="w-96 max-w-full border-x border-t border-line bg-bg"
           />
           <figcaption className="font-mono text-meta text-ink-3">
             mobile · open · full-screen sheet, rows stagger in 40ms

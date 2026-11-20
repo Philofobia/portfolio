@@ -44,7 +44,7 @@ export function TechTagStories() {
         <figure className="flex flex-col gap-3">
           <ul
             role="list"
-            className="flex w-(--cell) flex-col divide-y divide-line border border-line bg-bg"
+            className="flex w-cell flex-col divide-y divide-line border border-line bg-bg"
           >
             {rail.map((id) => (
               <TechTag key={id} id={id} as="cell" />

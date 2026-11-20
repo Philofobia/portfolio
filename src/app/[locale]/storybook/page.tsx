@@ -8,14 +8,24 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
+import { CellStories } from "./_stories/CellStories";
 import { CityClockStories } from "./_stories/CityClockStories";
+import { ContactBlockStories } from "./_stories/ContactBlockStories";
+import { DocCardStories } from "./_stories/DocCardStories";
+import { FactCellStories } from "./_stories/FactCellStories";
+import { FooterStories } from "./_stories/FooterStories";
+import { GridBackgroundStories } from "./_stories/GridBackgroundStories";
 import { HeroEmblemStories } from "./_stories/HeroEmblemStories";
 import { LocaleSwitcherStories } from "./_stories/LocaleSwitcherStories";
 import { MarqueeStories } from "./_stories/MarqueeStories";
 import { NavBarStories } from "./_stories/NavBarStories";
+import { ProjectCardStories } from "./_stories/ProjectCardStories";
+import { SectionHeaderStories } from "./_stories/SectionHeaderStories";
+import { StackCellStories } from "./_stories/StackCellStories";
 import { StatusDotStories } from "./_stories/StatusDotStories";
 import { TechTagStories } from "./_stories/TechTagStories";
 import { ThemeToggleStories } from "./_stories/ThemeToggleStories";
+import { TimelineItemStories } from "./_stories/TimelineItemStories";
 
 export const metadata: Metadata = {
   title: "Storybook",
@@ -36,6 +46,9 @@ export default function StorybookPage() {
           <ThemeToggle />
         </header>
 
+        <GridBackgroundStories />
+        <CellStories />
+        <SectionHeaderStories />
         <ButtonStories />
         <TechTagStories />
         <StatusDotStories />
@@ -45,6 +58,13 @@ export default function StorybookPage() {
         <NavBarStories />
         <MarqueeStories />
         <HeroEmblemStories />
+        <ProjectCardStories />
+        <StackCellStories />
+        <TimelineItemStories />
+        <FactCellStories />
+        <DocCardStories />
+        <ContactBlockStories />
+        <FooterStories />
       </div>
     </main>
   );

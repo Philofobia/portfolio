@@ -2,6 +2,15 @@ export type Theme = "dark" | "light";
 
 export const THEME_STORAGE_KEY = "theme";
 export const DEFAULT_THEME: Theme = "dark";
+
+/**
+ * Page background per theme, for places CSS cannot reach (the web manifest).
+ * Mirrors --bg in styles/tokens.css: change both together.
+ */
+export const THEME_BACKGROUND: Record<Theme, string> = {
+  dark: "#1b1b1c",
+  light: "#f1f1ef",
+};
 export const SYSTEM_LIGHT_QUERY = "(prefers-color-scheme: light)";
 
 const isTheme = (value: unknown): value is Theme =>

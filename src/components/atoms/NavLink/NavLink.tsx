@@ -14,12 +14,11 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-const focusClass =
-  "focus-visible:outline focus-visible:-outline-offset-3 focus-visible:outline-accent";
+const focusClass = "focus-visible:focus-ring-inset";
 
 const variantClass = {
   bar: "relative flex w-section items-center justify-center border-e border-line text-ink-2 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-accent after:opacity-0 after:forced-color-adjust-none hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:after:opacity-100 forced-colors:after:bg-[CanvasText]",
-  row: "flex h-14 items-center justify-between border-b border-line px-cell-pad text-h3 text-ink-2 uppercase hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:[&_[data-number]]:text-accent md:h-cell",
+  row: "flex h-bar items-center justify-between border-b border-line px-cell-pad text-h3 text-ink-2 uppercase hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:[&_[data-number]]:text-accent md:h-cell",
 } as const;
 
 type NavLinkProps = Omit<
