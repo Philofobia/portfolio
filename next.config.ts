@@ -22,6 +22,17 @@ const contentSecurityPolicy = [
 const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
+  turbopack: {
+    ignoreIssue: [
+      {
+        // Lightning CSS does not know :target-current yet and copies the rule through
+        // unchanged. The current-section: variant (src/styles/variants.css) keeps it
+        // behind @supports (scroll-target-group: auto), with an aria-current fallback.
+        path: "**/src/app/globals.css",
+        description: /'target-current' is not recognized/,
+      },
+    ],
+  },
   async headers() {
     return [
       {
