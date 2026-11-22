@@ -1,8 +1,10 @@
 /**
  * Work card (design 12 ProjectCard): <MediaFrame image /> · tech icon rail · counter · title ·
  * description · 'ROLE — …' mono line · actions (Case study → / Code ↗ / Live ↗).
- * The cards stack vertically, 75px apart: no carousel (Portfolio Desktop and the design
- * library supersede the WorkCarousel scaffold).
+ * Placed by the Work section in its carousel (organisms/WorkCarousel), one card per slide;
+ * the card fills the slide's height, so cards of different lengths keep their actions on
+ * the same line. (Portfolio Desktop and the design library stack the cards instead; the
+ * carousel of Portfolio Wireframes 7a was chosen for the site.)
  * Layout by the card's own width (container query, MWG size-aware-styling), one markup:
  *   row   (≥ 48rem container): image 9 cells (inset 15) │ rail 1 cell × 5 │ body ≥ 340,
  *         actions 75 high at the body's foot; at least 5 cells high.
@@ -18,8 +20,11 @@
  * (TechId[], max 5: empty rail slots stay blank cells), links { caseStudy?, code?, live? }
  * (caseStudy an internal path, code / live external URLs; neither code nor live → a disabled
  * "Private —"), eager (the card's image is above the fold or the LCP).
- * Motion (CSS only, motion.css): the card rises 24px as it scrolls in, the image settles
- * from 1.04 to 1 inside its inset.
+ * Motion (CSS only, motion.css), by where the card sits (motion prop):
+ *   page  (default) the card rises 24px as it scrolls in, the image settles from 1.04 to 1
+ *         inside its inset, on the page's scroll;
+ *   slide inside a horizontal scroller (the carousel): only the image settles, as the
+ *         card slides in (view(inline)); the carousel rises as a whole.
  * Action links carry the title in visually hidden text ("Code: Freight tracking platform"),
  * so a list of links stays unambiguous out of context (MWG card); the "Private —" dash is
  * hidden from screen readers.
@@ -47,6 +52,7 @@ export type ProjectCardProps = {
   icons: TechId[];
   links: { caseStudy?: string; code?: string; live?: string };
   eager?: boolean;
+  motion?: "page" | "slide";
   className?: string;
 };
 
@@ -60,6 +66,7 @@ export function ProjectCard({
   icons,
   links,
   eager = false,
+  motion = "page",
   className,
 }: ProjectCardProps) {
   const t = useTranslations("work");
@@ -68,18 +75,21 @@ export function ProjectCard({
   return (
     <article
       className={cn(
-        "reveal-rise @container border border-line bg-bg",
+        "@container border border-line bg-bg",
+        motion === "page" && "reveal-rise",
         className,
       )}
     >
-      <div className="grid @3xl:min-h-cells-5 @3xl:grid-cols-[minmax(0,1fr)_var(--cell)_minmax(21.25rem,1fr)]">
+      <div className="grid h-full grid-rows-[auto_auto_1fr] @3xl:min-h-cells-5 @3xl:grid-cols-[minmax(0,1fr)_var(--cell)_minmax(21.25rem,1fr)] @3xl:grid-rows-1">
         <div className="cell-media h-50 border-b border-line @3xl:h-auto @3xl:border-e @3xl:border-b-0">
           <MediaFrame
             src={image.src}
             alt={image.alt}
             sizes="(min-width: 90rem) 38rem, (min-width: 61.875rem) calc(50vw - 7rem), (min-width: 48rem) calc(100vw - 7.5rem), 100vw"
             eager={eager}
-            imageClassName="reveal-zoom"
+            imageClassName={
+              motion === "page" ? "reveal-zoom" : "reveal-zoom-inline"
+            }
           />
         </div>
 

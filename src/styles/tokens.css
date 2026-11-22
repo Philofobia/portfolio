@@ -1,7 +1,7 @@
 /*
   Design tokens (Tailwind v4 @theme).
   Grid:  --cell 75 / 50 m (--cell-lg / --cell-sm: the two sizes, also used as fixed control
-    heights) · --cols 18 / 7 m · --gutter 45 / 20 m · section gap 2 cells
+    heights) · --cols 18 / up to 15 m (7 on a 390 phone) · --gutter 45 / 20 m · section gap 2 cells
   Controls: --bar 56 (mobile bar, rows and touch targets) · cell-pair 2 lg cells (150: buttons, clocks)
     · --nudge 3 (hover shift of an arrow glyph) · focus ring 1px outside +3 / 2px inside
   UI type (fixed, not responsive): ui 15 · ui-sm 14 · ui-xs 13 · measure 70ch
@@ -114,7 +114,10 @@
   --cell-sm: 3.125rem; /* 50px */
   --cell-lg: 4.6875rem; /* 75px */
   --cell: var(--cell-sm);
-  --cols: 7;
+  /* No real cap below md: the column takes every whole cell between the gutters (grid.css
+     snaps it to an odd count), so a large phone or small tablet (440–767px) is not left
+     with a 7-cell column and ~3 empty cells each side. Phones still get 7 (390px). */
+  --cols: 15;
   --gutter: 1.25rem; /* 20px */
   --cell-pad: 1.25rem; /* 20px */
   --inset: 0.625rem; /* 10px */

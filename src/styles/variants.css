@@ -42,6 +42,18 @@
   }
 }
 
+/*
+  scroll-buttons: — where the browser draws a scroller's own prev/next buttons
+  (::scroll-button(), Chrome 135+). The Work carousel hides its script-driven buttons with
+  scroll-buttons:hidden; a variant, not a components-layer rule, so it beats their display
+  utility.
+*/
+@custom-variant scroll-buttons {
+  @supports selector(::scroll-button(*)) {
+    @slot;
+  }
+}
+
 @utility scroll-target-group {
   scroll-target-group: auto;
 }

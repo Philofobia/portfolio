@@ -1,0 +1,179 @@
+/*
+  Work carousel (organisms/WorkCarousel): CSS first, script only where a feature is missing
+  (web-performance media.md, "Carousels": layer 1 scroll snap, layer 2 native controls,
+  layer 3 a small script fallback). Each layer is gated on its own feature:
+
+  1. The track: a native horizontal scroller that snaps one card at a time. Touch,
+     trackpad, Shift + wheel, the keyboard (the track is focusable) and Tab into a card's
+     links all move it with no script. Every slide is in the server HTML.
+  2. Native controls, where the browser has them:
+     - prev/next: ::scroll-button() (Chrome 135+), placed over the control bar's end cells.
+       Their text and accessible name come from the track's data-* attributes, so they
+       switch with the locale. The bar's own <button>s are hidden there (the scroll-buttons:
+       variant, variants.css) and shown elsewhere, driven by hooks/useCarousel.
+     - the caption reel in the bar ("01 — Title"): a scroll-driven animation on the track's
+       named scroll timeline (Newly available, 2026-10), so the caption slides with the
+       swipe in real time (MWG scroll-snap-realtime-feedback). Elsewhere useCarousel sets
+       --carousel-index when scrolling settles.
+     - the project list's current link: :target-current, through the current-section:
+       variant (variants.css); elsewhere useCarousel sets aria-current.
+  3. hooks/useCarousel runs only for what is missing, and does nothing where all three are
+     native.
+
+  The native buttons repeat the look of the fallback buttons (controlClasses in
+  WorkCarousel.tsx): a pseudo-element takes no classes. Change both together.
+  In @layer components so utilities on the same element win.
+*/
+
+/* An explicit from: the implicit one would be the reel's base translate, which the script
+   fallback moves (--carousel-index) in browsers that run it for the buttons or the list. */
+@keyframes carousel-reel {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0
+      calc((1 - var(--carousel-count, 1)) * 100% / var(--carousel-count, 1));
+  }
+}
+
+@layer components {
+  /*
+    --carousel-bar: the control bar's height (one bar on mobile, one cell from md).
+    --carousel-control: a prev/next control's width (square on mobile; from md two cells,
+    room for "← Previous" while the caption keeps half of an 8-cell column; three from lg).
+  */
+  .carousel {
+    --carousel-bar: var(--bar);
+    --carousel-control: var(--bar);
+    position: relative;
+
+    @media (width >= 48rem) {
+      --carousel-bar: var(--cell);
+      --carousel-control: calc(var(--cell) * 2);
+    }
+
+    @media (width >= 64rem) {
+      --carousel-control: calc(var(--cell) * 3);
+    }
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: var(--cell);
+    overflow-x: auto;
+    /* A swipe that reaches an end stays on the carousel (no back gesture); x only, so the
+       page still scrolls vertically over it. */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: manipulation;
+    scroll-timeline: --carousel x;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+
+    & > * {
+      /* Contains the slide's absolutely positioned parts (the cards' sr-only text):
+         otherwise they resolve against .carousel, outside the scroller, and the slides
+         off to the right widen the page. */
+      position: relative;
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+  }
+
+  /* The caption reel: one line per slide, moved by --carousel-index (the script) or by
+     the track's scroll timeline (below). */
+  .carousel-reel {
+    translate: 0
+      calc(var(--carousel-index, 0) * -100% / var(--carousel-count, 1));
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: translate 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+
+  @supports (animation-timeline: scroll()) and (timeline-scope: none) {
+    .carousel {
+      timeline-scope: --carousel;
+    }
+
+    /* Linear: the reel follows the finger. Reduced motion: one jump per slide, at the
+       halfway point between two of them. */
+    .carousel-reel {
+      animation: carousel-reel linear both;
+      animation-timeline: --carousel;
+
+      @media (prefers-reduced-motion: reduce) {
+        animation-timing-function: steps(var(--carousel-count, 1), jump-none);
+      }
+    }
+  }
+
+  @supports selector(::scroll-button(*)) {
+    .carousel-track::scroll-button(*) {
+      position: absolute;
+      inset-block-end: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Inside the bar's 1px frame, like the fallback buttons in their grid columns. */
+      width: var(--carousel-control);
+      height: calc(var(--carousel-bar) - 1px);
+      border: 0 solid var(--line);
+      background-color: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: var(--fs-ui);
+      cursor: pointer;
+    }
+
+    .carousel-track::scroll-button(inline-start) {
+      inset-inline-start: 1px;
+      border-inline-end-width: 1px;
+      content: "←" / attr(data-previous-label);
+    }
+
+    .carousel-track::scroll-button(inline-end) {
+      inset-inline-end: 1px;
+      border-inline-start-width: 1px;
+      content: "→" / attr(data-next-label);
+    }
+
+    @media (width >= 48rem) {
+      .carousel-track::scroll-button(inline-start) {
+        content: "← " attr(data-previous) / attr(data-previous-label);
+      }
+
+      .carousel-track::scroll-button(inline-end) {
+        content: attr(data-next) " →" / attr(data-next-label);
+      }
+    }
+
+    .carousel-track::scroll-button(*):disabled {
+      color: var(--ink-3);
+      cursor: not-allowed;
+    }
+
+    .carousel-track::scroll-button(*):focus-visible {
+      outline: var(--focus-ring-inset-width) solid var(--focus-ring-color);
+      outline-offset: calc(var(--focus-ring-inset-width) * -1);
+    }
+
+    @media (hover: hover) {
+      .carousel-track::scroll-button(*):not(:disabled):hover {
+        background-color: var(--bg-hover);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .carousel-track::scroll-button(*) {
+        transition: background-color 200ms;
+      }
+    }
+  }
+}
