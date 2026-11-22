@@ -8,7 +8,7 @@
 import { cn } from "@/lib/cn";
 
 export type ButtonVariant = "primary" | "secondary";
-export type ButtonSize = "lg" | "md" | "sm" | "card";
+export type ButtonSize = "lg" | "md" | "sm" | "card" | "cta";
 export type ButtonIcon = "↓" | "↗" | "→" | "⤓";
 
 const base =
@@ -28,6 +28,8 @@ const sizeClass: Record<ButtonSize, string> = {
   // Card actions that follow the card's own width (an @container ancestor): sm and sharing
   // the row below a 48rem container (ProjectCard stack), lg at 150 wide from it (row).
   card: "h-cell-sm flex-1 text-ui-sm @3xl:h-cell-lg @3xl:flex-none @3xl:text-ui",
+  // The hero's CTA pair: md, sharing the row on mobile (Portfolio Mobile); lg at 150 wide from 48rem.
+  cta: "h-bar flex-1 text-ui md:h-cell-lg md:flex-none",
 };
 
 const nudgeClass: Record<ButtonIcon, string> = {

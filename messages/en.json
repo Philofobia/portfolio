@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Marco Parisi — Fullstack Engineer",
-    "description": "Fullstack engineer from Italy. I build web products end to end, from the database schema to the interface people use every day. Open to roles in Japan."
+    "title": "Marco Parisi — Full-Stack Engineer",
+    "description": "Full-stack engineer from Italy building fast, high-traffic web apps for luxury and e-commerce brands. In Tokyo from December 2026, open to roles in Japan."
   },
   "header": {
     "skipToContent": "Skip to content",
@@ -25,18 +25,17 @@
     "themeToggle": {
       "toLight": "Switch to light theme",
       "toDark": "Switch to dark theme"
-    },
-    "availability": "Available from {date}"
+    }
   },
   "hero": {
     "label": "Positioning",
-    "titleLine1": "Fullstack",
-    "titleLine2": "Engineer",
-    "subtitleLine1": "Open to roles",
-    "subtitleLine2": "in Japan",
-    "intro": "I build web products end to end, from the database schema to the interface people use every day.",
+    "title": "Full-Stack <br></br>Engineer",
+    "subtitle": "Open to roles <br></br>in Japan",
+    "availability": "Part-time in Tokyo from <time>{date}</time>",
+    "intro": "Four years building fast web apps for luxury and e-commerce brands. Now studying Japanese in Tokyo, open to part-time work that can grow into full-time.",
     "ctaWork": "View work",
     "ctaCv": "Download CV",
+    "ctaCvShort": "CV",
     "emblemAlt": "Tokyo Tower at night, drawn as a field of dots"
   },
   "marquee": {

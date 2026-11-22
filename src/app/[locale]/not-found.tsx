@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main id="main" tabIndex={-1} className="grid-bg">
+      <main id="main" tabIndex={-1}>
         <div className="grid-container panel flex flex-col items-start justify-center gap-6">
           <p className="font-mono text-meta text-ink-3">404</p>
           <h1 className="text-h1 uppercase">{t("title")}</h1>

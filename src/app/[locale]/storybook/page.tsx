@@ -36,7 +36,7 @@ export default function StorybookPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
   return (
-    <main className="grid-bg">
+    <main>
       <div className="grid-container flex flex-col gap-section py-section">
         <header className="flex flex-wrap items-end justify-between gap-6 bg-bg">
           <div className="flex flex-col gap-3">

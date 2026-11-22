@@ -22,6 +22,16 @@
   --container-clocks: 80rem;
 }
 
+/*
+  Hero layouts for its container queries (@hero-split:, @hero-wide:), on the grid column:
+  text beside the six-cell emblem from 12 cells (900px), the design's three columns from
+  16 (1200px). Below 12 the hero stacks, as on mobile.
+*/
+@theme {
+  --container-hero-split: 56.25rem;
+  --container-hero-wide: 75rem;
+}
+
 /* Only the design's colors exist as utilities; no radius, no shadows anywhere. */
 @theme {
   --color-*: initial;
@@ -166,8 +176,12 @@
   --bg-hover: #232325;
   --ink: #ececee;
   --ink-2: #a3a3ab;
-  /* ink-3 adjusted from the design (#707078 / #76767e light) to reach WCAG AA 4.5:1 on bg, bg-sunk and bg-hover. */
-  --ink-3: #898991;
+  /*
+    ink-3 adjusted from the design (#707078 / #76767e light) to reach WCAG AA 4.5:1 on bg,
+    bg-sunk, bg-hover and the grid lines (.grid-bg on <body>: --grid over bg, where small
+    text crosses a line). Dark 4.55 on a line, light 4.54.
+  */
+  --ink-3: #8f8f97;
   --line: rgba(255, 255, 255, 0.15);
   --line-soft: rgba(255, 255, 255, 0.12);
   --line-faint: rgba(255, 255, 255, 0.08);
@@ -190,7 +204,7 @@
   --bg-hover: #e4e4e0;
   --ink: #161618;
   --ink-2: #55555c;
-  --ink-3: #65656d;
+  --ink-3: #64646c;
   --line: rgba(0, 0, 0, 0.14);
   --line-soft: rgba(0, 0, 0, 0.1);
   --line-faint: rgba(0, 0, 0, 0.06);

@@ -13,7 +13,7 @@ export function MarqueeStories() {
       id="marquee"
       index="10"
       name="Marquee"
-      file="atoms/Marquee · molecules/HeroMarquee · styles/motion.css"
+      file="atoms/Marquee · molecules/HeroMarquee (bilingual specialisms) · styles/motion.css"
     >
       <figure className="flex flex-col gap-3">
         <HeroMarquee className="border-x" />

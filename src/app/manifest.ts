@@ -7,7 +7,7 @@ import { DEFAULT_THEME, THEME_BACKGROUND } from "@/lib/theme";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${name} — Fullstack Engineer`,
+    name: `${name} — Full-Stack Engineer`,
     short_name: name,
     start_url: "/",
     display: "standalone",

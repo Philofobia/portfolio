@@ -11,7 +11,8 @@
  * (clientMessages); server components translate from the full catalog.
  * Metadata (title, description, canonical, hreflang) comes from lib/metadata.
  * Each site page (home, 404) renders the Header itself, above its <main id="main"> (the
- * skip link's target); the storybook renders none.
+ * skip link's target); the storybook renders none. <body> carries the cell grid (.grid-bg),
+ * so its lines run behind the header row as well as the page.
  */
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -85,7 +86,7 @@ export default async function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body>
+      <body className="grid-bg">
         <NextIntlClientProvider messages={clientMessages}>
           {children}
         </NextIntlClientProvider>

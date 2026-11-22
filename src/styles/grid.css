@@ -16,11 +16,19 @@
 :root {
   --grid-fit: calc(100% - 2 * var(--gutter));
   --grid-shift: 0rem;
+  /*
+    Where the first horizontal line falls. .grid-bg sits on <body>, so the pattern runs
+    behind the header row too (the design draws it there). The mobile header is one bar
+    (56) and a mobile cell 50: the pattern starts below the bar, which covers the full
+    width, so the lines stay on the content's rows. From md the header is one cell high.
+  */
+  --grid-offset-y: var(--bar);
 }
 
 @media (width >= 48rem) {
   :root {
     --grid-shift: calc(var(--cell) / 2);
+    --grid-offset-y: 0rem;
   }
 }
 
@@ -47,7 +55,7 @@
       linear-gradient(transparent calc(100% - 1px), var(--grid) 0),
       linear-gradient(90deg, transparent calc(100% - 1px), var(--grid) 0);
     background-size: var(--cell) var(--cell);
-    background-position: calc(50% + var(--grid-shift)) 0;
+    background-position: calc(50% + var(--grid-shift)) var(--grid-offset-y);
   }
 
   /* Widest whole number of cells between the gutters, capped at --cols. */
@@ -132,7 +140,8 @@
   @supports (width: round(1px, 1px)) {
     /* Whole device pixels, rounded like .grid-container's margin (odd widths). */
     .grid-bg {
-      background-position: round(down, 50% + var(--grid-shift), 1px) 0;
+      background-position: round(down, 50% + var(--grid-shift), 1px)
+        var(--grid-offset-y);
     }
 
     .grid-container {
