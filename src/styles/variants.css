@@ -17,6 +17,13 @@
   pseudo-class yet) but copies those rules through unchanged; next.config.ts silences that
   one warning with turbopack.ignoreIssue (postcss.config.mjs leaves the CSS pass to Turbopack).
 */
+/*
+  ja: — text on Japanese pages, or in a lang="ja" passage. Full-width kana and kanji fill
+  their em box, so at the Latin size a Japanese line reads larger and denser: display text
+  steps down and body text gets more leading under this variant.
+*/
+@custom-variant ja (&:lang(ja));
+
 @custom-variant current-section {
   &[aria-current="true"]:not(:where(.scroll-target-group *)) {
     @slot;

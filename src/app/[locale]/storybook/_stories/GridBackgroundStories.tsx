@@ -1,7 +1,7 @@
 /**
  * 01 GridBackground, mirroring the design library's section. The grid is CSS, not a
- * component: .grid-bg in styles/grid.css paints it behind the whole page (the storybook's
- * <main> included). Each specimen pins --cell to show the desktop and mobile sizes.
+ * component: .grid-bg in styles/grid.css, on <body>, paints it behind the whole page (header
+ * row included). Each specimen pins --cell to show the desktop and mobile sizes.
  */
 import type { CSSProperties } from "react";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
