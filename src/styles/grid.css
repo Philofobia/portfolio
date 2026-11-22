@@ -1,5 +1,5 @@
 /*
-  The cell grid (18 × 75 desktop, 7 × 50 mobile): the page background (.grid-bg),
+  The cell grid (18 × 75 desktop, up to 15 × 50 mobile): the page background (.grid-bg),
   the centred column (.grid-container), cell layouts (.cells / .cell) and the
   full-height section (.panel). Every line sits on the last pixel of a cell, so
   background lines, parent edges and cell borders coincide.
@@ -32,17 +32,23 @@
   }
 }
 
+/*
+  --grid-step: what the column's width snaps to. Mobile: any whole number of cells, odd or
+  even, so on a narrow phone the column takes every cell that fits and the margins are
+  only the partial cells at the edges (under half a cell + the 4px gutter): a 375px phone
+  gets 7 cells with 12.5px each side, not 5 with a cell and a half. From md: an even
+  number, as the design's 18-cell desktop grid. The background lines follow the column's
+  own left edge (.grid-bg below), so any count lines up.
+*/
 @supports (width: round(1px, 1px)) {
   :root {
-    --grid-fit: calc(
-      round(down, 100% - 2 * var(--gutter) - var(--cell), 2 * var(--cell)) +
-        var(--cell)
-    );
+    --grid-step: var(--cell);
+    --grid-fit: round(down, 100% - 2 * var(--gutter), var(--grid-step));
   }
 
   @media (width >= 48rem) {
     :root {
-      --grid-fit: round(down, 100% - 2 * var(--gutter), 2 * var(--cell));
+      --grid-step: calc(2 * var(--cell));
     }
   }
 }
@@ -138,9 +144,30 @@
 
   /* Last, so it overrides the fallbacks above (see the note at the top). */
   @supports (width: round(1px, 1px)) {
-    /* Whole device pixels, rounded like .grid-container's margin (odd widths). */
+    /*
+      The pattern starts where the column does: the same width as .grid-container's
+      (min of --cols cells and --grid-fit), written out because a percentage here is of the
+      positioning area, the body's width less one cell (so 100% + cell is the body's
+      width, the 100% the column's formula reads). Whole device pixels, rounded like the
+      column's margin, so lines and column edges coincide at any cell count.
+    */
     .grid-bg {
-      background-position: round(down, 50% + var(--grid-shift), 1px)
+      background-position: round(
+          down,
+          (
+              100% + var(--cell) -
+                min(
+                  var(--cols) * var(--cell),
+                  round(
+                    down,
+                    100% + var(--cell) - 2 * var(--gutter),
+                    var(--grid-step)
+                  )
+                )
+            ) /
+            2,
+          1px
+        )
         var(--grid-offset-y);
     }
 

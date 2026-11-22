@@ -42,6 +42,18 @@
   }
 }
 
+/*
+  scroll-buttons: — where the browser draws a scroller's own prev/next buttons
+  (::scroll-button(), Chrome 135+). The Work carousel hides its script-driven buttons with
+  scroll-buttons:hidden; a variant, not a components-layer rule, so it beats their display
+  utility.
+*/
+@custom-variant scroll-buttons {
+  @supports selector(::scroll-button(*)) {
+    @slot;
+  }
+}
+
 @utility scroll-target-group {
   scroll-target-group: auto;
 }
@@ -65,6 +77,29 @@
     :where(.group):has(a:hover) & {
       @slot;
     }
+  }
+}
+
+/*
+  Snapping to the cell grid when a size comes from content (Hero, stacked layout).
+  block-size-cells: the element's own height, rounded up to whole cells (MWG
+  calculate-with-intrinsic-sizes: calc-size() on auto). Chromium only (Limited
+  availability): elsewhere the height stays auto, the layout as it was, only off the grid
+  lines; a decorative alignment, so no fallback beyond that.
+  w-half-cells: half the parent's width rounded up to whole cells, so a pair of controls
+  splits on a grid line even across an odd number of cells; plain 50% without round().
+*/
+@utility block-size-cells {
+  @supports (block-size: calc-size(auto, size + 0px)) {
+    block-size: calc-size(auto, round(up, size, var(--cell)));
+  }
+}
+
+@utility w-half-cells {
+  width: 50%;
+
+  @supports (width: round(1px, 1px)) {
+    width: round(up, 50%, var(--cell));
   }
 }
 

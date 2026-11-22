@@ -43,9 +43,9 @@
     "play": "流れる帯を再生"
   },
   "work": {
-    "number": "",
-    "title": "",
-    "subtitle": "",
+    "number": "02.",
+    "title": "制作実績",
+    "subtitle": "2023〜2026年のクライアントワークと自作ツール。",
     "role": "担当",
     "code": "コード",
     "live": "公開サイト",
@@ -53,29 +53,40 @@
     "private": "非公開",
     "counter": "全{total}件中{index}件目",
     "stackLabel": "使用技術",
-    "previous": "",
-    "next": "",
-    "dragHint": "",
+    "carousel": "カルーセル",
+    "slide": "スライド",
+    "slideLabel": "{total}件中{index}件目",
+    "trackLabel": "プロジェクト",
+    "listLabel": "プロジェクトを選ぶ",
+    "previous": "前へ",
+    "next": "次へ",
+    "previousLabel": "前のプロジェクト",
+    "nextLabel": "次のプロジェクト",
     "projects": {
-      "logistics": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "eyewear": {
+        "title": "アイウェアECのWebパフォーマンス",
+        "description": "グローバルなアイウェアブランドのECサイトでWebパフォーマンスを担当。WebPageTest、Grafana、Contentsquare、Core Web Vitalsのフィールドデータで監視・監査を行い、優先度を付けたチケットとして開発チームに共有。新機能はキックオフ時にパフォーマンス予算を設定。定例のパフォーマンス会議を主導し、Core Web Vitalsの戦略についてGoogleと直接連携。",
+        "role": "Webパフォーマンスアナリスト、{year}年"
       },
-      "commerce": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "ai": {
+        "title": "AIを活用したパフォーマンスレポート",
+        "description": "アイウェア案件から生まれ、どのサイトにも使える自作のPythonツール「performance-report」。ヘッドレスChromiumでデバイス・回線条件ごとにページを計測し、Grafanaの実ユーザーデータを加え、パフォーマンスの知識ベースに基づくLLMが結果を解説し、決まった構成のPDFレポートを出力。仕様書をもとにAIコーディングエージェントで開発し、テスト812件とCIを整備。Next.js、アクセシビリティ、セマンティックHTML、CSS、GEO、Webパフォーマンス向けに作成したエージェントスキルも同じリポジトリで公開予定。",
+        "role": "個人開発、{year}年"
       },
-      "clinic": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "fashion": {
+        "title": "ラグジュアリーファッションEC",
+        "description": "イタリアのラグジュアリーファッションブランド2社のWeb・ECサイトでフロントエンド機能を開発。新規セクション、Storybookによる共通コンポーネントライブラリ、フロントエンドからのGraphQL API連携を担当。",
+        "role": "フロントエンドエンジニア、{year}年"
       },
-      "cli": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "appliances": {
+        "title": "家電ECサイト",
+        "description": "家電ブランドのECサイトにSpeculation Rules API（プリフェッチ・プリレンダリング）を導入し、ページ表示を高速化。商品一覧・商品詳細ページを再構築し、Google Analyticsで計測するA/Bテスト用コンポーネントを追加。別の家電ブランドのECサイトでは、ドイツ・スペインのチームと共同でフロントエンドを開発。",
+        "role": "フロントエンドエンジニア、{year}年"
+      },
+      "ticketing": {
+        "title": "イベントチケット販売プラットフォーム",
+        "description": "フルスタックで担当。イベントの閲覧とチケット購入ができる公開サイト（安全な決済ゲートウェイ連携を含む）と、それを支えるバックエンド・管理画面を、設計からリリースまで一貫して開発。",
+        "role": "Webエンジニア、{year}年"
       }
     }
   },

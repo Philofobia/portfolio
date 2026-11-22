@@ -107,7 +107,15 @@ export function Hero() {
           </p>
 
           <div className={cn("flex", heroPlacement.ctas)}>
-            <Button variant="primary" size="cta" href="#work" icon="↓">
+            <Button
+              variant="primary"
+              size="cta"
+              href="#work"
+              icon="↓"
+              // Below 48rem the pair shares the row: whole cells for the first, the rest
+              // for the second, so their border falls on a grid line (7 cells: 4 + 3).
+              className="max-md:w-half-cells max-md:flex-none"
+            >
               {t("ctaWork")}
             </Button>
             <Button

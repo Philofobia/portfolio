@@ -2,8 +2,9 @@
  * 12 ProjectCard (organisms/ProjectCard), mirroring the design library's section: the row
  * layout (desktop), the stack layout (the same card in a narrow container: the layout
  * follows the card's own width), and a card with no public link ("Private —").
- * Specimen copy is the design's; the Work section will take it from messages. The photos
- * are mood pictures, not the products, so their alt is empty (decorative).
+ * Specimen copy is the design's; the Work section takes its copy from messages and shows the
+ * cards in its carousel (organisms/WorkCarousel). The photos are mood pictures, not the
+ * products, so their alt is empty (decorative).
  */
 import { ProjectCard } from "@/components/organisms/ProjectCard";
 import { Story, StoryRow, StoryTable } from "../_components/Story";
@@ -20,12 +21,13 @@ export function ProjectCardStories() {
       file="organisms/ProjectCard · uses 02, 04, 05"
     >
       <p className="max-w-measure text-ink-2">
-        Stacked vertically, 75px apart.{" "}
+        The design library stacks the cards;{" "}
         <span className="text-ink">
-          No carousel, no pinning, no horizontal scroll.
+          the site shows them in the Work carousel
         </span>{" "}
-        Only motion: the card fades up 24px once when it enters, the image
-        scales 1.04 → 1 inside its inset.
+        (Portfolio Wireframes 7a), one card per slide. Only motion: the card
+        fades up 24px once when it enters, the image scales 1.04 → 1 inside its
+        inset (in the carousel, as the card slides in).
       </p>
 
       <figure className="flex flex-col gap-2">
@@ -36,7 +38,7 @@ export function ProjectCardStories() {
           description="Realtime shipment tracking: event ingestion, a Postgres timeline and a map-first dashboard."
           role="Solo build, [2025]"
           image={{
-            src: "/images/work-logistics.webp",
+            src: "/images/work-performance.webp",
             alt: "",
           }}
           icons={[
@@ -63,7 +65,7 @@ export function ProjectCardStories() {
             description="[One-line summary.]"
             role="Frontend lead, [2024]"
             image={{
-              src: "/images/work-commerce.webp",
+              src: "/images/work-fashion.webp",
               alt: "",
             }}
             icons={["typescript", "react", "graphql", "stripe"]}
@@ -109,7 +111,7 @@ export function ProjectCardStories() {
           description="[One-line summary.]"
           role="Fullstack, [2023]"
           image={{
-            src: "/images/texture-servers.webp",
+            src: "/images/work-ticketing.webp",
             alt: "",
           }}
           icons={["go", "postgresql"]}

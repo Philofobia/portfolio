@@ -38,7 +38,14 @@ const pages = ["/en", "/jp"];
 // largest number of render-blocking requests (today: the one CSS file).
 const KB = 1024;
 const BUDGETS = {
-  html: 15 * KB,
+  // The skill's 15 KB assumes plain HTML; it asks for a project figure when the page embeds
+  // a serialised payload, as every App Router page does (the RSC payload after </body>
+  // repeats the server-rendered content, so each section counts about twice). Header, Hero
+  // and Work measured 15.2 KB /en, 16.7 KB /jp (2026-11-22); the hero image is referenced
+  // in the first 0.3 KB, the payload comes after everything visible. Raised in steps, not
+  // to the final ~30–35 KB at once: set it to the heavier locale + ~10% as each section
+  // lands, so it keeps catching accidental growth. The budget guards growth.
+  html: 20 * KB,
   css: 60 * KB,
   // The skill's 150 KB is below this stack's floor: the Next 16 + React 19 runtime alone
   // is ~160 KB, and the page measured 165 KB (2026-11-20). The budget guards growth.

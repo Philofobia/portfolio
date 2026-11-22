@@ -79,6 +79,9 @@
   test filters out browsers with partial support.
   .reveal-rise: fades in and rises 24px (SectionHeading lines, ProjectCard).
   .reveal-zoom: scales 1.04 → 1 inside its frame (ProjectCard image).
+  .reveal-zoom-inline: the same, as a card slides into a horizontal scroller (the Work
+  carousel, MWG carousel-slide-effects). Inside the track the nearest scroller is the track,
+  which never scrolls vertically, so a block-axis view() would stay inactive there.
 */
 @keyframes reveal-rise {
   from {
@@ -105,6 +108,12 @@
       .reveal-zoom {
         animation: reveal-zoom auto linear both;
         animation-timeline: view();
+        animation-range: entry 0% cover 50%;
+      }
+
+      .reveal-zoom-inline {
+        animation: reveal-zoom auto linear both;
+        animation-timeline: view(inline);
         animation-range: entry 0% cover 50%;
       }
     }

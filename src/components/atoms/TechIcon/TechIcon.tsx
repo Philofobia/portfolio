@@ -5,7 +5,7 @@
  * (see molecules/TechTag). Size comes from the map, not from className.
  * Glyphs are mono grey (text-icon), never brand colours.
  */
-import { techSymbolId, type TechId } from "@/lib/tech-icons";
+import { spriteHref, techSymbolId, type TechId } from "@/lib/tech-icons";
 
 const sizeClass = {
   // Design: 16 on 12px text, 14 on 11px (m); scales with the tag's text.
@@ -23,7 +23,7 @@ export function TechIcon({ id, size }: { id: TechId; size: TechIconSize }) {
       focusable="false"
       className={`${sizeClass[size]} shrink-0 fill-current text-icon`}
     >
-      <use href={`/tech-sprite.svg#${techSymbolId(id)}`} />
+      <use href={`${spriteHref}#${techSymbolId(id)}`} />
     </svg>
   );
 }

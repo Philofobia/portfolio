@@ -43,9 +43,9 @@
     "play": "Play the scrolling band"
   },
   "work": {
-    "number": "",
-    "title": "",
-    "subtitle": "",
+    "number": "02.",
+    "title": "Selected work",
+    "subtitle": "Client work and my own tooling, 2023–2026.",
     "role": "Role",
     "code": "Code",
     "live": "Live",
@@ -53,29 +53,40 @@
     "private": "Private",
     "counter": "Project {index} of {total}",
     "stackLabel": "Built with",
-    "previous": "",
-    "next": "",
-    "dragHint": "",
+    "carousel": "carousel",
+    "slide": "slide",
+    "slideLabel": "{index} of {total}",
+    "trackLabel": "Projects",
+    "listLabel": "Jump to a project",
+    "previous": "Previous",
+    "next": "Next",
+    "previousLabel": "Previous project",
+    "nextLabel": "Next project",
     "projects": {
-      "logistics": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "eyewear": {
+        "title": "Eyewear web performance",
+        "description": "Web performance for a global eyewear brand's e-commerce site. Audits with WebPageTest, Grafana, Contentsquare and Core Web Vitals field data become prioritised tickets for the development teams, and performance budgets are set when a feature starts, not after launch. I lead the recurring performance reviews and work with Google on the Core Web Vitals strategy.",
+        "role": "Web performance analyst, {year}"
       },
-      "commerce": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "ai": {
+        "title": "AI-assisted performance reports",
+        "description": "performance-report: a Python tool that came out of the eyewear work and runs on any site. Headless Chromium measures pages across device and network profiles, Grafana adds real-user data, and an LLM grounded in a performance knowledge base explains the results in a fixed-structure PDF. Built with AI coding agents from written specs, with 812 tests and CI. The agent skills I wrote for Next.js, accessibility, semantic HTML, CSS, GEO and web performance will be published in the same repository.",
+        "role": "Own project, {year}"
       },
-      "clinic": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "fashion": {
+        "title": "Luxury fashion e-commerce",
+        "description": "Front-end features for the web and e-commerce sites of two Italian luxury fashion brands: new site sections, a shared component library in Storybook, and GraphQL API integration on the front end.",
+        "role": "Frontend engineer, {year}"
       },
-      "cli": {
-        "title": "",
-        "description": "",
-        "role": ""
+      "appliances": {
+        "title": "Home-appliance e-commerce",
+        "description": "Faster page loads on a home-appliance brand's e-commerce site with the Speculation Rules API (prefetching and prerendering). I rebuilt the product listing and product detail pages and added A/B-test components tracked in Google Analytics. On a second appliance brand's site, front-end work with teams in Germany and Spain.",
+        "role": "Frontend engineer, {year}"
+      },
+      "ticketing": {
+        "title": "Event ticketing platform",
+        "description": "Full-stack: the public website where visitors browse events and buy tickets, with a secure payment-gateway integration, and the backend and back office behind it. Designed and shipped end to end.",
+        "role": "Web engineer, {year}"
       }
     }
   },

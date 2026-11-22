@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
         path: "**/src/app/globals.css",
         description: /'target-current' is not recognized/,
       },
+      {
+        // Same for ::scroll-button(): the Work carousel's native prev/next
+        // (src/styles/carousel.css), behind @supports selector(::scroll-button(*)), with
+        // script-driven buttons as the fallback.
+        path: "**/src/app/globals.css",
+        description: /'scroll-button' is not recognized/,
+      },
     ],
   },
   async headers() {
@@ -54,7 +61,9 @@ const nextConfig: NextConfig = {
       },
       {
         // Next only sends s-maxage (CDN) for a static route; let browsers keep the
-        // icon sprite too. Unversioned URL, so a day, then revalidate in the background.
+        // icon sprite too. A day, then revalidate in the background. TechIcon requests it
+        // with ?v= (lib/tech-icons spriteHref), which changes with the icon set, so a new
+        // icon never meets a cached sprite without it.
         source: "/tech-sprite.svg",
         headers: [
           {
