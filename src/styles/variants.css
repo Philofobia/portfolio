@@ -81,6 +81,29 @@
 }
 
 /*
+  Snapping to the cell grid when a size comes from content (Hero, stacked layout).
+  block-size-cells: the element's own height, rounded up to whole cells (MWG
+  calculate-with-intrinsic-sizes: calc-size() on auto). Chromium only (Limited
+  availability): elsewhere the height stays auto, the layout as it was, only off the grid
+  lines; a decorative alignment, so no fallback beyond that.
+  w-half-cells: half the parent's width rounded up to whole cells, so a pair of controls
+  splits on a grid line even across an odd number of cells; plain 50% without round().
+*/
+@utility block-size-cells {
+  @supports (block-size: calc-size(auto, size + 0px)) {
+    block-size: calc-size(auto, round(up, size, var(--cell)));
+  }
+}
+
+@utility w-half-cells {
+  width: 50%;
+
+  @supports (width: round(1px, 1px)) {
+    width: round(up, 50%, var(--cell));
+  }
+}
+
+/*
   Whole-cell sizes: h-cells-2, min-h-cells-3, w-cells-6, size-cells-2… are N × --cell, so a
   module stays on the grid at both cell sizes (75 desktop, 50 mobile). One cell is h-cell.
 */

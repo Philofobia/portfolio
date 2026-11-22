@@ -19,13 +19,18 @@
  *   above the headline it labels. The subtitle shares the headline's row (same middle),
  *   the CTA pair ends on the emblem's bottom edge; the outer rows keep the composition off
  *   the header and the marquee;
+ * - stacked (below 12 cells): the text flows, so its height is any number of pixels; the
+ *   column is rounded up to whole cells (block-size-cells) and the CTA pair, one cell high,
+ *   is pushed to its foot above one cell of padding, so the pair and the marquee under it
+ *   sit on grid lines. The rounding slack (under one cell) goes above the CTAs. Chromium
+ *   only (calc-size()); elsewhere the column keeps its content height;
  * - split: the emblem moves down one row so its top meets the headline's and its bottom
  *   the CTA pair's (rows 3–8); the subtitle follows the headline at the top of its row; the
  *   CTAs stay in the text column, one cell clear of the emblem, never under it.
  */
 
 export const heroGrid =
-  "flex flex-col gap-5 pt-7.5 pb-10 md:gap-6 md:py-cell @hero-split:grid @hero-split:grid-cols-[1fr_repeat(12,var(--cell))_1fr] @hero-split:grid-rows-[repeat(9,minmax(var(--cell),auto))] @hero-split:gap-0 @hero-split:py-0 @hero-wide:grid-cols-[1fr_repeat(16,var(--cell))_1fr] @hero-wide:grid-rows-[var(--cell)_1fr_auto_var(--cell-pad)_auto_1fr_auto_1fr_var(--cell)]";
+  "flex flex-col gap-5 pt-7.5 pb-cell md:gap-6 md:py-cell @max-hero-split:block-size-cells @hero-split:grid @hero-split:grid-cols-[1fr_repeat(12,var(--cell))_1fr] @hero-split:grid-rows-[repeat(9,minmax(var(--cell),auto))] @hero-split:gap-0 @hero-split:py-0 @hero-wide:grid-cols-[1fr_repeat(16,var(--cell))_1fr] @hero-wide:grid-rows-[var(--cell)_1fr_auto_var(--cell-pad)_auto_1fr_auto_1fr_var(--cell)]";
 
 export const heroPlacement = {
   availability:
@@ -38,5 +43,5 @@ export const heroPlacement = {
     "w-full md:w-cells-6 @hero-split:col-[8/14] @hero-split:row-[3/9] @hero-wide:col-[7/13] @hero-wide:row-[2/9]",
   intro:
     "@hero-split:col-[2/7] @hero-split:row-[6/8] @hero-split:self-start @hero-wide:col-[2/6] @hero-wide:row-[7/8]",
-  ctas: "@hero-split:col-[2/7] @hero-split:row-start-8 @hero-wide:col-[13/18] @hero-wide:row-[7/9] @hero-wide:self-end @hero-wide:justify-end",
+  ctas: "@max-hero-split:mt-auto @hero-split:col-[2/7] @hero-split:row-start-8 @hero-wide:col-[13/18] @hero-wide:row-[7/9] @hero-wide:self-end @hero-wide:justify-end",
 } as const;

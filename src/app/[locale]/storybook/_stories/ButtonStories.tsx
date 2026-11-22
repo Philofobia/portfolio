@@ -14,7 +14,11 @@ const sizes: { size: ButtonSize; label: string; use: string }[] = [
   { size: "lg", label: "lg · 75", use: "Desktop hero" },
   { size: "md", label: "md · 56", use: "Mobile CTA" },
   { size: "sm", label: "sm · 50", use: "Card actions" },
-  { size: "cta", label: "cta · 56 → 75", use: "Hero pair (md, lg from 48rem)" },
+  {
+    size: "cta",
+    label: "cta · one cell, 50 → 75",
+    use: "Hero pair (md, lg from 48rem)",
+  },
 ];
 
 const icons: { icon: ButtonIcon; text: string }[] = [

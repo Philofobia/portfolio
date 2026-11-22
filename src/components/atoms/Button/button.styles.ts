@@ -28,8 +28,10 @@ const sizeClass: Record<ButtonSize, string> = {
   // Card actions that follow the card's own width (an @container ancestor): sm and sharing
   // the row below a 48rem container (ProjectCard stack), lg at 150 wide from it (row).
   card: "h-cell-sm flex-1 text-ui-sm @3xl:h-cell-lg @3xl:flex-none @3xl:text-ui",
-  // The hero's CTA pair: md, sharing the row on mobile (Portfolio Mobile); lg at 150 wide from 48rem.
-  cta: "h-bar flex-1 text-ui md:h-cell-lg md:flex-none",
+  // The hero's CTA pair: one cell high (50, 75 from 48rem) so it sits on the grid's rows,
+  // sharing the row on mobile; 150 wide from 48rem. (Portfolio Mobile: 56 high, the bar; one
+  // cell instead, still a large touch target.)
+  cta: "h-cell flex-1 text-ui md:flex-none",
 };
 
 const nudgeClass: Record<ButtonIcon, string> = {
