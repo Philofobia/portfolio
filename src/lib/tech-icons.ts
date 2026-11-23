@@ -4,24 +4,40 @@
  * sprite served by app/tech-sprite.svg/route.ts (built from simple-icons, never the CDN),
  * so this file carries no path data and is safe to import from client components.
  * The component that draws a glyph is atoms/TechIcon.
+ *
+ * As built: two lists. iconTechNames have a glyph in the sprite (IconTechId, the only ids
+ * TechIcon and the ProjectCard rail take); textTechNames have none, because simple-icons
+ * holds no mark for them (Microsoft Teams and Slack were removed at the brands' request;
+ * Agile is a method; WebPageTest and Contentsquare are not in the set), so TechTag draws
+ * them with a plain square. TechId is either.
+ * Two keys name a product rather than its slug, drawn with its maker's mark:
+ * chromedevtools (Chrome's glyph: the tool is DevTools, not the browser) and mpulse
+ * (Akamai's glyph: mPulse is Akamai's real-user monitoring).
  */
 
-// Keys are the simple-icons slugs (the design's `slug` prop); values the design's labels.
-const techNames = {
+// Keys are the simple-icons slugs (the design's `slug` prop) unless noted above; values
+// the design's labels.
+const iconTechNames = {
+  chromedevtools: "DevTools",
   claude: "Claude",
+  confluence: "Confluence",
   docker: "Docker",
+  express: "Express",
+  figma: "Figma",
   git: "Git",
   github: "GitHub",
   githubactions: "Actions",
   go: "Go",
   googleanalytics: "Analytics",
-  googlechrome: "Chrome",
   googlecloud: "GCP",
   googlegemini: "Gemini",
   grafana: "Grafana",
   graphql: "GraphQL",
   greensock: "GSAP",
   jira: "Jira",
+  linux: "Linux",
+  mongodb: "MongoDB",
+  mpulse: "mPulse",
   nestjs: "NestJS",
   nextdotjs: "Next.js",
   nodedotjs: "Node.js",
@@ -33,20 +49,36 @@ const techNames = {
   sqlite: "SQLite",
   storybook: "Storybook",
   stripe: "Stripe",
+  tailwindcss: "Tailwind",
   terraform: "Terraform",
+  typeorm: "TypeORM",
   typescript: "TypeScript",
 } as const;
 
-export type TechId = keyof typeof techNames;
+const textTechNames = {
+  agile: "Agile",
+  contentsquare: "Contentsquare",
+  slack: "Slack",
+  teams: "Teams",
+  webpagetest: "WebPageTest",
+} as const;
 
-export const techIds = Object.keys(techNames) as TechId[];
+export type IconTechId = keyof typeof iconTechNames;
+export type TechId = IconTechId | keyof typeof textTechNames;
+
+/** The ids with a glyph in the sprite (the storybook draws them all). */
+export const techIds = Object.keys(iconTechNames) as IconTechId[];
+
+export function hasIcon(id: TechId): id is IconTechId {
+  return id in iconTechNames;
+}
 
 /** Display name: proper nouns, the same in every locale. */
 export function techName(id: TechId) {
-  return techNames[id];
+  return hasIcon(id) ? iconTechNames[id] : textTechNames[id];
 }
 
-export const techSymbolId = (id: TechId) => `tech-${id}`;
+export const techSymbolId = (id: IconTechId) => `tech-${id}`;
 
 /**
  * The sprite's URL, versioned by the icon set (a short hash of the ids). The sprite is

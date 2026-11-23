@@ -86,6 +86,26 @@
     }
   }
 
+  /*
+    Only the photo on screen loads until the visitor engages with the carousel. Lazy
+    images load within ~1250px of the viewport, so the next slide's photo, just off to the
+    right, would load for every visitor, including the many who scroll past: until then
+    the other slides' photos are not rendered (display: none: never fetched). WorkCarousel
+    sets data-engaged when the pointer enters the carousel, focus arrives in it or the
+    track scrolls; from then on lazy loading works as usual and keeps about one slide
+    ahead, so the next photo is loading before the swipe. A slide the URL points to
+    (#project-…, :target) keeps its photo. Only with scripting: without JavaScript nothing
+    would ever set data-engaged, so every photo loads as before. The frames keep their
+    size, so nothing shifts when a photo appears.
+    This reaches into the slides' markup (ProjectCard's <img>) on purpose: loading is the
+    carousel's concern, and the card stays unaware of where it is shown.
+  */
+  @media (scripting: enabled) {
+    .carousel-track:not([data-engaged]) > :not(:first-child, :target) img {
+      display: none;
+    }
+  }
+
   /* The caption reel: one line per slide, moved by --carousel-index (the script) or by
      the track's scroll timeline (below). */
   .carousel-reel {

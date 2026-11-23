@@ -48,7 +48,11 @@ export function Work() {
   });
 
   return (
-    <section id="work" aria-labelledby="work-title" className="pt-section">
+    <section
+      id="work"
+      aria-labelledby="work-title"
+      className="-scroll-mt-cell pt-section md:-scroll-mt-section"
+    >
       <div className="grid-container">
         <SectionHeading
           index={t("number")}

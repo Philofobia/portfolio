@@ -11,7 +11,12 @@
  * Chrome comes from CHROME_PATH or a usual install path; puppeteer-core downloads none.
  *
  * What fails the check is what does not move between runs on a shared CI machine:
- * - bytes over the wire per type, against the web-performance skill's budgets;
+ * - bytes over the wire per type for what every page shares (JavaScript, CSS, fonts),
+ *   against the web-performance skill's budgets tuned to this project (BUDGETS);
+ * - each section of <main> at most 20 KB (30 KB for Work, the image showcase: its HTML
+ *   share + the images it loads), and
+ *   everything a visit loads once every section has scrolled in: a separate, unthrottled
+ *   load per page at a phone and a retina desktop viewport (measureSections);
  * - the LCP element: not lazy-loaded, and inside #hero once the page renders the Hero;
  * - CLS ≤ 0.1, the median of the runs (layout shift barely varies in a lab run);
  * - render-blocking requests: no more than BUDGETS.renderBlocking.
@@ -28,33 +33,60 @@ import { existsSync } from "node:fs";
 import { appendFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
+import { gzipSync } from "node:zlib";
 import puppeteer, { PredefinedNetworkConditions } from "puppeteer-core";
 
 const root = new URL("..", import.meta.url).pathname;
 // The URLs, not the locale codes: ja is served under /jp (src/i18n/routing.ts).
 const pages = ["/en", "/jp"];
 
-// Bytes over the wire for one cold load (web-performance SKILL.md, "Budgets"), and the
-// largest number of render-blocking requests (today: the one CSS file).
+// Bytes over the wire (web-performance SKILL.md, "Budgets", tuned to this project), and
+// the largest number of render-blocking requests (today: the one CSS file).
+// The page is budgeted in two layers, as Marco set them (2026-11-23):
+// - what every page shares: Next/React JavaScript, CSS, fonts;
+// - each section of <main>, at most 20 KB: its share of the HTML plus the images it loads
+//   once it scrolls into view (measureSections).
+// The page-wide HTML figure is reported, not checked: it grows by design with every
+// section, and the section budget is what guards it now.
 const KB = 1024;
 const BUDGETS = {
-  // The skill's 15 KB assumes plain HTML; it asks for a project figure when the page embeds
-  // a serialised payload, as every App Router page does (the RSC payload after </body>
-  // repeats the server-rendered content, so each section counts about twice). Header, Hero
-  // and Work measured 15.2 KB /en, 16.7 KB /jp (2026-11-22); the hero image is referenced
-  // in the first 0.3 KB, the payload comes after everything visible. Raised in steps, not
-  // to the final ~30–35 KB at once: set it to the heavier locale + ~10% as each section
-  // lands, so it keeps catching accidental growth. The budget guards growth.
-  html: 20 * KB,
+  section: 20 * KB,
+  // Sections allowed more, by id. Work is the image showcase: one project photo is ~19 KB
+  // at 2x on its own (Marco, 2026-11-23).
+  sectionOverrides: { work: 30 * KB },
   css: 60 * KB,
   // The skill's 150 KB is below this stack's floor: the Next 16 + React 19 runtime alone
-  // is ~160 KB, and the page measured 165 KB (2026-11-20). The budget guards growth.
-  js: 175 * KB,
+  // is ~160 KB, and the page measured 165 KB (2026-11-20). The budget guards growth:
+  // +1 KB on 2026-11-23 for the Work carousel's photo loading (WorkCarousel, ~0.3 KB),
+  // measured 175.1 KB.
+  js: 176 * KB,
+  // Per page: Geist and Geist Mono everywhere, plus IBM Plex Sans JP's small shared subset
+  // on /en and its complete subset on /jp (scripts/jp-font.mjs). Measured + ~10%
+  // (2026-11-23: 69.5 / 125 KB).
+  fonts: { "/en": 75 * KB, "/jp": 135 * KB },
   heroImage: 150 * KB,
   thirdPartyJs: 100 * KB,
-  total: 500 * KB,
+  // Every byte a visit can load: the first view, then every section scrolled into view
+  // (the lazy images), at the heavier of the two section viewports. Shared ~310 KB
+  // (2026-11-23) + seven sections.
+  totalScrolled: 450 * KB,
   cls: 0.1,
   renderBlocking: 1,
+};
+
+// What a section adds to the page's gzipped HTML, per byte of its own markup gzipped
+// alone: its markup and the RSC payload's copy of it, which compress against each other.
+// Measured by building the page with and without the Stack section (2026-11-23): /en
+// +3.7 KB for 2.3 KB alone (1.6), /jp +4.0 KB for 2.6 KB (1.54). Re-measure when a
+// section differs much in kind (a long list, mostly attributes).
+const HTML_SHARE = 1.6;
+
+// The section pass (one load per viewport, unthrottled: bytes do not depend on the
+// network): a phone, as the vitals runs, and a retina desktop, where the layouts load
+// their largest images (the Stack grid's second photo, 2x sources).
+const SECTION_VIEWPORTS = {
+  phone: { width: 412, height: 823, deviceScaleFactor: 1.75, isMobile: true },
+  desktop: { width: 1600, height: 1000, deviceScaleFactor: 2 },
 };
 
 // The LCP must be inside this element, once the page has it (the Hero section is not on
@@ -282,6 +314,102 @@ async function load(browser, url, tracePath) {
   return { ...vitals, bytes };
 }
 
+/**
+ * Loads `url` once at `viewport` and scrolls every section of <main> into view, so its lazy
+ * images load. Per section: its HTML share, the section's markup in the server HTML gzipped
+ * on its own, times HTML_SHARE (the RSC payload after </body> repeats it, but the two
+ * copies compress together), and the bytes of the images it shows
+ * (each <img>'s currentSrc: hidden ones load nothing). An image in a horizontal scroller
+ * (the Work carousel) counts once its slide is near: what a visitor who does not swipe
+ * loads. Also returns every byte the page loaded by then.
+ */
+async function measureSections(browser, url, viewport) {
+  const context = await browser.createBrowserContext();
+  const page = await context.newPage();
+  await page.setViewport(viewport);
+  // Instant scrolling: no smooth-scroll animation between sections.
+  await page.emulateMediaFeatures([
+    { name: "prefers-reduced-motion", value: "reduce" },
+  ]);
+  const urls = new Map();
+  const bytesByUrl = new Map();
+  let total = 0;
+  const cdp = await page.createCDPSession();
+  await cdp.send("Network.enable");
+  cdp.on("Network.responseReceived", ({ requestId, response }) =>
+    urls.set(requestId, response.url),
+  );
+  cdp.on("Network.loadingFinished", ({ requestId, encodedDataLength }) => {
+    const requestUrl = urls.get(requestId);
+    if (!requestUrl || requestUrl.startsWith("data:")) return;
+    bytesByUrl.set(
+      requestUrl,
+      (bytesByUrl.get(requestUrl) ?? 0) + encodedDataLength,
+    );
+    total += encodedDataLength;
+  });
+
+  const response = await page.goto(url, {
+    waitUntil: "networkidle0",
+    timeout: 60_000,
+  });
+  const html = await response.text();
+  const ids = await page.$$eval("main section[id]", (sections) =>
+    sections.map((section) => section.id),
+  );
+  for (const id of ids) {
+    // From the section's top to its bottom, a screen at a time.
+    await page.evaluate(async (sectionId) => {
+      const section = document.getElementById(sectionId);
+      section.scrollIntoView({ block: "start" });
+      const bottom = section.getBoundingClientRect().bottom + scrollY;
+      while (
+        scrollY + innerHeight < bottom &&
+        scrollY + innerHeight < document.documentElement.scrollHeight
+      ) {
+        scrollBy(0, innerHeight * 0.8);
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+    }, id);
+    await page.waitForNetworkIdle({ idleTime: 500, timeout: 30_000 });
+  }
+
+  const sections = await page.evaluate((serverHtml) => {
+    const server = new DOMParser().parseFromString(serverHtml, "text/html");
+    return [...document.querySelectorAll("main section[id]")].map(
+      (section) => ({
+        id: section.id,
+        html: server.getElementById(section.id)?.outerHTML ?? "",
+        images: [
+          ...new Set(
+            [...section.querySelectorAll("img")]
+              .map((image) => image.currentSrc)
+              .filter(Boolean),
+          ),
+        ],
+      }),
+    );
+  }, html);
+  await context.close();
+
+  return {
+    total,
+    sections: sections.map((section) => {
+      const htmlBytes = Math.round(gzipSync(section.html).length * HTML_SHARE);
+      const imageBytes = section.images.reduce(
+        (sum, image) => sum + (bytesByUrl.get(image) ?? 0),
+        0,
+      );
+      return {
+        id: section.id,
+        html: htmlBytes,
+        images: imageBytes,
+        total: htmlBytes + imageBytes,
+      };
+    }),
+  };
+}
+
 function median(values) {
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
@@ -306,14 +434,14 @@ function evaluate(path, results) {
   const report = (name, value) => rows.push([name, value, "", "report"]);
 
   const bytes = (key) => median(results.map((result) => result.bytes[key]));
-  check("HTML", bytes("html"), BUDGETS.html, kb);
+  report("HTML (whole page)", kb(bytes("html")));
   check("CSS", bytes("css"), BUDGETS.css, kb);
   check("JavaScript", bytes("js"), BUDGETS.js, kb);
   check("Third-party JS", bytes("thirdPartyJs"), BUDGETS.thirdPartyJs, kb);
   if (results[0].lcp?.url)
     check("LCP image", bytes("heroImage"), BUDGETS.heroImage, kb);
-  report("Fonts", kb(bytes("font")));
-  check("Total", bytes("total"), BUDGETS.total, kb);
+  check("Fonts", bytes("font"), BUDGETS.fonts[path], kb);
+  report("Total, first view", kb(bytes("total")));
 
   check("CLS", median(results.map((result) => result.cls)), BUDGETS.cls, (v) =>
     v.toFixed(3),
@@ -384,6 +512,52 @@ function evaluate(path, results) {
   return { rows, failures };
 }
 
+/**
+ * The section budget: per section, the heavier of the two viewports. Also the total a
+ * visit can load once every section has scrolled in.
+ */
+function evaluateSections(path, byViewport) {
+  const failures = [];
+  const lines = [
+    `#### ${path} sections (HTML share + images, heavier viewport)`,
+    "",
+    "| Section | HTML (est.) | Images | Total | Budget | |",
+    "| --- | --- | --- | --- | --- | --- |",
+  ];
+  const ids = byViewport.phone.sections.map((section) => section.id);
+  for (const id of ids) {
+    const [viewport, worst] = Object.entries(byViewport)
+      .map(([name, result]) => [
+        name,
+        result.sections.find((section) => section.id === id),
+      ])
+      .filter(([, section]) => section)
+      .reduce((a, b) => (b[1].total > a[1].total ? b : a));
+    const budget = BUDGETS.sectionOverrides[id] ?? BUDGETS.section;
+    const ok = worst.total <= budget;
+    lines.push(
+      `| #${id} (${viewport}) | ${kb(worst.html)} | ${kb(worst.images)} | ${kb(worst.total)} | ${kb(budget)} | ${ok ? "ok" : "**over**"} |`,
+    );
+    if (!ok)
+      failures.push(
+        `${path}: #${id} ${kb(worst.total)} > ${kb(budget)} (${viewport})`,
+      );
+  }
+  const [viewport, scrolled] = Object.entries(byViewport).reduce((a, b) =>
+    b[1].total > a[1].total ? b : a,
+  );
+  const ok = scrolled.total <= BUDGETS.totalScrolled;
+  lines.push(
+    `| Total, every section scrolled in (${viewport}) | | | ${kb(scrolled.total)} | ${kb(BUDGETS.totalScrolled)} | ${ok ? "ok" : "**over**"} |`,
+    "",
+  );
+  if (!ok)
+    failures.push(
+      `${path}: total scrolled ${kb(scrolled.total)} > ${kb(BUDGETS.totalScrolled)} (${viewport})`,
+    );
+  return { markdown: lines.join("\n"), failures };
+}
+
 function table(path, rows) {
   return [
     `### ${path}`,
@@ -432,6 +606,17 @@ try {
     const result = evaluate(path, results);
     failures.push(...result.failures);
     markdown += table(path, result.rows) + "\n";
+
+    const byViewport = {};
+    for (const [name, viewport] of Object.entries(SECTION_VIEWPORTS))
+      byViewport[name] = await measureSections(
+        browser,
+        origin + path,
+        viewport,
+      );
+    const sections = evaluateSections(path, byViewport);
+    failures.push(...sections.failures);
+    markdown += sections.markdown + "\n";
   }
 } finally {
   await browser.close();

@@ -4,7 +4,13 @@
 */
 
 @layer base {
-  /* Anchor jumps land below the sticky header: one bar (56) on mobile, one cell from md. */
+  /* Anchor jumps land below the sticky header: one bar (56) on mobile, one cell from md.
+     Each section also skips most of its own top air (pt-section, two cells) with a
+     negative scroll-margin-top on the <section>: both cells from md, where its heading row
+     is a cell of its own and lands right under the header on the grid lines; one on
+     mobile, where the heading has no row and keeps one cell of air. Without that, a jump
+     left two empty cells above the heading and cut the section's foot off on 768–800px
+     tall screens (measured 2026-11-23). */
   html {
     scroll-padding-top: var(--bar);
   }

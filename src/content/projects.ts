@@ -15,13 +15,13 @@
  * from the CV still to be confirmed by Marco; eyewear from the CV's tool list; ai from the
  * repository.
  */
-import type { TechId } from "@/lib/tech-icons";
+import type { IconTechId } from "@/lib/tech-icons";
 
 export type Project = {
   slug: string;
   image: string;
   year: string;
-  tech: readonly TechId[];
+  tech: readonly IconTechId[];
   links: { code?: string; live?: string };
 };
 
@@ -30,7 +30,7 @@ export const projects = [
     slug: "eyewear",
     image: "/images/work-eyewear.webp",
     year: "2026",
-    tech: ["typescript", "nextdotjs", "grafana", "googlechrome", "jira"],
+    tech: ["typescript", "nextdotjs", "grafana", "chromedevtools", "jira"],
     links: {},
   },
   {
@@ -51,7 +51,13 @@ export const projects = [
     slug: "appliances",
     image: "/images/work-appliances.webp",
     year: "2025–26",
-    tech: ["typescript", "react", "graphql", "googlechrome", "googleanalytics"],
+    tech: [
+      "typescript",
+      "react",
+      "graphql",
+      "chromedevtools",
+      "googleanalytics",
+    ],
     links: {},
   },
   {

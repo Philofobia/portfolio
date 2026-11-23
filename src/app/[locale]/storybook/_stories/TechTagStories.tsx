@@ -1,21 +1,22 @@
 /**
  * 05 TechIcon · TechTag, mirroring the design library's section: cells in a horizontal
- * and a vertical rail (hover a cell for its label), the inline tag list, and every icon
+ * and a vertical rail (hover a cell for its label), the inline tag list (with text-only
+ * techs: the square), and every icon
  * in the registry so a missing or misdrawn glyph shows up here first.
  */
 import { TechTag } from "@/components/molecules/TechTag";
-import { techIds, type TechId } from "@/lib/tech-icons";
+import { techIds, type IconTechId, type TechId } from "@/lib/tech-icons";
 import { Story } from "../_components/Story";
 
-const cellRow: TechId[] = ["typescript", "nextdotjs", "postgresql"];
-const rail: TechId[] = [
+const cellRow: IconTechId[] = ["typescript", "nextdotjs", "postgresql"];
+const rail: IconTechId[] = [
   "typescript",
   "nextdotjs",
   "nodedotjs",
   "postgresql",
   "redis",
 ];
-const tags: TechId[] = ["typescript", "react", "go", "docker"];
+const tags: TechId[] = ["typescript", "react", "agile", "docker", "teams"];
 const all = techIds;
 
 export function TechTagStories() {
