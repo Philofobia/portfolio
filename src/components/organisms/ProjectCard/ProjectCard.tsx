@@ -17,7 +17,7 @@
  * Props: index / total (1-based), title, description, role, image { src, alt: '' for a
  * mood photo that does not show the product (WAI decorative images: ambiance / eye candy),
  * a description for a screenshot }, icons
- * (TechId[], max 5: empty rail slots stay blank cells), links { caseStudy?, code?, live? }
+ * (IconTechId[]: techs with a glyph, max 5: empty rail slots stay blank cells), links { caseStudy?, code?, live? }
  * (caseStudy an internal path, code / live external URLs; neither code nor live → a disabled
  * "Private —"), eager (the card's image is above the fold or the LCP).
  * Motion (CSS only, motion.css), by where the card sits (motion prop):
@@ -30,7 +30,9 @@
  * hidden from screen readers.
  * Image sizes assume the card spans the Work grid column: the row layout starts at a 48rem
  * card, which the even-cell column (45px gutters) reaches from a 990px viewport (12 cells);
- * below that the stacked image is nearly the column's width.
+ * below that the stacked image is nearly the column's width. The widest value is 37.5rem
+ * (600px), not the image's 605: at 2x that is exactly the 1200w candidate, where 608 asked
+ * for the 1920w file (about twice the bytes for no visible gain).
  */
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/atoms/Button";
@@ -38,7 +40,7 @@ import { Counter } from "@/components/atoms/Counter";
 import { MediaFrame } from "@/components/atoms/MediaFrame";
 import { TechTag } from "@/components/molecules/TechTag";
 import { cn } from "@/lib/cn";
-import type { TechId } from "@/lib/tech-icons";
+import type { IconTechId } from "@/lib/tech-icons";
 
 const RAIL_SLOTS = 5;
 
@@ -49,7 +51,7 @@ export type ProjectCardProps = {
   description: string;
   role: string;
   image: { src: string; alt: string };
-  icons: TechId[];
+  icons: IconTechId[];
   links: { caseStudy?: string; code?: string; live?: string };
   eager?: boolean;
   motion?: "page" | "slide";
@@ -85,7 +87,7 @@ export function ProjectCard({
           <MediaFrame
             src={image.src}
             alt={image.alt}
-            sizes="(min-width: 90rem) 38rem, (min-width: 61.875rem) calc(50vw - 7rem), (min-width: 48rem) calc(100vw - 7.5rem), 100vw"
+            sizes="(min-width: 90rem) 37.5rem, (min-width: 61.875rem) calc(50vw - 7rem), (min-width: 48rem) calc(100vw - 7.5rem), 100vw"
             eager={eager}
             imageClassName={
               motion === "page" ? "reveal-zoom" : "reveal-zoom-inline"

@@ -22,6 +22,21 @@ const contentSecurityPolicy = [
 const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
+  images: {
+    // AVIF first, WebP for browsers without it (chosen from the Accept header). At the
+    // default quality 75, Next's AVIF is about 40% lighter than its WebP with no visible
+    // loss on this site's photos (measured 2026-11-23); 60 is for decorative photos
+    // (atoms/MediaFrame). Next 16 serves only the listed values.
+    formats: ["image/avif", "image/webp"],
+    qualities: [60, 75],
+    // 31 days, not Next 16's 4 hours. Vercel's Hobby plan allows 5,000 transformations a
+    // month and counts one on every cache miss or stale entry; over the limit, new images
+    // fail (402) for the rest of the 30 days. The pages can ask for 88 variants (44 sizes
+    // and qualities × AVIF/WebP, measured 2026-11-23): re-made every 4 hours that could
+    // reach ~15,800 a month, re-made monthly it stays under 100. The source files never
+    // change in place: give a replaced photo a new file name.
+    minimumCacheTTL: 2678400,
+  },
   turbopack: {
     ignoreIssue: [
       {

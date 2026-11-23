@@ -1,7 +1,9 @@
 /**
- * 13 StackCell (molecules/StackGroupCard), mirroring the design library's section: the
- * desktop cell (static) and the mobile accordion (one group open at a time: the groups
- * share a <details> name). The accordion is live: open Backend and Frontend closes.
+ * 13 StackCell (molecules/StackGroupCard). One <details> is both variants: the accordion
+ * row here (the story has no @stack-split container, so it shows the mobile form; open one
+ * to see the content), and the cell inside the Stack section from 12 cells, where the
+ * summary is hidden and the content always shown. Tags mix techs with a glyph and
+ * text-only ones, which take the square.
  */
 import { StackGroupCard } from "@/components/molecules/StackGroupCard";
 import { Story } from "../_components/Story";
@@ -20,40 +22,27 @@ export function StackCellStories() {
         <figure className="flex flex-col gap-2">
           <div className="cells auto-rows-auto grid-cols-1">
             <StackGroupCard
-              index="A."
-              title="Frontend"
-              description="Typed, accessible interfaces that stay fast on mid-range phones."
-              techs={["typescript", "react"]}
-            />
-          </div>
-          <figcaption className={caption}>
-            variant=&quot;cell&quot; · desktop · static
-          </figcaption>
-        </figure>
-
-        <figure className="flex flex-col gap-2">
-          <div className="border-x border-t border-line">
-            <StackGroupCard
-              variant="accordion"
-              name="stack-story"
               open
               index="A."
               title="Frontend"
-              description="Typed, accessible interfaces that stay fast on mid-range phones."
-              techs={["typescript", "react", "nextdotjs", "greensock"]}
+              description="Most projects are e-commerce sites built with React and Next.js in TypeScript."
+              techs={["typescript", "react", "nextdotjs", "storybook"]}
             />
+          </div>
+          <figcaption className={caption}>open · glyph tags</figcaption>
+        </figure>
+
+        <figure className="flex flex-col gap-2">
+          <div className="cells auto-rows-auto grid-cols-1">
             <StackGroupCard
-              variant="accordion"
-              name="stack-story"
-              index="B."
-              title="Backend"
-              description="APIs with clear contracts, solid tests and uneventful deploys."
-              techs={["nodedotjs", "go", "graphql"]}
+              index="E."
+              title="Ways of working"
+              description="Agile teams in Italy, Germany and Spain, building from Figma designs."
+              techs={["agile", "jira", "confluence", "teams", "slack", "figma"]}
             />
           </div>
           <figcaption className={caption}>
-            variant=&quot;accordion&quot; · mobile · open / closed · one open at
-            a time (shared name)
+            closed · text-only techs take the square
           </figcaption>
         </figure>
       </div>

@@ -18,6 +18,10 @@
  *   width, height  a fixed thumbnail (CSS px): a 1x / 2x srcset only, much shorter in the
  *                  HTML (ProjectListItem's 96 × 58).
  * Either way the <img> is a static box sized by size-full inside the positioned frame.
+ * quality: 75 by default, served as AVIF where the browser takes it (next.config), about
+ * 40% lighter than WebP at the same setting with no visible loss. 60 is for decorative
+ * photos, where its slight softening does not show (the Stack photos). Only the values in
+ * next.config images.qualities are served.
  */
 import { getImageProps } from "next/image";
 import { cn } from "@/lib/cn";
@@ -28,6 +32,7 @@ export function MediaFrame({
   src,
   alt,
   eager = false,
+  quality = 75,
   className,
   imageClassName,
   ...sizing
@@ -35,6 +40,7 @@ export function MediaFrame({
   src: string;
   alt: string;
   eager?: boolean;
+  quality?: 60 | 75;
   className?: string;
   imageClassName?: string;
 } & Sizing) {
@@ -43,6 +49,7 @@ export function MediaFrame({
   } = getImageProps({
     src,
     alt,
+    quality,
     ...("sizes" in sizing
       ? { fill: true, sizes: sizing.sizes }
       : { width: sizing.width, height: sizing.height }),

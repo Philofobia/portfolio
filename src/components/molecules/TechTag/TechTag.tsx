@@ -6,23 +6,28 @@
  * sits in the DOM as its label and shows on hover (bg +4% · 200ms). The rail draws the
  * rules between cells (divide-y / divide-x on the <ul>), not the cell.
  * Icons are mono grey (text-icon), never brand colours.
+ * A tech without a glyph (lib/tech-icons textTechNames: Teams, Agile…) takes, as a tag, a
+ * 4px square centred in the icon's box (the design's list bullet, Experience), so names
+ * stay aligned in a list that mixes both. The cell rail exists to show glyphs, so as='cell'
+ * takes only an IconTechId (checked by the types).
  */
 import { cn } from "@/lib/cn";
 import { TechIcon } from "@/components/atoms/TechIcon";
-import { techName, type TechId } from "@/lib/tech-icons";
+import {
+  hasIcon,
+  techName,
+  type IconTechId,
+  type TechId,
+} from "@/lib/tech-icons";
 
-export function TechTag({
-  id,
-  as = "tag",
-  className,
-}: {
-  id: TechId;
-  as?: "tag" | "cell";
-  className?: string;
-}) {
+type TechTagProps = { className?: string } & (
+  { id: TechId; as?: "tag" } | { id: IconTechId; as: "cell" }
+);
+
+export function TechTag({ id, as = "tag", className }: TechTagProps) {
   const name = techName(id);
 
-  if (as === "cell") {
+  if (as === "cell" && hasIcon(id)) {
     return (
       <li
         className={cn(
@@ -47,7 +52,16 @@ export function TechTag({
         className,
       )}
     >
-      <TechIcon id={id} size="tag" />
+      {hasIcon(id) ? (
+        <TechIcon id={id} size="tag" />
+      ) : (
+        <span
+          aria-hidden="true"
+          className="grid size-[1.3333em] shrink-0 place-items-center"
+        >
+          <span className="size-1 bg-icon" />
+        </span>
+      )}
       {name}
     </li>
   );

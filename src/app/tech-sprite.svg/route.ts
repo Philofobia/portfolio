@@ -3,11 +3,16 @@
  * time from simple-icons. <TechIcon /> points at it with <use href="/tech-sprite.svg#…">,
  * so the path data is downloaded and cached once instead of riding in every page's HTML
  * and RSC payload. The dot in the path keeps it clear of the locale proxy.
- * The map must cover every TechId in lib/tech-icons (checked by `satisfies`).
+ * The map must cover every IconTechId in lib/tech-icons (checked by `satisfies`); two
+ * keys use another product's mark (chromedevtools → Chrome, mpulse → Akamai: tech-icons).
  */
 import {
+  siAkamai,
   siClaude,
+  siConfluence,
   siDocker,
+  siExpress,
+  siFigma,
   siGit,
   siGithub,
   siGithubactions,
@@ -20,6 +25,8 @@ import {
   siGraphql,
   siGreensock,
   siJira,
+  siLinux,
+  siMongodb,
   siNestjs,
   siNextdotjs,
   siNodedotjs,
@@ -31,29 +38,37 @@ import {
   siSqlite,
   siStorybook,
   siStripe,
+  siTailwindcss,
   siTerraform,
+  siTypeorm,
   siTypescript,
   type SimpleIcon,
 } from "simple-icons";
-import { techSymbolId, type TechId } from "@/lib/tech-icons";
+import { techSymbolId, type IconTechId } from "@/lib/tech-icons";
 
 export const dynamic = "force-static";
 
 const icons = {
+  chromedevtools: siGooglechrome,
   claude: siClaude,
+  confluence: siConfluence,
   docker: siDocker,
+  express: siExpress,
+  figma: siFigma,
   git: siGit,
   github: siGithub,
   githubactions: siGithubactions,
   go: siGo,
   googleanalytics: siGoogleanalytics,
-  googlechrome: siGooglechrome,
   googlecloud: siGooglecloud,
   googlegemini: siGooglegemini,
   grafana: siGrafana,
   graphql: siGraphql,
   greensock: siGreensock,
   jira: siJira,
+  linux: siLinux,
+  mongodb: siMongodb,
+  mpulse: siAkamai,
   nestjs: siNestjs,
   nextdotjs: siNextdotjs,
   nodedotjs: siNodedotjs,
@@ -65,15 +80,17 @@ const icons = {
   sqlite: siSqlite,
   storybook: siStorybook,
   stripe: siStripe,
+  tailwindcss: siTailwindcss,
   terraform: siTerraform,
+  typeorm: siTypeorm,
   typescript: siTypescript,
-} satisfies Record<TechId, SimpleIcon>;
+} satisfies Record<IconTechId, SimpleIcon>;
 
 export function GET() {
   const symbols = Object.entries(icons)
     .map(
       ([id, icon]) =>
-        `<symbol id="${techSymbolId(id as TechId)}" viewBox="0 0 24 24"><path d="${icon.path}"/></symbol>`,
+        `<symbol id="${techSymbolId(id as IconTechId)}" viewBox="0 0 24 24"><path d="${icon.path}"/></symbol>`,
     )
     .join("");
 

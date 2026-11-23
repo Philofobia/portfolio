@@ -25,6 +25,12 @@
  *   for little gain (on a phone, a row per project). Nothing is lost there: the same projects are the slides,
  *   each reachable by swipe, the arrows, Tab into its links, or a screen reader reading the
  *   track in order; the list is a shortcut, not the only way to a project.
+ * - Photos: until the visitor engages with the carousel (pointer over it, focus in it, the
+ *   track scrolled), only the slide on screen shows its photo, so a visitor who scrolls
+ *   past downloads one, not the two or three lazy loading would fetch (the slides sit
+ *   within its ~1250px margin). data-engaged then lets lazy loading work as usual, which
+ *   keeps about one slide ahead: on slide 1, photo 2 is already loading. The rule and its
+ *   no-JavaScript fallback are in styles/carousel.css.
  * Semantics (MWG carousel): the track is a focusable group with role description
  * "carousel" and a name; each slide a group, role description "slide", named by position.
  * The section around it is already the region (Work, aria-labelledby), so the carousel is
@@ -36,7 +42,13 @@
  * the bar follows the track in DOM order, as it does on screen; no live status region,
  * since every slide stays in the accessibility tree and nothing but the user moves them.
  */
-import { useRef, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { ProjectListItem } from "@/components/molecules/ProjectListItem";
 import { useCarousel } from "@/hooks/useCarousel";
 import { cn } from "@/lib/cn";
@@ -83,8 +95,35 @@ export function WorkCarousel({
   const { fallback, index, previous, next } = useCarousel(trackRef, count);
   const buttons = fallback?.buttons === true;
 
+  // The other slides' photos load once the visitor engages with the carousel
+  // (styles/carousel.css): the pointer enters it, focus arrives, or the track scrolls.
+  // From then on lazy loading keeps about one slide ahead. Checked once on mount too, for
+  // a visitor who hovered, tabbed in or swiped before hydration, when no listener existed.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [engaged, setEngaged] = useState(false);
+  useEffect(() => {
+    const root = rootRef.current;
+    const track = trackRef.current;
+    if (!root || !track || engaged) return;
+    if (
+      track.scrollLeft !== 0 ||
+      root.matches(":hover") ||
+      root.matches(":focus-within")
+    ) {
+      setEngaged(true);
+      return;
+    }
+    const controller = new AbortController();
+    const engage = () => setEngaged(true);
+    const options = { once: true, passive: true, signal: controller.signal };
+    root.addEventListener("pointerenter", engage, options);
+    root.addEventListener("focusin", engage, options);
+    track.addEventListener("scroll", engage, options);
+    return () => controller.abort();
+  }, [engaged]);
+
   return (
-    <div className={className}>
+    <div ref={rootRef} className={className}>
       <div
         className="carousel"
         style={
@@ -104,6 +143,7 @@ export function WorkCarousel({
           data-previous-label={labels.previousLabel}
           data-next={labels.next}
           data-next-label={labels.nextLabel}
+          data-engaged={engaged || undefined}
           className="carousel-track focus-visible:focus-ring"
         >
           {items.map((item) => (

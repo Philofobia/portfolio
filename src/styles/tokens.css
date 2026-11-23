@@ -32,6 +32,16 @@
   --container-hero-wide: 75rem;
 }
 
+/*
+  Stack layouts for its container queries (@stack-split:, @stack-wide:), on the grid
+  column: the groups as cells in two columns from 12 cells (900px), the design's 18-cell
+  composition at 18 (1350px). Below 12 they stack in one column.
+*/
+@theme {
+  --container-stack-split: 56.25rem;
+  --container-stack-wide: 84.375rem;
+}
+
 /* Only the design's colors exist as utilities; no radius, no shadows anywhere. */
 @theme {
   --color-*: initial;
@@ -58,11 +68,17 @@
   --color-accent-ring: var(--accent-ring);
   --color-on-accent: var(--on-accent);
 
-  /* Japanese falls through to Plex JP. */
-  --font-sans: var(--font-geist), var(--font-plex-jp), system-ui, sans-serif;
+  /* Japanese falls through to Plex JP: the shared subset first, then the Japanese page's
+     (layout.tsx: the English page only ever needs the first). */
+  --font-sans:
+    var(--font-geist), var(--font-plex-jp-shared), var(--font-plex-jp),
+    system-ui, sans-serif;
   --font-mono:
-    var(--font-geist-mono), var(--font-plex-jp), ui-monospace, monospace;
-  --font-jp: var(--font-plex-jp), var(--font-geist), sans-serif;
+    var(--font-geist-mono), var(--font-plex-jp-shared), var(--font-plex-jp),
+    ui-monospace, monospace;
+  --font-jp:
+    var(--font-plex-jp-shared), var(--font-plex-jp), var(--font-geist),
+    sans-serif;
 
   --text-display: var(--fs-display);
   --text-display--line-height: 1;
@@ -202,6 +218,15 @@
   --on-accent: #11132a;
   /* Hero emblem poster: the SVG is drawn in the dark --ink; the light theme inverts it. */
   --emblem-filter: none;
+}
+
+:root:lang(ja) {
+  /* The Japanese page draws all its Japanese from one Plex JP file per weight: the shared
+     subset's variable points at the complete face, so every stack above resolves to it
+     and the shared files are never downloaded there (scripts/jp-font.mjs). The stacks are
+     inlined into the utilities (@theme inline), so the variable is what can change. Its
+     next/font class sits on the same element: :root:lang(ja) outranks it. */
+  --font-plex-jp-shared: var(--font-plex-jp);
 }
 
 :root[data-theme="light"] {

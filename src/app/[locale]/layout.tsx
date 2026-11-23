@@ -38,6 +38,25 @@ const geistMono = Geist_Mono({
   preload: false,
 });
 
+// IBM Plex Sans JP in two subsets (scripts/jp-font.mjs): the few characters every locale
+// may show (shared) and the Japanese page's complete set. The English page's stacks list
+// shared first and this complete face second with a unicode-range over the Japanese
+// blocks: every character it shows is in the shared file, so it never downloads the large
+// one. The Japanese page's stacks leave shared out (tokens.css, :root:lang(ja)), so it
+// downloads one file per weight. Neither is preloaded: no Japanese is in the first paint's
+// critical path.
+const plexJpShared = localFont({
+  src: [
+    { path: "../../fonts/ibm-plex-sans-jp-shared-300.woff2", weight: "300" },
+    { path: "../../fonts/ibm-plex-sans-jp-shared-400.woff2", weight: "400" },
+  ],
+  variable: "--font-plex-jp-shared",
+  display: "swap",
+  preload: false,
+  // No Arial stand-in: it would sit between the two Plex faces in the stack.
+  adjustFontFallback: false,
+});
+
 const plexJp = localFont({
   src: [
     { path: "../../fonts/ibm-plex-sans-jp-300.woff2", weight: "300" },
@@ -46,6 +65,12 @@ const plexJp = localFont({
   variable: "--font-plex-jp",
   display: "swap",
   preload: false,
+  declarations: [
+    {
+      prop: "unicode-range",
+      value: "U+3000-30FF, U+31F0-31FF, U+3400-4DBF, U+4E00-9FFF, U+FF00-FFEF",
+    },
+  ],
 });
 
 export const dynamicParams = false;
@@ -80,7 +105,7 @@ export default async function RootLayout({
       lang={locale}
       // base.css scrolls smoothly (motion-safe); this makes Next jump instantly on route changes.
       data-scroll-behavior="smooth"
-      className={`${geist.variable} ${geistMono.variable} ${plexJp.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${plexJpShared.variable} ${plexJp.variable}`}
       suppressHydrationWarning
     >
       <head>

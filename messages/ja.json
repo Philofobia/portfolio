@@ -91,30 +91,29 @@
     }
   },
   "stack": {
-    "number": "",
-    "title": "",
-    "subtitle": "",
-    "marquee": [],
+    "number": "03.",
+    "title": "技術スタック",
+    "subtitle": "クライアントワークと個人開発で日々使っている技術。",
     "groups": {
       "frontend": {
-        "title": "",
-        "description": ""
+        "title": "フロントエンド",
+        "description": "主にReact・Next.jsとTypeScriptによるECサイトの開発。ラグジュアリーファッションブランド2社では、新しいサイトセクションとStorybookの共通コンポーネントライブラリを担当。"
       },
       "backend": {
-        "title": "",
-        "description": ""
+        "title": "バックエンド",
+        "description": "サーバー側はNode.js（NestJS・Express）。チケット販売プラットフォームの管理画面、予約システムのバックエンド、外部XMLサービスと連携するカート・販売・クーポン割引のマイクロサービスなどを開発。"
       },
       "data": {
-        "title": "",
-        "description": ""
+        "title": "データ・API",
+        "description": "REST APIの構築と、フロントエンドからのGraphQL連携。データベースはPrismaやTypeORMを通したSQLとMongoDB。自作の監査ツールでは計測結果をSQLiteに保存。"
       },
-      "infra": {
-        "title": "",
-        "description": ""
+      "performance": {
+        "title": "Webパフォーマンス",
+        "description": "現在の主な担当領域。Chrome DevToolsとWebPageTestで監査し、mPulse・Grafana・Contentsquareで実ユーザーのデータを確認。パフォーマンスバジェットは機能の企画段階でチームと決定。"
       },
       "ways": {
-        "title": "",
-        "description": ""
+        "title": "開発の進め方",
+        "description": "イタリア・ドイツ・スペインのアジャイルチームで、Figmaのデザインをもとに開発。個人開発ではAIエージェントが仕様書から実装し、GitHub Actionsでテスト。"
       }
     }
   },

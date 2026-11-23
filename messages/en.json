@@ -91,30 +91,29 @@
     }
   },
   "stack": {
-    "number": "",
-    "title": "",
-    "subtitle": "",
-    "marquee": [],
+    "number": "03.",
+    "title": "Stack",
+    "subtitle": "Tools used day to day, in client work and personal projects.",
     "groups": {
       "frontend": {
-        "title": "",
-        "description": ""
+        "title": "Frontend",
+        "description": "Most projects are e-commerce sites built with React and Next.js in TypeScript. For two luxury fashion brands the work covered new site sections and a shared component library in Storybook."
       },
       "backend": {
-        "title": "",
-        "description": ""
+        "title": "Backend",
+        "description": "Server code runs on Node.js with NestJS or Express. Past projects include the back office of a ticketing platform, a reservations back end and microservices for cart, sales and discount coupons connected to external XML services."
       },
       "data": {
-        "title": "",
-        "description": ""
+        "title": "Data & APIs",
+        "description": "APIs are built as REST, and front ends read their data from GraphQL. Databases are SQL or MongoDB, reached through Prisma or TypeORM, and the self-built audit tool keeps its measurements in SQLite."
       },
-      "infra": {
-        "title": "",
-        "description": ""
+      "performance": {
+        "title": "Web performance",
+        "description": "The current focus. Audits run in Chrome DevTools and WebPageTest, real-user data comes from mPulse, Grafana and Contentsquare, and performance budgets are agreed with the team when a feature is planned."
       },
       "ways": {
-        "title": "",
-        "description": ""
+        "title": "Ways of working",
+        "description": "Agile teams across Italy, Germany and Spain, working from Figma designs. Personal projects are coded by AI agents from written specs and tested on GitHub Actions."
       }
     }
   },
