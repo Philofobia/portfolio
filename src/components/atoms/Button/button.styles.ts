@@ -12,11 +12,11 @@ export type ButtonSize = "lg" | "md" | "sm" | "card" | "cta";
 export type ButtonIcon = "↓" | "↗" | "→" | "⤓";
 
 const base =
-  "group inline-flex w-cell-pair shrink-0 cursor-pointer items-center justify-center gap-[0.25em] focus-visible:focus-ring disabled:cursor-not-allowed motion-safe:transition-colors motion-safe:duration-200";
+  "group inline-flex w-cell-pair shrink-0 cursor-pointer items-center justify-center gap-[0.25em] disabled:cursor-not-allowed motion-safe:transition-colors motion-safe:duration-200";
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent font-normal text-on-accent focus-ring-ink not-disabled:hover:bg-accent-hover disabled:bg-accent-dim disabled:text-ink-3",
+    "bg-accent font-normal text-on-accent not-disabled:hover:bg-accent-hover disabled:bg-accent-dim disabled:text-ink-3",
   secondary:
     "border border-line not-disabled:hover:bg-bg-hover disabled:border-line-faint disabled:text-ink-3 [[data-variant=secondary]+&]:border-l-0",
 };
@@ -41,6 +41,27 @@ const nudgeClass: Record<ButtonIcon, string> = {
   "↗": "group-not-disabled:group-hover:translate-x-nudge group-not-disabled:group-hover:-translate-y-nudge",
 };
 
+/**
+ * Focus ring by placement. card and cta sit flush in cells (card footers, the hero pair):
+ * the ring inside, 4px from the lines (focus-ring-cell), where an outer ring would cross the
+ * neighbour or be clipped by the card; on the accent fill it is on-accent (~7:1; ink would
+ * be 2.2 to 2.6, under 3:1). The other sizes stand free: the outer ring, ink around a fill.
+ */
+const flushSize = new Set<ButtonSize>(["card", "cta"]);
+
+function focusClass(variant: ButtonVariant, size: ButtonSize) {
+  if (!flushSize.has(size)) {
+    return cn(
+      "focus-visible:focus-ring",
+      variant === "primary" && "focus-ring-ink",
+    );
+  }
+  return cn(
+    "focus-visible:focus-ring-cell",
+    variant === "primary" && "[--focus-ring-color:var(--on-accent)]",
+  );
+}
+
 export function buttonClasses({
   variant,
   size,
@@ -50,7 +71,13 @@ export function buttonClasses({
   size: ButtonSize;
   className?: string;
 }) {
-  return cn(base, variantClass[variant], sizeClass[size], className);
+  return cn(
+    base,
+    variantClass[variant],
+    sizeClass[size],
+    focusClass(variant, size),
+    className,
+  );
 }
 
 export function buttonIconClasses(icon: ButtonIcon) {
@@ -65,18 +92,19 @@ export function buttonIconClasses(icon: ButtonIcon) {
  * 56 wide on mobile (the design's mobile header row), one 75 cell from md.
  * frame 'box': freestanding, its own four borders, square.
  * frame 'bar': a cell of a bar (the header): only the start border, and the bar's height,
- * so the bar's bottom border stays on the last pixel of the grid cell.
+ * so the bar's bottom border stays on the last pixel of the grid cell; its focus ring is
+ * drawn inside, 4px from every line (focus-ring-cell), not outside across the bar's border.
  */
 export type SquareFrame = "box" | "bar";
 
 const squareFrameClass: Record<SquareFrame, string> = {
-  box: "size-bar border md:size-cell",
-  bar: "w-bar border-s md:w-cell",
+  box: "size-bar border focus-visible:focus-ring md:size-cell",
+  bar: "w-bar border-s focus-visible:focus-ring-cell md:w-cell",
 };
 
 export function squareClasses(frame: SquareFrame = "box") {
   return cn(
-    "grid shrink-0 cursor-pointer place-items-center border-line focus-visible:focus-ring not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
+    "grid shrink-0 cursor-pointer place-items-center border-line not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
     squareFrameClass[frame],
   );
 }

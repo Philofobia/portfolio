@@ -32,7 +32,7 @@ export function ContactBlock({
     >
       <a
         href={mailto}
-        className="flex items-center border-b border-line p-cell-pad text-h3 wrap-anywhere group-has-[[data-state=copied]]:text-ink-2 focus-visible:focus-ring-inset motion-safe:transition-colors md:min-h-cells-2 md:border-e md:border-b-0 md:px-8 md:py-0 md:text-[2.5rem]"
+        className="flex items-center border-b border-line p-cell-pad text-h3 wrap-anywhere group-has-[[data-state=copied]]:text-ink-2 focus-visible:focus-ring-cell motion-safe:transition-colors md:min-h-cells-2 md:border-e md:border-b-0 md:px-8 md:py-0 md:text-[2.5rem]"
       >
         {email}
       </a>

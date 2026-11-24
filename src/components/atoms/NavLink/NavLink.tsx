@@ -8,17 +8,19 @@
  * variant 'bar': one two-cell slot of the header bar; ink-2, current = ink + a 2px accent
  * underline (not colour alone). Takes the bar's height.
  * variant 'row': a row of the mobile menu sheet: label (h3, caps) + the section's mono
- * number, accent when current. 56 high, one cell from md.
+ * number, accent when current. Fills its row (Nav sets the height and the full-width
+ * divider), so hover and the focus ring span the window; the label and number sit in the
+ * header's span inside it (.grid-wide; full width on mobile), under the header's logo.
  * No 'use client': renders on the server, and inside client components (Nav, MobileMenu).
  */
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-const focusClass = "focus-visible:focus-ring-inset";
+const focusClass = "focus-visible:focus-ring-cell";
 
 const variantClass = {
   bar: "relative flex w-section items-center justify-center border-e border-line text-ink-2 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-accent after:opacity-0 after:forced-color-adjust-none hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:after:opacity-100 forced-colors:after:bg-[CanvasText]",
-  row: "flex h-bar items-center justify-between border-b border-line px-cell-pad text-h3 text-ink-2 uppercase hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:[&_[data-number]]:text-accent md:h-cell",
+  row: "flex h-full text-h3 text-ink-2 uppercase hover:bg-bg-hover hover:text-ink current-section:text-ink current-section:[&_[data-number]]:text-accent",
 } as const;
 
 type NavLinkProps = Omit<
@@ -41,6 +43,16 @@ export function NavLink({
   children,
   ...rest
 }: NavLinkProps) {
+  const sectionNumber = number && (
+    <span
+      data-number
+      aria-hidden="true"
+      className="font-mono text-meta text-ink-3"
+    >
+      {number}
+    </span>
+  );
+
   return (
     <a
       {...rest}
@@ -53,15 +65,16 @@ export function NavLink({
         className,
       )}
     >
-      {children}
-      {number && (
-        <span
-          data-number
-          aria-hidden="true"
-          className="font-mono text-meta text-ink-3"
-        >
-          {number}
+      {variant === "row" ? (
+        <span className="grid-wide flex items-center justify-between px-cell-pad max-md:ms-0 max-md:w-full">
+          {children}
+          {sectionNumber}
         </span>
+      ) : (
+        <>
+          {children}
+          {sectionNumber}
+        </>
       )}
     </a>
   );

@@ -25,9 +25,12 @@ export const experienceIntro =
  * The rail / the list's left edge is drawn 1px outside (as .cells draws its top and left),
  * so it lands on the background's grid line, the last pixel of the cell before; a border
  * would sit 1px inside it. The right and top borders already fall on a line.
+ * self-start: in split the list shares a grid row with the intro, and stretched to it the
+ * frame ran on below the last row with no bottom edge (both groups closed: an empty cell).
+ * The list is as tall as its rows, whose bottom borders close it.
  */
 export const experienceList =
-  "flex flex-col shadow-[-1px_0_0_var(--line)] md:border-e md:border-t md:border-line md:bg-bg";
+  "flex flex-col self-start shadow-[-1px_0_0_var(--line)] md:border-e md:border-t md:border-line md:bg-bg";
 
 /**
  * Group summary: the label after a '+' / '−' marker (accent when open). The marker sits
@@ -36,7 +39,7 @@ export const experienceList =
  * pointers, focus ring drawn inside (the row sits flush with the list's borders).
  */
 export const experienceSummary =
-  "flex h-bar cursor-pointer list-none items-center gap-3 ps-5 font-mono text-meta tracking-[.16em] text-ink-2 uppercase focus-visible:focus-ring-inset md:h-cell md:border-b md:border-line md:ps-6 md:hover:bg-bg-hover motion-safe:md:transition-colors motion-safe:md:duration-200 [&::-webkit-details-marker]:hidden";
+  "flex h-bar cursor-pointer list-none items-center gap-3 ps-5 font-mono text-meta tracking-[.16em] text-ink-2 uppercase focus-visible:focus-ring-cell md:h-cell md:border-b md:border-line md:ps-6 md:hover:bg-bg-hover motion-safe:md:transition-colors motion-safe:md:duration-200 [&::-webkit-details-marker]:hidden";
 
 export const experienceMarker = "w-[1ch] text-ink-3 group-open:text-accent";
 

@@ -19,6 +19,8 @@
  * - <DotMatrix>: the same dots on a canvas, wiping in over the poster after hydration (the
  *   poster is painted, and measured, untouched first); the dots part around the pointer (or a
  *   finger dragging sideways) inside an accent ring.
+ * The box is its own stacking context (isolate): the canvas's z-10 lifts it over the poster
+ * only, never over the sticky header (also z-10, and earlier in the DOM, so it would lose).
  *
  * Accessibility: one image with alt text; nothing takes focus, as there is nothing to do
  * with it. Forced colours (Windows contrast themes) do not recolour images, so light dots
@@ -40,7 +42,7 @@ export function HeroEmblem({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative h-cells-6 overflow-hidden border border-line bg-bg",
+        "relative isolate h-cells-6 overflow-hidden border border-line bg-bg",
         className,
       )}
     >

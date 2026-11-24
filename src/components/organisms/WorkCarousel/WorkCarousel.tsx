@@ -20,7 +20,9 @@
  *   labelled group ("1 of 4") holding the card's own heading.
  * - Project list (<ProjectListItem />): fragment links to the slides, the carousel's
  *   markers, in a scroll-target-group list; the current one is the browser's
- *   :target-current, or aria-current from useCarousel where that is missing. From lg
+ *   :target-current, or aria-current from useCarousel where that is missing. A click
+ *   scrolls only the track (useCarousel show): following the fragment would also scroll
+ *   the page to bring the slide into view. Without JavaScript it stays a plain link. From lg
  *   only, one row of five: narrower, the list wrapped into rows that made the page longer
  *   for little gain (on a phone, a row per project). Nothing is lost there: the same projects are the slides,
  *   each reachable by swipe, the arrows, Tab into its links, or a screen reader reading the
@@ -77,7 +79,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 // The look the native ::scroll-button() repeats in styles/carousel.css: change both together.
 const controlClasses =
-  "flex cursor-pointer items-center justify-center gap-[0.25em] text-ui not-disabled:hover:bg-bg-hover focus-visible:focus-ring-inset disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200 scroll-buttons:hidden";
+  "flex cursor-pointer items-center justify-center gap-[0.25em] text-ui not-disabled:hover:bg-bg-hover focus-visible:focus-ring-cell disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200 scroll-buttons:hidden";
 
 export function WorkCarousel({
   items,
@@ -92,7 +94,10 @@ export function WorkCarousel({
   const previousRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const count = items.length;
-  const { fallback, index, previous, next } = useCarousel(trackRef, count);
+  const { fallback, index, previous, next, show } = useCarousel(
+    trackRef,
+    count,
+  );
   const buttons = fallback?.buttons === true;
 
   // The other slides' photos load once the visitor engages with the carousel
@@ -144,7 +149,7 @@ export function WorkCarousel({
           data-next={labels.next}
           data-next-label={labels.nextLabel}
           data-engaged={engaged || undefined}
-          className="carousel-track focus-visible:focus-ring"
+          className="carousel-track focus-visible:outline-none"
         >
           {items.map((item) => (
             <div
@@ -221,6 +226,10 @@ export function WorkCarousel({
                 number={pad(i + 1)}
                 title={item.title}
                 current={fallback?.markers ? index === i : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  show(i);
+                }}
               />
             </li>
           ))}

@@ -3,7 +3,7 @@
   Grid:  --cell 75 / 50 m (--cell-lg / --cell-sm: the two sizes, also used as fixed control
     heights) · --cols 18 / up to 15 m (7 on a 390 phone) · --gutter 45 / 4 m (the least; grid.css) · section gap 2 cells
   Controls: --bar 56 (mobile bar, rows and touch targets) · cell-pair 2 lg cells (150: buttons, clocks)
-    · --nudge 3 (hover shift of an arrow glyph) · focus ring 1px outside +3 / 2px inside
+    · --nudge 3 (hover shift of an arrow glyph) · focus ring 1px outside +3 (free-standing) / 2px, 4 inside (flush in a cell)
   UI type (fixed, not responsive): ui 15 · ui-sm 14 · ui-xs 13 · measure 70ch
   Space: 4 · 8 · 12 · 16 · 20 · 24 · 32 (Tailwind steps 1–8) · cell padding 24 / 20 m
     · image inset 15 / 10 m · radius 0 · shadow none
@@ -12,14 +12,17 @@
 */
 
 /*
-  Header bar widths for its container queries (@nav:, @clock:, @clocks:): the inline nav
-  needs 13 cells (975px), Tokyo's clock 15 (1125px), Torino's 17 (1275px). The grid column
-  snaps to an even number of cells, so each shows from the next even count.
+  Header bar widths for its container queries (@nav:, @clock:, @clocks:), on the bar's
+  contents (.grid-wide: the column grown by whole cells, an even count from md): the inline
+  nav needs 15 cells (logo 3, five links of 2, locale and theme 1 each: 1125px), Tokyo's
+  clock 17 (1275px), Torino's 19 (1425px). Each shows from the next even count: 16 cells
+  (1200px), 18 (1350px), 20 (1500px), that is from a window about that wide plus the
+  scrollbar.
 */
 @theme {
-  --container-nav: 61rem;
-  --container-clock: 70.3125rem;
-  --container-clocks: 80rem;
+  --container-nav: 75rem;
+  --container-clock: 84.375rem;
+  --container-clocks: 93.75rem;
 }
 
 /*
@@ -183,10 +186,12 @@
   --fs-ui-sm: 0.875rem; /* 14px */
   --fs-ui-xs: 0.8125rem; /* 13px */
 
-  /* Focus ring (variants.css focus-ring / focus-ring-inset): accent, or ink on accent fills. */
+  /* Focus ring (variants.css focus-ring / focus-ring-cell): accent; ink around an accent fill,
+     on-accent inside one. */
   --focus-ring-width: 1px;
   --focus-ring-offset: 3px;
   --focus-ring-inset-width: 2px;
+  --focus-ring-cell-gap: 4px; /* focus-ring-cell: from each grid line to the ring */
   --focus-ring-color: var(--accent);
 }
 

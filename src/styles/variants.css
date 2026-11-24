@@ -86,12 +86,28 @@
   calculate-with-intrinsic-sizes: calc-size() on auto). Chromium only (Limited
   availability): elsewhere the height stays auto, the layout as it was, only off the grid
   lines; a decorative alignment, so no fallback beyond that.
+  min-block-size-cells-N: at least N cells high, and at least the content's height rounded
+  up to whole cells. A floor, not a height: a grid item can still stretch to its row, and
+  its row then grows by whole cells when the content runs long (a wrapped note). Same
+  support as block-size-cells; elsewhere a plain N-cell minimum.
   w-half-cells: half the parent's width rounded up to whole cells, so a pair of controls
   splits on a grid line even across an odd number of cells; plain 50% without round().
 */
 @utility block-size-cells {
   @supports (block-size: calc-size(auto, size + 0px)) {
     block-size: calc-size(auto, round(up, size, var(--cell)));
+  }
+}
+
+@utility min-block-size-cells-* {
+  min-block-size: calc(var(--cell) * --value(integer));
+
+  @supports (min-block-size: calc-size(auto, size + 0px)) {
+    /* min-content, not auto: in a min size, auto is the automatic minimum (0 here). */
+    min-block-size: calc-size(
+      min-content,
+      max(round(up, size, var(--cell)), var(--cell) * --value(integer))
+    );
   }
 }
 
@@ -127,9 +143,17 @@
 /*
   Focus rings, one look everywhere (tokens.css --focus-ring-*). Apply under a variant:
   focus-visible:focus-ring       1px, 3px outside: buttons, links, free-standing controls.
-  focus-visible:focus-ring-inset 2px, drawn inside: cells that sit flush with neighbours
-                                 (an outside ring would be covered by them).
-  has-[a:focus-visible]:focus-ring-inset  the ring of a card whose stretched link has focus.
+  focus-visible:focus-ring-cell  2px, 4px inside: every control that sits flush in a cell
+                                 (bars, card actions, the hero CTAs, accordion rows, carousel
+                                 controls). A ::before inside the padding box, so the gap is
+                                 the same from every grid line: an outline is offset from the
+                                 border box, which counts the control's own borders but not
+                                 its neighbours', and an outer ring would cross or be clipped
+                                 by them. The element becomes position: relative.
+  has-[a:focus-visible]:focus-ring-cell  the same on a card whose stretched link has focus.
+  Where no ::before can be added, carousel.css draws the same look itself: the native
+  ::scroll-button()s (an outline: pseudo-elements have no pseudo-elements) and the track (on
+  its wrapper: a scroll container's contents paint over its outline).
   focus-ring-ink                 ink instead of accent, on accent fills.
 */
 @utility focus-ring {
@@ -137,9 +161,17 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-@utility focus-ring-inset {
-  outline: var(--focus-ring-inset-width) solid var(--focus-ring-color);
-  outline-offset: calc(var(--focus-ring-inset-width) * -1);
+@utility focus-ring-cell {
+  position: relative;
+  outline: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: var(--focus-ring-cell-gap);
+    border: var(--focus-ring-inset-width) solid var(--focus-ring-color);
+    pointer-events: none;
+  }
 }
 
 @utility focus-ring-ink {

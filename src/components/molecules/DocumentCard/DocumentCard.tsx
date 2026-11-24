@@ -50,7 +50,7 @@ export function DocumentCard({
       as="article"
       className={cn(
         "group relative flex items-center justify-between gap-4 max-md:h-bar max-md:py-0 md:h-cells-2 md:flex-col md:items-stretch",
-        "has-[a:focus-visible]:focus-ring-inset motion-safe:transition-colors motion-safe:duration-200 link-hover:bg-bg-hover",
+        "has-[a:focus-visible]:focus-ring-cell motion-safe:transition-colors motion-safe:duration-200 link-hover:bg-bg-hover",
         className,
       )}
     >

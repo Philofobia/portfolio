@@ -20,10 +20,13 @@ export const factsGrid =
 
 /**
  * On every fact: the mobile design's tighter padding, with label, value and note stacked
- * from the top (a row's taller neighbour would otherwise spread them); from md two cells
- * high, the note on the cell's foot (FactCard's justify-between).
+ * from the top (a row's taller neighbour would otherwise spread them); from md at least two
+ * cells high, the note on the cell's foot (FactCard's justify-between). A fact whose text
+ * wraps further (the certification's note on a four-cell card) rounds its row up to whole
+ * cells (min-block-size-cells), so the rows below stay on the grid lines.
  */
-export const factCell = "py-4 max-md:justify-start md:min-h-cells-2 md:py-5";
+export const factCell =
+  "py-4 max-md:justify-start md:min-block-size-cells-2 md:py-5";
 
 export const factPlacement = {
   residence: "col-span-2 @japan-wide:col-[1/7] @japan-wide:row-[1/5]",

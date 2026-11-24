@@ -10,6 +10,7 @@
       "work": "Work",
       "stack": "Stack",
       "experience": "Experience",
+      "japan": "Japan",
       "contact": "Contact"
     },
     "menu": {
@@ -158,7 +159,9 @@
       "fe": {
         "title": "Fundamental IT Engineer Examination (FE)",
         "org": "ITPEC (PhilNITS)",
-        "bullets": ["The ITPEC edition of Japan's national IT engineer exam."]
+        "bullets": [
+          "The ITPEC edition of Japan's national Fundamental Information Technology Engineer Examination, set by PhilNITS (Philippines) under a mutual recognition agreement with Japan's IPA."
+        ]
       },
       "its": {
         "title": "Diploma, Software Systems Development",
@@ -197,8 +200,8 @@
       },
       "certification": {
         "label": "Certification",
-        "value": "FE exam",
-        "note": "Fundamental IT Engineer, Apr 2026"
+        "value": "Fundamental IT Engineer",
+        "note": "FE, Apr 2026 · Replaces the degree requirement for the Engineer visa in IT roles"
       },
       "lookingFor": {
         "label": "Looking for",

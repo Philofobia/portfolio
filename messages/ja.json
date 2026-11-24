@@ -10,6 +10,7 @@
       "work": "実績",
       "stack": "技術スタック",
       "experience": "経歴",
+      "japan": "日本での就労",
       "contact": "連絡先"
     },
     "menu": {
@@ -158,7 +159,9 @@
       "fe": {
         "title": "基本情報技術者試験（FE）合格",
         "org": "ITPEC（PhilNITS）",
-        "bullets": ["日本の基本情報技術者試験に相当するITPEC実施の試験。"]
+        "bullets": [
+          "日本の基本情報技術者試験と相互認証された、PhilNITS（フィリピン）実施のITPEC試験。"
+        ]
       },
       "its": {
         "title": "ソフトウェアシステム開発課程（ディプロマ）",
@@ -198,7 +201,7 @@
       "certification": {
         "label": "資格",
         "value": "基本情報（FE）",
-        "note": "2026年4月合格（ITPEC）"
+        "note": "2026年4月合格・IT業務の就労ビザで学歴要件の特例対象"
       },
       "lookingFor": {
         "label": "希望",
