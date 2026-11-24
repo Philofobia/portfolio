@@ -1,13 +1,14 @@
 /**
  * Static, locale-independent profile data: name, katakana name, email, siteUrl,
- * links { github, linkedin, wantedly, findy, lapras }, availableFrom, cv file paths (public/cv/*).
+ * links { github, linkedin, wantedly, findy, lapras }, inTokyoFrom, cv file paths (public/cv/*).
  *
  * Filled in so far: name (the logo; a proper noun, the same in every locale), its katakana
  * reading nameKatakana (the footer shows both in every locale), copyrightYear,
- * availableFrom, cv and siteUrl.
- * availableFrom is the month the hero's availability line names (YYYY-MM, also its
- * <time datetime>): the move to Tokyo, where the role starts part-time. The words around it
- * are in messages (hero.availability); the month is formatted per locale with Intl.
+ * inTokyoFrom, cv and siteUrl.
+ * inTokyoFrom is the month of the move to Tokyo (YYYY-MM, also its <time datetime>), named
+ * by the hero's status line and the Japan section's "In Tokyo from" cell. The words around
+ * it are in messages (hero.availability, japan.facts.inTokyo); the month is formatted per
+ * locale with Intl.
  * cv maps each CV to its PDF in public/cv/, the file name it downloads as and the
  * language of the document (the link's hreflang): the English CV (en), and the Japanese
  * 履歴書 and 職務経歴書, built from docs/cv/, alone and joined into one PDF (oubo, the
@@ -27,7 +28,7 @@ export const name = "Marco Parisi";
 export const nameKatakana = "マルコ・パリージ";
 export const copyrightYear = 2026;
 
-export const availableFrom = "2026-12";
+export const inTokyoFrom = "2026-12";
 
 export const cv = {
   en: {

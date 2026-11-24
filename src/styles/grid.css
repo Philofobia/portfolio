@@ -65,7 +65,8 @@
   }
 
   /* Widest whole number of cells between the gutters, capped at --cols. */
-  .grid-container {
+  .grid-container,
+  .grid-wide {
     --grid-width: min(var(--cols) * var(--cell), var(--grid-fit));
     width: var(--grid-width);
     margin-inline-start: calc((100% - var(--grid-width)) / 2);
@@ -173,6 +174,22 @@
 
     .grid-container {
       margin-inline-start: round(down, (100% - var(--grid-width)) / 2, 1px);
+    }
+
+    /*
+      The column grown by whole cells on both sides, as many as fit: the header bar's
+      contents use the full width, and every edge still falls on a background line, since
+      the column's margin loses whole cells only. --grid-extra is that margin's whole cells.
+      Without round() it is the column itself (the fallback above).
+    */
+    .grid-wide {
+      --grid-extra: round(down, (100% - var(--grid-width)) / 2, var(--cell));
+      width: calc(var(--grid-width) + 2 * var(--grid-extra));
+      margin-inline-start: round(
+        down,
+        (100% - var(--grid-width)) / 2 - var(--grid-extra),
+        1px
+      );
     }
 
     .panel {

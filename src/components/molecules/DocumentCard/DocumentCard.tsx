@@ -9,8 +9,10 @@
  * have no hover).
  * Desktop: a 2-cell-high cell, format line on top. Mobile (< 48rem): a 56-high row, title ·
  * 'PDF ⤓'; the description stays for screen readers only.
- * Props: href (a file in public/cv), title, titleLang ('ja' for 履歴書 / 職務経歴書 on the
- * English page), description, format ('PDF'), size ('240 KB').
+ * Props: href (a file in public/cv), fileName (the name it downloads as), hrefLang (the document's language, always set),
+ * title, titleLang (only when the title's language differs from the page's: 'ja' for
+ * 履歴書 / 職務経歴書 on the English page), description, format ('PDF'), size ('240 KB'),
+ * headingLevel ('h3' default | 'h4' under a group heading).
  * No Badge pill: the design shows plain mono text.
  */
 import { useId } from "react";
@@ -19,44 +21,51 @@ import { cn } from "@/lib/cn";
 
 export function DocumentCard({
   href,
+  fileName,
+  hrefLang,
   title,
   titleLang,
   description,
   format,
   size,
+  headingLevel = "h3",
   className,
 }: {
   href: string;
+  fileName?: string;
+  hrefLang?: string;
   title: string;
   titleLang?: string;
   description: string;
   format: string;
   size?: string;
+  headingLevel?: "h3" | "h4";
   className?: string;
 }) {
   const metaId = useId();
+  const Heading = headingLevel;
 
   return (
     <Card
       as="article"
       className={cn(
         "group relative flex items-center justify-between gap-4 max-md:h-bar max-md:py-0 md:h-cells-2 md:flex-col md:items-stretch",
-        "has-[a:focus-visible]:focus-ring-inset motion-safe:transition-colors motion-safe:duration-200 link-hover:bg-bg-hover",
+        "has-[a:focus-visible]:focus-ring-cell motion-safe:transition-colors motion-safe:duration-200 link-hover:bg-bg-hover",
         className,
       )}
     >
-      <h3 className="font-jp text-[1.0625rem] leading-[1.3] font-normal md:text-[1.375rem]">
+      <Heading className="font-jp text-[1.0625rem] leading-[1.3] font-normal md:text-[1.375rem]">
         <a
           href={href}
-          download
+          download={fileName ?? true}
           lang={titleLang}
-          hrefLang={titleLang}
+          hrefLang={hrefLang}
           aria-describedby={metaId}
           className="after:absolute after:inset-0 focus-visible:outline-none"
         >
           {title}
         </a>
-      </h3>
+      </Heading>
       <p
         id={metaId}
         className="flex shrink-0 justify-between gap-2 font-mono text-meta text-ink-2 md:order-first group-link-hover:text-ink"

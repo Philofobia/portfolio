@@ -19,6 +19,10 @@
  * debounced scroll where scrollend is missing). A click sets a pending target, so rapid
  * clicks build on the slide already being scrolled to; the live read pauses until it
  * settles. Prev/next stop at the ends, as the native buttons do (no looping).
+ * show(i) scrolls the track to slide i, and only the track: the project list calls it
+ * instead of following its fragment link, which would also scroll the page to the slide.
+ * It runs in every browser (the list's markers are native or not); the index and its
+ * pending target are kept only where the script tracks them (active).
  * Scrolling is smooth through the track's own CSS scroll-behavior (off under reduced motion).
  *
  * trackRef: the scroller; count: the number of slides.
@@ -108,18 +112,29 @@ export function useCarousel(
     };
   }, [trackRef, count, active]);
 
+  const scrollToSlide = (track: HTMLElement, target: number) => {
+    if (active) {
+      pending.current = target;
+      setIndex(target);
+    }
+    track.scrollTo({
+      left:
+        ((track.scrollWidth - track.clientWidth) / Math.max(1, count - 1)) *
+        target,
+    });
+  };
+
   const step = (direction: -1 | 1) => {
     const track = trackRef.current;
     const from = pending.current ?? index;
     const target = Math.min(count - 1, Math.max(0, from + direction));
-    if (track && target !== from) {
-      pending.current = target;
-      setIndex(target);
-      track.scrollTo({
-        left: ((track.scrollWidth - track.clientWidth) / (count - 1)) * target,
-      });
-    }
+    if (track && target !== from) scrollToSlide(track, target);
     return target;
+  };
+
+  const show = (target: number) => {
+    const track = trackRef.current;
+    if (track) scrollToSlide(track, Math.min(count - 1, Math.max(0, target)));
   };
 
   return {
@@ -127,5 +142,6 @@ export function useCarousel(
     index,
     previous: () => step(-1),
     next: () => step(1),
+    show,
   };
 }

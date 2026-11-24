@@ -59,6 +59,21 @@
     }
   }
 
+  /*
+    The track's focus ring: focus-ring-cell's look (2px, 4px inside the lines) around the
+    track only, above the control bar. Drawn on the non-scrolling wrapper: the track is a
+    scroll container, so its own outline would sit under the slides (their background covers
+    it) and a ::before inside it would scroll away with them.
+  */
+  .carousel:has(> .carousel-track:focus-visible)::after {
+    content: "";
+    position: absolute;
+    inset: var(--focus-ring-cell-gap);
+    inset-block-end: calc(var(--carousel-bar) + var(--focus-ring-cell-gap));
+    border: var(--focus-ring-inset-width) solid var(--focus-ring-color);
+    pointer-events: none;
+  }
+
   .carousel-track {
     display: flex;
     gap: var(--cell);
@@ -179,9 +194,14 @@
       cursor: not-allowed;
     }
 
+    /* focus-ring-cell's look (variants.css) as an outline: a pseudo-element cannot host
+       the ::before ring. 2px, 4px in; 3px on the side of the button's own border, which
+       an outline counts from (the fallback buttons have 4 all round). */
     .carousel-track::scroll-button(*):focus-visible {
       outline: var(--focus-ring-inset-width) solid var(--focus-ring-color);
-      outline-offset: calc(var(--focus-ring-inset-width) * -1);
+      outline-offset: calc(
+        -1 * (var(--focus-ring-cell-gap) + var(--focus-ring-inset-width))
+      );
     }
 
     @media (hover: hover) {

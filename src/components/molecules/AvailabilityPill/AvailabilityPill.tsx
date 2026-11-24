@@ -5,15 +5,16 @@
  * not a pill and not in the header. The hero's top line: an accent <StatusDot /> and a mono
  * line of text, 12 / 11 m, ink-2. The Header's doc notes the move ("the design keeps the
  * AvailabilityPill in the hero"); the folder keeps the scaffold's name.
- * The words are messages hero.availability, the month is content/profile availableFrom,
- * formatted with Intl for the page's locale ("December 2026", "2026年12月") inside a
- * <time datetime="YYYY-MM">, so the date is text for crawlers and assistants
- * (geo-agent-readiness: availability as text). Server component.
+ * The words are messages hero.availability ("In Tokyo from …"), the month is content/profile
+ * inTokyoFrom, formatted with the named format monthLong for the page's locale
+ * ("December 2026", "2026年12月") inside a <time datetime="YYYY-MM">, so the date is text
+ * for crawlers and assistants (geo-agent-readiness: availability as text). Server component.
  * Props: from (YYYY-MM), className (placement).
  */
 import { useFormatter, useTranslations } from "next-intl";
 import { StatusDot } from "@/components/atoms/StatusDot";
 import { cn } from "@/lib/cn";
+import { monthDate } from "@/lib/time";
 
 export function AvailabilityPill({
   from,
@@ -24,12 +25,7 @@ export function AvailabilityPill({
 }) {
   const t = useTranslations("hero");
   const format = useFormatter();
-  // Mid-month in UTC: no time zone can push the month across a boundary.
-  const date = format.dateTime(new Date(`${from}-15T00:00:00Z`), {
-    year: "numeric",
-    month: "long",
-    timeZone: "UTC",
-  });
+  const date = format.dateTime(monthDate(from), "monthLong");
 
   return (
     <p

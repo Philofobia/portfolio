@@ -1,7 +1,8 @@
 /**
  * 14 TimelineItem (molecules/TimelineEntry), mirroring the design library's section: the
- * current job (accent square, "now", one bullet) and an education entry (muted square,
- * no bullets), in the ordered list the Experience section will render.
+ * current job (accent square, "now", one bullet), a past one (month dates, muted square)
+ * and an education entry (years, no bullets), in the ordered list the Experience section
+ * renders.
  */
 import { TimelineEntry } from "@/components/molecules/TimelineEntry";
 import { Story } from "../_components/Story";
@@ -21,11 +22,18 @@ export function TimelineItemStories() {
         >
           <TimelineEntry
             start="2023"
+            current
             title="Fullstack Engineer"
             org="[Company]"
             bullets={[
               "Built and ran the customer-facing web app and its Node.js API.",
             ]}
+          />
+          <TimelineEntry
+            start="2021-04"
+            end="2023-01"
+            title="Frontend Developer"
+            org="[Company]"
           />
           <TimelineEntry
             start="2017"
@@ -35,9 +43,9 @@ export function TimelineItemStories() {
           />
         </ol>
         <figcaption className="font-mono text-meta leading-normal text-ink-3">
-          no end → current: accent square + &quot;now&quot; · bullets optional ·
-          mobile: a rail list (start border, 28px apart), the date above the
-          title
+          current: accent square (+ &quot;now&quot; with no end) · YYYY-MM shown
+          as a month, YYYY as written · bullets optional · mobile: a rail list
+          (start border, 28px apart), the date above the title
         </figcaption>
       </figure>
     </Story>

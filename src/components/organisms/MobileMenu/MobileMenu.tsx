@@ -13,11 +13,19 @@
  * even before hydration; where they are missing, the click handler calls showModal()
  * (MWG declarative-dialog-popover-control, without its polyfill: the project's policy).
  * Closing: × submits a <form method="dialog">; Escape; choosing a link or the logo.
+ * Motion (motion-safe only; otherwise, and before hydration for the exit, it is instant):
+ * one clip-path transition, 500ms, the same both ways. The sheet's top row is the header's
+ * bar, so it opens by unrolling downward from that row (@starting-style on the open state)
+ * and closes by retracting up into it, handing over to the bar without a jump.
+ * The exit is the MWG animate-to-from-top-layer fallback, used in every browser: all three
+ * ways to close go through close(), where data-closing runs the transition while the
+ * dialog stays open, and close() waits for it. The guide's pure-CSS exit (display/overlay
+ * with allow-discrete) runs in Chromium only, so it is not used.
  * The dialog is the scroll-target-group, so the logo's #hero counts as a section, as in the bar.
  * The Header hides the burger once the bar fits the inline Nav.
  */
 import { useTranslations } from "next-intl";
-import { useId, useRef } from "react";
+import { type SyntheticEvent, useId, useRef } from "react";
 import { BurgerIcon } from "@/components/atoms/BurgerIcon";
 import { IconButton } from "@/components/atoms/IconButton";
 import { MenuSheet } from "@/components/organisms/MenuSheet";
@@ -37,8 +45,25 @@ export function MobileMenu({ className }: { className?: string }) {
     }
   }
 
-  function close() {
-    dialogRef.current?.close();
+  async function close() {
+    const dialog = dialogRef.current;
+    if (!dialog?.open || dialog.hasAttribute("data-closing")) return;
+    dialog.setAttribute("data-closing", "");
+    // getAnimations() flushes styles, so the clip-path transition has started.
+    await Promise.race([
+      Promise.allSettled(
+        dialog.getAnimations().map(({ finished }) => finished),
+      ),
+      new Promise((resolve) => setTimeout(resolve, 1000)),
+    ]);
+    dialog.removeAttribute("data-closing");
+    dialog.close();
+  }
+
+  // × (its form's submit bubbles here) and Escape: animate instead of closing at once.
+  function closeAnimated(event: SyntheticEvent) {
+    event.preventDefault();
+    void close();
   }
 
   return (
@@ -59,7 +84,9 @@ export function MobileMenu({ className }: { className?: string }) {
         ref={dialogRef}
         id={dialogId}
         aria-label={t("menu.title")}
-        className="inset-0 m-0 h-auto max-h-none w-auto max-w-none overscroll-contain border-0 bg-bg p-0 text-ink scroll-target-group backdrop:overflow-hidden backdrop:overscroll-contain"
+        onSubmit={closeAnimated}
+        onCancel={closeAnimated}
+        className="inset-0 m-0 h-auto max-h-none w-auto max-w-none overscroll-contain border-0 bg-bg p-0 text-ink [--menu-bar:var(--bar)] [clip-path:inset(0)] scroll-target-group backdrop:overflow-hidden backdrop:overscroll-contain data-closing:[clip-path:inset(0_0_calc(100%-var(--menu-bar))_0)] motion-safe:transition-[clip-path] motion-safe:duration-500 motion-safe:ease-in-out md:[--menu-bar:var(--cell)] motion-safe:open:starting:[clip-path:inset(0_0_calc(100%-var(--menu-bar))_0)]"
       >
         <MenuSheet current={current} listRef={listRef} onNavigate={close} />
       </dialog>

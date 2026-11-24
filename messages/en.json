@@ -10,6 +10,7 @@
       "work": "Work",
       "stack": "Stack",
       "experience": "Experience",
+      "japan": "Japan",
       "contact": "Contact"
     },
     "menu": {
@@ -31,8 +32,8 @@
     "label": "Positioning",
     "title": "Full-Stack <br></br>Engineer",
     "subtitle": "Open to roles <br></br>in Japan",
-    "availability": "Part-time in Tokyo from <time>{date}</time>",
-    "intro": "Four years building fast web apps for luxury and e-commerce brands. Now studying Japanese in Tokyo, open to part-time work that can grow into full-time.",
+    "availability": "In Tokyo from <time>{date}</time>",
+    "intro": "Four years building fast web apps for luxury and e-commerce brands. In Tokyo from December 2026 to study Japanese, and looking for a role to build a long-term career in Japan.",
     "ctaWork": "View work",
     "ctaCv": "Download CV",
     "ctaCvShort": "CV",
@@ -118,81 +119,109 @@
     }
   },
   "experience": {
-    "number": "",
-    "title": "",
-    "subtitle": "",
-    "range": "",
+    "number": "04.",
+    "title": "Experience",
+    "subtitle": "A detailed <ja>職務経歴書</ja> is in the documents below.",
+    "range": "{from} — {to}",
     "now": "now",
-    "intro": "",
-    "workLabel": "",
-    "educationLabel": "",
-    "work": [
-      {
-        "period": "",
-        "role": "",
-        "company": "",
-        "description": "",
-        "result": ""
+    "intro": "Web development since 2023, after retraining in software through two accredited programs in Turin. The first projects were public portals and back ends, followed by e-commerce front ends for international brands and, since July 2026, web performance.",
+    "workLabel": "Work",
+    "educationLabel": "Education and certification",
+    "work": {
+      "performance": {
+        "title": "Web Performance Analyst",
+        "org": "Rextart, for Reply",
+        "bullets": [
+          "Monitoring and auditing the website of an international eyewear brand with WebPageTest, Grafana, Contentsquare and Core Web Vitals field data. Findings go to the development teams as prioritised tickets.",
+          "Performance requirements are set when a new feature is planned. Recurring performance meetings with the development teams and the client, and direct contact with Google on Core Web Vitals."
+        ]
+      },
+      "frontend": {
+        "title": "Frontend Engineer",
+        "org": "Rextart, for Reply",
+        "bullets": [
+          "Front-end features and GraphQL integration for two luxury fashion brands, including new site sections and a shared component library in Storybook.",
+          "Faster page loads on a home appliance e-commerce site with the Speculation Rules API, along with rebuilt product listing and product pages and A/B test components.",
+          "Front-end development of another e-commerce site, with Reply teams in Germany and Spain."
+        ]
+      },
+      "synesthesia": {
+        "title": "Web Engineer",
+        "org": "Synesthesia",
+        "bullets": [
+          "An event ticketing portal built full stack, from the back office to the public site, with a payment gateway.",
+          "A city information platform for an Italian regional capital, with local news, events and public services.",
+          "Microservices for cart, sales and discount coupons, connected to external XML services and monitored in Grafana. Also the back end of a reservations system for rest-area management."
+        ]
       }
-    ],
-    "education": [
-      {
-        "period": "",
-        "degree": "",
-        "school": ""
+    },
+    "education": {
+      "fe": {
+        "title": "Fundamental IT Engineer Examination (FE)",
+        "org": "ITPEC (PhilNITS)",
+        "bullets": [
+          "The ITPEC edition of Japan's national Fundamental Information Technology Engineer Examination, set by PhilNITS (Philippines) under a mutual recognition agreement with Japan's IPA."
+        ]
+      },
+      "its": {
+        "title": "Diploma, Software Systems Development",
+        "org": "ITS Foundation for ICT, Turin",
+        "bullets": ["Final grade 100/100."]
+      },
+      "enaip": {
+        "title": "Multimedia and Web Design",
+        "org": "ENAIP, Turin",
+        "bullets": ["Final grade 88/100."]
       }
-    ]
+    }
   },
   "japan": {
-    "number": "",
-    "title": "",
-    "titleJa": "",
+    "number": "05.",
+    "title": "Working in Japan",
+    "subtitle": "日本での就労について",
     "facts": {
       "residence": {
-        "label": "",
-        "value": "",
-        "note": ""
+        "label": "Residence status",
+        "value": "Student visa"
       },
       "japanese": {
-        "label": "",
-        "value": "",
-        "note": ""
+        "label": "Japanese",
+        "value": "Beginner",
+        "note": "Studying at a language school in Tokyo"
       },
       "languages": {
-        "label": "",
-        "value": "",
-        "note": ""
+        "label": "Other languages",
+        "value": "Italian, English",
+        "note": "Native · C1 (IELTS)"
       },
-      "availableFrom": {
-        "label": "",
-        "value": "",
-        "note": ""
+      "inTokyo": {
+        "label": "In Tokyo from",
+        "note": "Moving from Torino"
       },
-      "basedIn": {
-        "label": "",
-        "value": "",
-        "note": ""
+      "certification": {
+        "label": "Certification",
+        "value": "Fundamental IT Engineer",
+        "note": "FE, Apr 2026 · Replaces the degree requirement for the Engineer visa in IT roles"
       },
       "lookingFor": {
-        "label": "",
-        "value": "",
-        "note": ""
+        "label": "Looking for",
+        "value": "Full-time role",
+        "note": "On-site or hybrid, Tokyo"
       }
     },
     "documents": {
-      "title": "",
-      "badge": "",
+      "title": "Download CV",
       "rirekisho": {
-        "title": "",
-        "description": ""
+        "title": "履歴書",
+        "description": "Japanese résumé form"
       },
       "shokumukeirekisho": {
-        "title": "",
-        "description": ""
+        "title": "職務経歴書",
+        "description": "Japanese career history"
       },
-      "resume": {
-        "title": "",
-        "description": ""
+      "en": {
+        "title": "Résumé",
+        "description": "CV in English"
       }
     }
   },

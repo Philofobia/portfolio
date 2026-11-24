@@ -2,7 +2,7 @@
  * 16 DocCard (molecules/DocumentCard), mirroring the design library's section: the three
  * CV cards. Hover or Tab to a card for its hover state (the file size appears, ⤓ turns
  * accent and drops 3px); under 48rem each card is a 56-high row.
- * The PDFs are not in public/cv yet: the links point at their future paths.
+ * Sample sizes; the Japan section reads the real ones from public/cv.
  */
 import { DocumentCard } from "@/components/molecules/DocumentCard";
 import { Story } from "../_components/Story";
@@ -23,6 +23,7 @@ export function DocCardStories() {
           <li>
             <DocumentCard
               href="/cv/rirekisho.pdf"
+              hrefLang="ja"
               title="履歴書"
               titleLang="ja"
               description="Rirekisho, JIS format"
@@ -33,6 +34,7 @@ export function DocCardStories() {
           <li>
             <DocumentCard
               href="/cv/shokumukeirekisho.pdf"
+              hrefLang="ja"
               title="職務経歴書"
               titleLang="ja"
               description="Work history, Japanese"
@@ -42,7 +44,8 @@ export function DocCardStories() {
           </li>
           <li>
             <DocumentCard
-              href="/cv/resume.pdf"
+              href="/cv/En_Parisi_Marco.pdf"
+              hrefLang="en"
               title="Résumé"
               description="CV, English"
               format="PDF"

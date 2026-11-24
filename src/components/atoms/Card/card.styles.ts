@@ -30,7 +30,7 @@ export function cardClasses({
 }) {
   return cn(
     variantClass[variant],
-    interactive && "cursor-pointer focus-visible:focus-ring-inset",
+    interactive && "cursor-pointer focus-visible:focus-ring-cell",
     className,
   );
 }

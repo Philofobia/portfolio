@@ -4,7 +4,7 @@
  * IconButton + BurgerIcon, MenuSheet) in fixed states: Work current, the design's 22:41
  * in Tokyo. Nothing here tracks the scroll, ticks or opens. Cell sizes follow the window
  * like the real header: 56 below md, one 75 cell from md.
- * Desktop: the bar as a 1440 window shows it (16 cells: Tokyo's clock only). Mobile
+ * Desktop: the bar as a 1440 window shows it (18 cells: Tokyo's clock only). Mobile
  * closed: the bar below the nav's width. Mobile open: the sheet, in place of its dialog.
  * The table lists what the live bar shows at each of its widths.
  */
@@ -23,14 +23,14 @@ const designInstant = new Date("2026-09-26T13:41:00Z");
 
 const widths = [
   { label: "< 768 · mobile", shows: "logo · 日本語 · theme · burger → sheet" },
-  { label: "bar < 61rem", shows: "logo · 日本語 · theme · burger → sheet" },
-  { label: "bar ≥ 61rem (@nav)", shows: "logo · nav · 日本語 · theme" },
+  { label: "bar < 75rem", shows: "logo · 日本語 · theme · burger → sheet" },
+  { label: "bar ≥ 75rem (@nav)", shows: "logo · nav · 日本語 · theme" },
   {
-    label: "bar ≥ 70.3125rem (@clock)",
+    label: "bar ≥ 84.375rem (@clock)",
     shows: "logo · nav · Tokyo · 日本語 · theme",
   },
   {
-    label: "bar ≥ 80rem (@clocks)",
+    label: "bar ≥ 93.75rem (@clocks)",
     shows: "logo · nav · Torino · Tokyo · 日本語 · theme",
   },
 ];

@@ -51,7 +51,7 @@ import { Label } from "@/components/atoms/Label";
 import { AvailabilityPill } from "@/components/molecules/AvailabilityPill";
 import { HeroEmblem } from "@/components/molecules/HeroEmblem";
 import { HeroMarquee } from "@/components/molecules/HeroMarquee";
-import { availableFrom, cv, heroCv } from "@/content/profile";
+import { cv, heroCv, inTokyoFrom } from "@/content/profile";
 import { cn } from "@/lib/cn";
 import { heroGrid, heroPlacement } from "./hero.styles";
 
@@ -64,7 +64,7 @@ export function Hero() {
       <div className="grid-container @container">
         <div className={heroGrid}>
           <AvailabilityPill
-            from={availableFrom}
+            from={inTokyoFrom}
             className={heroPlacement.availability}
           />
 

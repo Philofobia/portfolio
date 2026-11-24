@@ -63,7 +63,7 @@ export function StackGroupCard({
         className: cn("group p-0", contentShown, className),
       })}
     >
-      <summary className="flex h-bar cursor-pointer list-none items-center justify-between px-5 text-h4 uppercase focus-visible:focus-ring-inset @stack-split:supports-[selector(::details-content)]:hidden ja:normal-case [&::-webkit-details-marker]:hidden">
+      <summary className="flex h-bar cursor-pointer list-none items-center justify-between px-5 text-h4 uppercase focus-visible:focus-ring-cell @stack-split:supports-[selector(::details-content)]:hidden ja:normal-case [&::-webkit-details-marker]:hidden">
         {title}
         <span
           aria-hidden="true"
