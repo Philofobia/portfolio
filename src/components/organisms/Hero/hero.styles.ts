@@ -19,7 +19,16 @@
  *   above the headline it labels. The subtitle shares the headline's row (same middle),
  *   the CTA pair ends on the emblem's bottom edge; the outer rows keep the composition off
  *   the header and the marquee;
- * - stacked (below 12 cells): the text flows, so its height is any number of pixels; the
+ * - tablet (md, below 12 cells: 8 or 10): the emblem beside the text instead of under it,
+ *   so the column is not left half empty. Two columns: the text, then the emblem in two
+ *   fifths of the column on whole cells (3 cells of 8, 4 of 10; round(), 3 cells where
+ *   unsupported), one cell apart. The emblem keeps its six-cell height (450), a tall crop
+ *   of the tower, and the rows hang on it: availability, headline and subtitle from its
+ *   top, a flexible row, then the intro ending on its bottom edge (the emblem spans all
+ *   five, so the flexible row takes what the text leaves). The CTA pair spans the column
+ *   one cell under the emblem. Every edge is then a whole number of cells from the top,
+ *   with no rounding needed; the text needs about 400 of the 450px in either language;
+ * - stacked (phones, below md): the text flows, so its height is any number of pixels; the
  *   column is rounded up to whole cells (block-size-cells) and the CTA pair, one cell high,
  *   is pushed to its foot above one cell of padding, so the pair and the marquee under it
  *   sit on grid lines. The rounding slack (under one cell) goes above the CTAs. Chromium
@@ -30,18 +39,18 @@
  */
 
 export const heroGrid =
-  "flex flex-col gap-5 pt-7.5 pb-cell md:gap-6 md:py-cell @max-hero-split:block-size-cells @hero-split:grid @hero-split:grid-cols-[1fr_repeat(12,var(--cell))_1fr] @hero-split:grid-rows-[repeat(9,minmax(var(--cell),auto))] @hero-split:gap-0 @hero-split:py-0 @hero-wide:grid-cols-[1fr_repeat(16,var(--cell))_1fr] @hero-wide:grid-rows-[var(--cell)_1fr_auto_var(--cell-pad)_auto_1fr_auto_1fr_var(--cell)]";
+  "flex flex-col gap-5 pt-7.5 pb-cell md:gap-6 md:py-cell @max-hero-split:block-size-cells md:@max-hero-split:grid md:@max-hero-split:grid-cols-[minmax(0,1fr)_calc(var(--cell)*3)] md:@max-hero-split:supports-[width:round(1px,1px)]:grid-cols-[minmax(0,1fr)_round(down,40%,var(--cell))] md:@max-hero-split:grid-rows-[auto_auto_auto_1fr_auto_auto] md:@max-hero-split:gap-x-cell md:@max-hero-split:gap-y-6 @hero-split:grid @hero-split:grid-cols-[1fr_repeat(12,var(--cell))_1fr] @hero-split:grid-rows-[repeat(9,minmax(var(--cell),auto))] @hero-split:gap-0 @hero-split:py-0 @hero-wide:grid-cols-[1fr_repeat(16,var(--cell))_1fr] @hero-wide:grid-rows-[var(--cell)_1fr_auto_var(--cell-pad)_auto_1fr_auto_1fr_var(--cell)]";
 
 export const heroPlacement = {
   availability:
-    "@hero-split:col-[2/7] @hero-split:row-start-2 @hero-split:self-end @hero-wide:col-[2/6] @hero-wide:row-start-3",
+    "md:@max-hero-split:col-start-1 md:@max-hero-split:row-start-1 @hero-split:col-[2/7] @hero-split:row-start-2 @hero-split:self-end @hero-wide:col-[2/6] @hero-wide:row-start-3",
   title:
-    "@hero-split:col-[2/7] @hero-split:row-[3/5] @hero-split:self-center @hero-wide:col-[2/6] @hero-wide:row-[5/6]",
+    "md:@max-hero-split:col-start-1 md:@max-hero-split:row-start-2 @hero-split:col-[2/7] @hero-split:row-[3/5] @hero-split:self-center @hero-wide:col-[2/6] @hero-wide:row-[5/6]",
   subtitle:
-    "@hero-split:col-[2/7] @hero-split:row-start-5 @hero-split:self-start @hero-wide:col-[13/18] @hero-wide:row-[5/6] @hero-wide:items-end @hero-wide:self-center @hero-wide:text-end",
+    "md:@max-hero-split:col-start-1 md:@max-hero-split:row-start-3 @hero-split:col-[2/7] @hero-split:row-start-5 @hero-split:self-start @hero-wide:col-[13/18] @hero-wide:row-[5/6] @hero-wide:items-end @hero-wide:self-center @hero-wide:text-end",
   emblem:
-    "w-full md:w-cells-6 @hero-split:col-[8/14] @hero-split:row-[3/9] @hero-wide:col-[7/13] @hero-wide:row-[2/9]",
+    "w-full md:w-cells-6 md:@max-hero-split:col-start-2 md:@max-hero-split:row-[1/6] md:@max-hero-split:w-full @hero-split:col-[8/14] @hero-split:row-[3/9] @hero-wide:col-[7/13] @hero-wide:row-[2/9]",
   intro:
-    "@hero-split:col-[2/7] @hero-split:row-[6/8] @hero-split:self-start @hero-wide:col-[2/6] @hero-wide:row-[7/8]",
-  ctas: "@max-hero-split:mt-auto @hero-split:col-[2/7] @hero-split:row-start-8 @hero-wide:col-[13/18] @hero-wide:row-[7/9] @hero-wide:self-end @hero-wide:justify-end",
+    "md:@max-hero-split:col-start-1 md:@max-hero-split:row-start-5 md:@max-hero-split:self-end @hero-split:col-[2/7] @hero-split:row-[6/8] @hero-split:self-start @hero-wide:col-[2/6] @hero-wide:row-[7/8]",
+  ctas: "@max-hero-split:mt-auto md:@max-hero-split:col-span-2 md:@max-hero-split:row-start-6 md:@max-hero-split:mt-[calc(var(--cell)-1.5rem)] @hero-split:col-[2/7] @hero-split:row-start-8 @hero-wide:col-[13/18] @hero-wide:row-[7/9] @hero-wide:self-end @hero-wide:justify-end",
 } as const;

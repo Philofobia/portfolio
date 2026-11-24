@@ -25,7 +25,8 @@
 /*
   Hero layouts for its container queries (@hero-split:, @hero-wide:), on the grid column:
   text beside the six-cell emblem from 12 cells (900px), the design's three columns from
-  16 (1200px). Below 12 the hero stacks, as on mobile.
+  16 (1200px). Below 12 on tablets (md: 8 or 10 cells) the emblem sits beside the text,
+  the CTAs under both; on phones the hero stacks.
 */
 @theme {
   --container-hero-split: 56.25rem;
@@ -40,6 +41,26 @@
 @theme {
   --container-stack-split: 56.25rem;
   --container-stack-wide: 84.375rem;
+}
+
+/*
+  Experience layout for its container query (@experience-split:), on the grid column: the
+  design's two columns (range and intro in six cells, the timeline beside them) from 16
+  cells (1200px), where the timeline keeps ten. Below, the intro sits above the timeline.
+*/
+@theme {
+  --container-experience-split: 75rem;
+}
+
+/*
+  Japan layouts for its container queries (@japan-thirds:, @japan-wide:), on the grid
+  column: the CV cells side by side in thirds from 10 cells (750px; at 8 a third is too
+  narrow for 職務経歴書 and its description), the design's 18 × 4 composition of fact cells
+  and its row of CV cells at 18 cells (1350px). Below 18, two columns of facts.
+*/
+@theme {
+  --container-japan-thirds: 46.875rem;
+  --container-japan-wide: 84.375rem;
 }
 
 /* Only the design's colors exist as utilities; no radius, no shadows anywhere. */

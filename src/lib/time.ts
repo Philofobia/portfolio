@@ -42,3 +42,11 @@ export function hourHandAngle(date: Date, timeZone: Timezone) {
   const { hours, minutes } = wallClock(date, timeZone);
   return (hours % 12) * 30 + minutes * 0.5;
 }
+
+/**
+ * A YYYY-MM month as a Date for Intl: mid-month in UTC, so no time zone can push it across
+ * a month boundary. Format it with the named formats month / monthLong (i18n/request.ts).
+ */
+export function monthDate(month: string) {
+  return new Date(`${month}-15T00:00:00Z`);
+}

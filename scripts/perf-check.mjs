@@ -62,8 +62,9 @@ const BUDGETS = {
   js: 176 * KB,
   // Per page: Geist and Geist Mono everywhere, plus IBM Plex Sans JP's small shared subset
   // on /en and its complete subset on /jp (scripts/jp-font.mjs). Measured + ~10%
-  // (2026-11-23: 69.5 / 125 KB).
-  fonts: { "/en": 75 * KB, "/jp": 135 * KB },
+  // (2026-11-23: 69.5 / 125 KB). /jp re-based with the Experience and Japan copy, which
+  // added 48 glyphs to the ja subset (~6 KB per weight): 137.7 KB measured, 150 budget.
+  fonts: { "/en": 75 * KB, "/jp": 150 * KB },
   heroImage: 150 * KB,
   thirdPartyJs: 100 * KB,
   // Every byte a visit can load: the first view, then every section scrolled into view
