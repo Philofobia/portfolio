@@ -99,7 +99,7 @@ export function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-title"
-      className="-scroll-mt-cell pt-section md:-scroll-mt-section ja:[word-break:auto-phrase]"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section ja:[word-break:auto-phrase]"
     >
       <div className="grid-container @container">
         <SectionHeading

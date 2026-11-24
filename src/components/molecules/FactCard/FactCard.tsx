@@ -6,6 +6,10 @@
  * there). Props: label, value (text, or a <time> for a date), note, size ('lg' 48 / 40 m | 'md' 30 / 22 m | 'sm' 24 / 20 m:
  * the type tokens h1, h3, h4), placeholder (a value still to fill: shown in brackets, value
  * and note muted), col / row (Card placement). The value never animates as a counter.
+ * A label that wraps (OTHER LANGUAGES in a half-width cell on a phone) keeps 1.4 leading,
+ * not the meta type's 1. A value longer than its cell hyphenates, or breaks inside a word
+ * where the browser has no hyphenation for the language, instead of running through the
+ * padding into the border (Fundamental at 320px, the WCAG reflow width).
  */
 import type { ReactNode } from "react";
 import { Card } from "@/components/atoms/Card";
@@ -43,8 +47,16 @@ export function FactCard({
       row={row}
       className={cn("flex flex-col justify-between gap-4", className)}
     >
-      <Label as="dt">{label}</Label>
-      <dd className={cn(sizeClass[size], placeholder && "text-ink-3")}>
+      <Label as="dt" className="leading-[1.4]">
+        {label}
+      </Label>
+      <dd
+        className={cn(
+          sizeClass[size],
+          "wrap-break-word hyphens-auto",
+          placeholder && "text-ink-3",
+        )}
+      >
         {placeholder ? <>[{value}]</> : value}
       </dd>
       {note && (

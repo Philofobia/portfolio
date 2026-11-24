@@ -6,7 +6,10 @@
  * Layout: mobile, the index above the title, the aside at the title's foot on the right
  * (Portfolio Mobile, Work); an aside with no room beside the title wraps below it. From
  * 48rem one row on the cell's bottom edge: index · title · aside pushed right; the mono
- * index padded down onto the title's baseline (0.5em md, 0.83em xl).
+ * index padded down onto the title's baseline (0.5em md, 0.83em xl). From md the title
+ * keeps its line (shrink-0, up to the column's width) and the aside wraps instead: at
+ * 768 "Selected work" broke over two lines beside its aside, the heading outgrew its cell
+ * and pushed the carousel off the grid's lines.
  * The index is numbering the order already gives: hidden from assistive tech, so the
  * heading is not read as "zero two dot Selected work".
  * Title and aside rise 24px into place as they scroll in (motion.css .reveal-rise, CSS only).
@@ -50,7 +53,7 @@ export function SectionHeading({
       <h2
         id={titleId}
         className={cn(
-          "reveal-rise uppercase",
+          "reveal-rise uppercase md:max-w-full md:shrink-0",
           size === "xl" ? "text-display" : "text-h2",
         )}
       >

@@ -120,10 +120,13 @@
 
   /*
     Footer ruler (atoms/ScrollRuler): one major tick (ink-3) every cell, a minor one (line,
-    5 high from 7) every cell / 5, from the ruler's start. Its needle is in motion.css.
+    5 high from 7) every cell / 5, from the ruler's start. Its needle is in motion.css: a
+    box as wide as the ruler, shifted along it, clipped here so it never adds sideways
+    scroll (clip, not hidden: the needle still overhangs above and below).
   */
   .scroll-ruler {
     position: relative;
+    overflow-x: clip;
     height: 0.75rem;
     container-type: inline-size;
     background-image:

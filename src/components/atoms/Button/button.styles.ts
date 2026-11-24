@@ -112,6 +112,10 @@ export function squareClasses(frame: SquareFrame = "box") {
 /**
  * A quiet mono text link (the footer's locale switch and Back to top): ink-2, ink on
  * hover, accent focus ring. Kept here with the other control looks.
+ * At least 24px high (min-h-6, the text centred): the 12px line alone made a 12px-high
+ * target, under WCAG 2.5.8's 24 (it passed only by the spacing exception), and hard to
+ * tap on a phone; the look does not change. inline-flex drops the space before a trailing
+ * glyph (Back to top ↑), so the gap puts back one mono space (0.6em).
  */
 export const textLinkClasses =
-  "font-mono text-meta text-ink-2 hover:text-ink focus-visible:focus-ring motion-safe:transition-colors motion-safe:duration-200";
+  "inline-flex min-h-6 items-center gap-[0.6em] font-mono text-meta text-ink-2 hover:text-ink focus-visible:focus-ring motion-safe:transition-colors motion-safe:duration-200";

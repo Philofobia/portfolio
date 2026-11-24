@@ -5,7 +5,9 @@
  * scroll-progress-indicator). Ticks and needle are CSS (grid.css .scroll-ruler,
  * motion.css .scroll-ruler-needle): the needle runs on a scroll(root) timeline
  * (MWG scroll-progress-indicator), so no script; without scroll-driven animations, or under
- * reduced motion, the needle is not drawn.
+ * reduced motion, the needle is not drawn. Its travel is a percentage of its own box (as wide
+ * as the ruler), so it follows the ruler's width through a window resize with no script.
+ * It moved by container units at first, which the compositor kept from the first width.
  */
 import { cn } from "@/lib/cn";
 

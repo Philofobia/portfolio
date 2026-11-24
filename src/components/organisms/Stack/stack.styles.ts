@@ -18,8 +18,11 @@
  *   longer, so text is never clipped.
  */
 
+// mt-5: the mobile design's 20px under every section heading (the aside line would
+// otherwise touch the first row); from md the heading is a whole cell and the grid
+// starts on the next line.
 export const stackGrid =
-  "grid-cols-1 auto-rows-auto @stack-split:grid-cols-2 @stack-wide:grid-cols-[repeat(18,var(--cell))] @stack-wide:grid-rows-[repeat(8,minmax(var(--cell),auto))]";
+  "mt-5 md:mt-0 grid-cols-1 auto-rows-auto @stack-split:grid-cols-2 @stack-wide:grid-cols-[repeat(18,var(--cell))] @stack-wide:grid-rows-[repeat(8,minmax(var(--cell),auto))]";
 
 /**
  * On every group cell from 12 cells: at least four cells, so each row of the two columns

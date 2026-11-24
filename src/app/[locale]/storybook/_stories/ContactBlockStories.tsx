@@ -15,7 +15,7 @@ export function ContactBlockStories() {
       name="ContactBlock"
       file="molecules/ContactBlock · atoms/CopyButton · uses 02, 04"
     >
-      <figure className="flex flex-col gap-3">
+      <figure className="@container flex flex-col gap-3">
         <ContactBlock email="hello@example.com" />
         <figcaption className="font-mono text-meta leading-normal text-ink-3">
           idle: accent cell &quot;Copy email&quot; · copied (2s, then reverts):

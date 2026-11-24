@@ -225,25 +225,13 @@
       }
     }
   },
-  "about": {
-    "number": "",
-    "title": "",
-    "tagline": "",
-    "body": "",
-    "imageAlt": ""
-  },
   "contact": {
-    "number": "",
-    "title": "",
-    "intro": "",
+    "number": "06.",
+    "title": "Contact",
+    "intro": "Email is the quickest way to get in touch. Messages in English or Japanese are welcome.",
     "copyEmail": "Copy email",
     "copied": "Copied",
-    "copyFailed": "Copy failed",
-    "links": {
-      "github": "",
-      "linkedin": "",
-      "wantedly": ""
-    }
+    "copyFailed": "Copy failed"
   },
   "footer": {
     "copyright": "© {year}",

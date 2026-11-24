@@ -99,6 +99,20 @@
   }
 }
 
+/*
+  snap-block-cells: block-size-cells for a whole region, with up to 1px of slack: the height
+  rounds up to whole cells, but a size at most 1px over a whole number (sub-pixel text
+  heights, a stray border) rounds down to it, so 675.03 stays 675 instead of becoming 750.
+  On every section of the page (and the Work carousel's track from md): whatever a
+  section's text does at a given width, the next section starts on a grid line. Same
+  support as block-size-cells (Chromium); elsewhere the height stays auto.
+*/
+@utility snap-block-cells {
+  @supports (block-size: calc-size(auto, size + 0px)) {
+    block-size: calc-size(auto, round(up, size - 1px, var(--cell)));
+  }
+}
+
 @utility min-block-size-cells-* {
   min-block-size: calc(var(--cell) * --value(integer));
 

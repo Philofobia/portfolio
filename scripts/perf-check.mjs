@@ -58,8 +58,9 @@ const BUDGETS = {
   // The skill's 150 KB is below this stack's floor: the Next 16 + React 19 runtime alone
   // is ~160 KB, and the page measured 165 KB (2026-11-20). The budget guards growth:
   // +1 KB on 2026-11-23 for the Work carousel's photo loading (WorkCarousel, ~0.3 KB),
-  // measured 175.1 KB.
-  js: 176 * KB,
+  // measured 175.1 KB. +1 KB on 2026-11-24 for the Contact section's copy button
+  // (CopyButton + useCopyToClipboard, the page's first use of them), measured 176.5 KB.
+  js: 177 * KB,
   // Per page: Geist and Geist Mono everywhere, plus IBM Plex Sans JP's small shared subset
   // on /en and its complete subset on /jp (scripts/jp-font.mjs). Measured + ~10%
   // (2026-11-23: 69.5 / 125 KB). /jp re-based with the Experience and Japan copy, which

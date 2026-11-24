@@ -22,15 +22,17 @@ export const experienceIntro =
   "grid content-start gap-3 md:block-size-cells md:py-6 @experience-split:pe-8";
 
 /**
- * The rail / the list's left edge is drawn 1px outside (as .cells draws its top and left),
- * so it lands on the background's grid line, the last pixel of the cell before; a border
- * would sit 1px inside it. The right and top borders already fall on a line.
+ * The rail / the list's left edge, and from md its top edge, are drawn 1px outside (as
+ * .cells draws its top and left), so they land on the background's grid lines, the last
+ * pixel of the cell before; a border would sit 1px inside and add 1px to the list's
+ * height (a top border made it 17 cells + 1px, and every section below drifted off the
+ * grid; fixed 2026-11-24). The right border and the rows' bottom borders fall on a line.
  * self-start: in split the list shares a grid row with the intro, and stretched to it the
  * frame ran on below the last row with no bottom edge (both groups closed: an empty cell).
  * The list is as tall as its rows, whose bottom borders close it.
  */
 export const experienceList =
-  "flex flex-col self-start shadow-[-1px_0_0_var(--line)] md:border-e md:border-t md:border-line md:bg-bg";
+  "flex flex-col self-start shadow-[-1px_0_0_var(--line)] md:border-e md:border-line md:bg-bg md:shadow-[-1px_-1px_0_var(--line)]";
 
 /**
  * Group summary: the label after a '+' / '−' marker (accent when open). The marker sits

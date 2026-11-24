@@ -60,7 +60,11 @@ export function Hero() {
   const cvDocument = cv[heroCv[useLocale()]];
 
   return (
-    <section id="hero" aria-labelledby="hero-title">
+    <section
+      id="hero"
+      aria-labelledby="hero-title"
+      className="snap-block-cells"
+    >
       <div className="grid-container @container">
         <div className={heroGrid}>
           <AvailabilityPill
