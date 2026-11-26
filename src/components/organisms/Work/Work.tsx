@@ -10,8 +10,12 @@
  * The section is named by its <h2> (aria-labelledby) and is the nav's #work target.
  * No card image is eager: the hero's emblem is the page's LCP, and the cards sit below the
  * first view, so they load lazily (slides 2–4 when they near the track's viewport).
- * The carousel rises into place as it scrolls in (motion.css .reveal-rise, CSS only); the
+ * On phones 20px separate the heading from the carousel (the mobile design's gap under
+ * every heading; the aside line otherwise touched the card); from md the heading is a
+ * whole cell. The carousel rises into place as it scrolls in (motion.css .reveal-rise, CSS only); the
  * cards inside run the slide motion (ProjectCard motion="slide").
+ * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
+ * only), so a project title in the list or the card never leaves one character on a line.
  */
 import { useTranslations } from "next-intl";
 import { SectionHeading } from "@/components/molecules/SectionHeading";
@@ -51,7 +55,7 @@ export function Work() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="-scroll-mt-cell pt-section md:-scroll-mt-section"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section ja:[word-break:auto-phrase]"
     >
       <div className="grid-container">
         <SectionHeading
@@ -61,7 +65,7 @@ export function Work() {
           titleId="work-title"
         />
         <WorkCarousel
-          className="reveal-rise"
+          className="reveal-rise mt-5 md:mt-0"
           items={items}
           labels={{
             carousel: t("carousel"),

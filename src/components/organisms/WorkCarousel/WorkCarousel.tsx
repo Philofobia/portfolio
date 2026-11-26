@@ -33,6 +33,8 @@
  *   within its ~1250px margin). data-engaged then lets lazy loading work as usual, which
  *   keeps about one slide ahead: on slide 1, photo 2 is already loading. The rule and its
  *   no-JavaScript fallback are in styles/carousel.css.
+ * From md the track's height rounds up to whole cells (snap-block-cells; the cards stretch
+ * to it), so the control bar under it and the section below stay on the grid's lines.
  * Semantics (MWG carousel): the track is a focusable group with role description
  * "carousel" and a name; each slide a group, role description "slide", named by position.
  * The section around it is already the region (Work, aria-labelledby), so the carousel is
@@ -149,7 +151,7 @@ export function WorkCarousel({
           data-next={labels.next}
           data-next-label={labels.nextLabel}
           data-engaged={engaged || undefined}
-          className="carousel-track focus-visible:outline-none"
+          className="carousel-track focus-visible:outline-none md:snap-block-cells"
         >
           {items.map((item) => (
             <div

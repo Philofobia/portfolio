@@ -1,10 +1,11 @@
 /**
  * 404 inside the locale segment, translated via messages.notFound, with a Link back home.
  * Next marks it noindex on its own. The Header comes first (its section anchors only work
- * on the home page); the footer joins once it exists.
+ * on the home page), the Footer last, without Back to top (no #hero here).
  */
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/atoms/Button";
+import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 
 export default function NotFound() {
@@ -23,6 +24,7 @@ export default function NotFound() {
           </Button>
         </div>
       </main>
+      <Footer backToTop={false} />
     </>
   );
 }

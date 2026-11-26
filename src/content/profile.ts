@@ -1,10 +1,14 @@
 /**
  * Static, locale-independent profile data: name, katakana name, email, siteUrl,
- * links { github, linkedin, wantedly, findy, lapras }, inTokyoFrom, cv file paths (public/cv/*).
+ * links [{ id, name, href }], inTokyoFrom, cv file paths (public/cv/*).
  *
  * Filled in so far: name (the logo; a proper noun, the same in every locale), its katakana
  * reading nameKatakana (the footer shows both in every locale), copyrightYear,
- * inTokyoFrom, cv and siteUrl.
+ * inTokyoFrom, cv, email, links and siteUrl.
+ * email and links are the Contact section's (the same as on the CVs). links holds only the
+ * profiles that exist: each is an https: URL (typed, so a link from this data is never
+ * another scheme), and its name is a proper noun, the same in every locale. Wantedly joins
+ * when there is a profile (2026-11-24); nothing else needs to change.
  * inTokyoFrom is the month of the move to Tokyo (YYYY-MM, also its <time datetime>), named
  * by the hero's status line and the Japan section's "In Tokyo from" cell. The words around
  * it are in messages (hero.availability, japan.facts.inTokyo); the month is formatted per
@@ -29,6 +33,21 @@ export const nameKatakana = "マルコ・パリージ";
 export const copyrightYear = 2026;
 
 export const inTokyoFrom = "2026-12";
+
+export const email = "marco.parisi.web@gmail.com";
+
+export const links = [
+  { id: "github", name: "GitHub", href: "https://github.com/Philofobia" },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/marco-parisi-webdev",
+  },
+] as const satisfies readonly {
+  id: string;
+  name: string;
+  href: `https://${string}`;
+}[];
 
 export const cv = {
   en: {

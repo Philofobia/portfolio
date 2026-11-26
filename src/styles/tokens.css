@@ -66,6 +66,16 @@
   --container-japan-wide: 84.375rem;
 }
 
+/*
+  Contact layout for its container query (@contact-split:), on the grid column: the
+  address beside the five-cell copy cell from 14 cells (1050px), where the address at
+  40px (about 580px with its padding) fits the nine cells left. Below, the address sits
+  above a full-width copy button (at 12 cells, side by side, it broke over two lines).
+*/
+@theme {
+  --container-contact-split: 65.625rem;
+}
+
 /* Only the design's colors exist as utilities; no radius, no shadows anywhere. */
 @theme {
   --color-*: initial;

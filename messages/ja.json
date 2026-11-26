@@ -85,7 +85,7 @@
         "role": "フロントエンドエンジニア、{year}年"
       },
       "ticketing": {
-        "title": "イベントチケット販売プラットフォーム",
+        "title": "イベントチケット販売​プラットフォーム",
         "description": "フルスタックで担当。イベントの閲覧とチケット購入ができる公開サイト（安全な決済ゲートウェイ連携を含む）と、それを支えるバックエンド・管理画面を、設計からリリースまで一貫して開発。",
         "role": "Webエンジニア、{year}年"
       }
@@ -225,25 +225,13 @@
       }
     }
   },
-  "about": {
-    "number": "",
-    "title": "",
-    "tagline": "",
-    "body": "",
-    "imageAlt": ""
-  },
   "contact": {
-    "number": "",
-    "title": "",
-    "intro": "",
+    "number": "06.",
+    "title": "連絡先",
+    "intro": "ご連絡はメールでお願いいたします。英語・日本語のどちらでも構いません。",
     "copyEmail": "メールをコピー",
     "copied": "コピーしました",
-    "copyFailed": "コピーできませんでした",
-    "links": {
-      "github": "",
-      "linkedin": "",
-      "wantedly": ""
-    }
+    "copyFailed": "コピーできませんでした"
   },
   "footer": {
     "copyright": "© {year}",

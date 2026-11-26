@@ -18,6 +18,8 @@
  * group cells size (or their fixed two cells on mobile).
  * Server component, no client code. The grid rises into place as it scrolls in
  * (motion.css .reveal-rise, CSS only).
+ * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
+ * only), so no word splits across lines.
  */
 import { useTranslations } from "next-intl";
 import { MediaFrame } from "@/components/atoms/MediaFrame";
@@ -50,7 +52,7 @@ export function Stack() {
     <section
       id="stack"
       aria-labelledby="stack-title"
-      className="-scroll-mt-cell pt-section md:-scroll-mt-section"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section ja:[word-break:auto-phrase]"
     >
       <div className="grid-container @container">
         <SectionHeading
