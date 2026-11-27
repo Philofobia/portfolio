@@ -49,6 +49,10 @@
  * Typography (MWG improve-text-layout-and-legibility): text-wrap: pretty on the intro, a
  * progressive enhancement (Limited availability; ignored elsewhere). The headline and
  * subtitle break by hand, so they need no balance.
+ * From md the hero is at least the first screen under the header (min-block-size-first-screen,
+ * whole cells rounded down), the marquee pinned to its foot (mt-auto): on a screen taller
+ * than the composition the extra cells open above the marquee, and the next section's
+ * title no longer shows in the first view (1920 × 1080, 2026-11-27).
  */
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/atoms/Button";
@@ -69,7 +73,7 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-title"
-      className="snap-block-cells"
+      className="snap-block-cells md:flex md:min-block-size-first-screen md:flex-col"
     >
       <div className="grid-container @container">
         <div className={heroGrid}>
@@ -145,7 +149,7 @@ export function Hero() {
         </div>
       </div>
 
-      <HeroMarquee />
+      <HeroMarquee className="md:mt-auto" />
     </section>
   );
 }

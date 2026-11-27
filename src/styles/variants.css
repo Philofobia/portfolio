@@ -113,6 +113,39 @@
   }
 }
 
+/*
+  Screen-height floors, from md (where the header is one cell): the sections are as tall
+  as their content, so on a screen taller than that the next section's title showed at
+  the bottom of the window (1920 × 1080, 2026-11-27).
+  min-block-size-screen-N: at least the screen's height less N cells, rounded up to whole
+  cells. A section whose anchor jump puts its heading under the header needs N = 1 when
+  the next section opens with two cells of air, N = 0 before Contact (one cell of air):
+  the next title then starts at or below the window's bottom edge.
+  min-block-size-first-screen: the hero, which starts under the one-cell header: the
+  screen less that cell, rounded down, so the marquee at its foot is always wholly in the
+  first view and the next title (two cells of air further) never is.
+  round() needs Firefox 118 / Chrome 125 / Safari 15.4; elsewhere the plain calc().
+*/
+@utility min-block-size-screen-* {
+  min-block-size: calc(100svh - var(--cell) * --value(integer));
+
+  @supports (width: round(1px, 1px)) {
+    min-block-size: round(
+      up,
+      100svh - var(--cell) * --value(integer),
+      var(--cell)
+    );
+  }
+}
+
+@utility min-block-size-first-screen {
+  min-block-size: calc(100svh - var(--cell));
+
+  @supports (width: round(1px, 1px)) {
+    min-block-size: round(down, 100svh - var(--cell), var(--cell));
+  }
+}
+
 @utility min-block-size-cells-* {
   min-block-size: calc(var(--cell) * --value(integer));
 

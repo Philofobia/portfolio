@@ -16,6 +16,8 @@
  * cards inside zoom their image in as they slide in (ProjectCard).
  * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
  * only), so a project title in the list or the card never leaves one character on a line.
+ * From md at least the screen less the header's cell (min-block-size-screen-1), so after a
+ * nav jump the next section's title stays below the window (variants.css).
  */
 import { useLocale, useTranslations } from "next-intl";
 import { SectionHeading } from "@/components/molecules/SectionHeading";
@@ -59,7 +61,7 @@ export function Work() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section ja:[word-break:auto-phrase]"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section md:min-block-size-screen-1 ja:[word-break:auto-phrase]"
     >
       <div className="grid-container">
         <SectionHeading

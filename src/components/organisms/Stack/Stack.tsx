@@ -20,6 +20,8 @@
  * (motion.css .reveal-rise, CSS only).
  * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
  * only), so no word splits across lines.
+ * From md at least the screen less the header's cell (min-block-size-screen-1), so after a
+ * nav jump the next section's title stays below the window (variants.css).
  */
 import { useTranslations } from "next-intl";
 import { MediaFrame } from "@/components/atoms/MediaFrame";
@@ -52,7 +54,7 @@ export function Stack() {
     <section
       id="stack"
       aria-labelledby="stack-title"
-      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section ja:[word-break:auto-phrase]"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section md:min-block-size-screen-1 ja:[word-break:auto-phrase]"
     >
       <div className="grid-container @container">
         <SectionHeading
