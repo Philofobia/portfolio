@@ -17,7 +17,7 @@
  */
 import type { IconTechId } from "@/lib/tech-icons";
 
-export type Project = {
+type Project = {
   slug: string;
   image: string;
   year: string;
@@ -69,7 +69,7 @@ export const projects = [
   },
 ] as const satisfies readonly Project[];
 
-export type ProjectSlug = (typeof projects)[number]["slug"];
+type ProjectSlug = (typeof projects)[number]["slug"];
 
 /** The slide's id, the target of its link in the project list. */
 export const projectAnchor = (slug: ProjectSlug) => `project-${slug}`;

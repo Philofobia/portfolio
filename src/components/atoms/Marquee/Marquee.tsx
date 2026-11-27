@@ -23,7 +23,7 @@ import { Fragment, useState, type CSSProperties, type ReactNode } from "react";
 import { IconButton } from "@/components/atoms/IconButton";
 import { cn } from "@/lib/cn";
 
-export type MarqueeSize = "lg" | "sm";
+type MarqueeSize = "lg" | "sm";
 
 const sizeClass: Record<MarqueeSize, { band: string; separator: string }> = {
   lg: {

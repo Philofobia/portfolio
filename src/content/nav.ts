@@ -19,6 +19,6 @@ export const navItems = [
   number: string;
 }[];
 
-export type NavId = (typeof navItems)[number]["id"];
+type NavId = (typeof navItems)[number]["id"];
 
 export const navIds: readonly NavId[] = navItems.map(({ id }) => id);

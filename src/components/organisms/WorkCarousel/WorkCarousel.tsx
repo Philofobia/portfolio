@@ -57,7 +57,7 @@ import { ProjectListItem } from "@/components/molecules/ProjectListItem";
 import { useCarousel } from "@/hooks/useCarousel";
 import { cn } from "@/lib/cn";
 
-export type WorkCarouselItem = {
+type WorkCarouselItem = {
   /** The slide's id, the list link's target. */
   anchor: string;
   title: string;
@@ -66,7 +66,7 @@ export type WorkCarouselItem = {
   card: ReactNode;
 };
 
-export type WorkCarouselLabels = {
+type WorkCarouselLabels = {
   carousel: string;
   slide: string;
   track: string;

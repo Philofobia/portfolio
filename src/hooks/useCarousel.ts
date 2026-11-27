@@ -37,7 +37,7 @@ const NATIVE = [
   "(animation-timeline: scroll()) and (timeline-scope: none)",
 ];
 
-export type CarouselFallback = {
+type CarouselFallback = {
   buttons: boolean;
   markers: boolean;
   caption: boolean;

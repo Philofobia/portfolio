@@ -47,7 +47,7 @@ export function CellStories() {
             </Card>
             <Card variant="media" col="7 / 10" row="1 / 3">
               <MediaFrame
-                src="/images/texture-servers.webp"
+                src="/images/stack-fiber.webp"
                 alt=""
                 sizes="(min-width: 48rem) 225px, 150px"
               />

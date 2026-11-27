@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * 'use client' — toggles en ⇄ ja keeping the same pathname (i18n/navigation Link / useRouter).
+ * 'use client' — toggles en ⇄ ja keeping the same pathname (i18n/navigation Link).
  * Label shows the OTHER language: '日本語' on en, 'English' on ja.
  * A link, not a button: it goes to the other locale's URL. lang/hrefLang name the target
  * language so screen readers pronounce the label in it. One grid cell, like IconButton

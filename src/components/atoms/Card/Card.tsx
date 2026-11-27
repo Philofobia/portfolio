@@ -30,7 +30,7 @@ type ElementNeeds<T extends CardElement> = T extends "section"
     ? { href: string }
     : unknown;
 
-export type CardProps<T extends CardElement = "div"> = {
+type CardProps<T extends CardElement = "div"> = {
   as?: T;
   variant?: CardVariant;
   col?: string;

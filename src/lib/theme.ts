@@ -1,6 +1,6 @@
-export type Theme = "dark" | "light";
+type Theme = "dark" | "light";
 
-export const THEME_STORAGE_KEY = "theme";
+const THEME_STORAGE_KEY = "theme";
 export const DEFAULT_THEME: Theme = "dark";
 
 /**

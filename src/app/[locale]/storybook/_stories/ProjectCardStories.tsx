@@ -46,7 +46,7 @@ export function ProjectCardStories() {
             "nextdotjs",
             "nodedotjs",
             "postgresql",
-            "redis",
+            "docker",
           ]}
           links={{ caseStudy: "/", code: "https://github.com/" }}
         />
@@ -68,7 +68,7 @@ export function ProjectCardStories() {
               src: "/images/work-fashion.webp",
               alt: "",
             }}
-            icons={["typescript", "react", "graphql", "stripe"]}
+            icons={["typescript", "react", "graphql", "storybook"]}
             links={{ caseStudy: "/", live: "https://example.com/" }}
           />
           <figcaption className={caption}>
@@ -114,7 +114,7 @@ export function ProjectCardStories() {
             src: "/images/work-ticketing.webp",
             alt: "",
           }}
-          icons={["go", "postgresql"]}
+          icons={["python", "postgresql"]}
           links={{}}
         />
         <figcaption className={caption}>

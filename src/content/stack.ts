@@ -15,7 +15,7 @@
  */
 import type { TechId } from "@/lib/tech-icons";
 
-export type StackGroup = {
+type StackGroup = {
   key: string;
   techs: readonly TechId[];
 };
@@ -59,12 +59,10 @@ export const stackGroups = [
   },
 ] as const satisfies readonly StackGroup[];
 
-export type StackGroupKey = (typeof stackGroups)[number]["key"];
-
 /**
  * The two photo cells (design: one beside Backend, one beside Data). Unbranded Unsplash
  * photos picked for the accent's blue-violet, decorative (alt ""); sources in
- * public/images/README.md. width / height: the CSS size MediaFrame builds its 1x / 2x
+ * the README (Assets). width / height: the CSS size MediaFrame builds its 1x / 2x
  * srcset from, kept so the section's photos stay under 20 KB: fiber 400 → 640w and 828w
  * (its widest frame, 375 on desktop and 390 on a phone, gets a sharp 2x; the 600 of the
  * two-column layout a slightly soft one), swirl 150 → 256w and 384w. Both at quality 60:

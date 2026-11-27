@@ -44,7 +44,7 @@ import type { IconTechId } from "@/lib/tech-icons";
 
 const RAIL_SLOTS = 5;
 
-export type ProjectCardProps = {
+type ProjectCardProps = {
   index: number;
   total: number;
   title: string;
