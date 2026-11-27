@@ -1,6 +1,6 @@
 /**
  * 15 FactCell (molecules/FactCard), mirroring the design library's section: the Japan
- * facts grid in a <dl>, with the three sizes and a placeholder value spanning two columns.
+ * facts grid in a <dl>, with the two sizes.
  * The grid scrolls sideways on narrow screens (the section lays it out per breakpoint).
  */
 import { FactCard } from "@/components/molecules/FactCard";
@@ -26,22 +26,15 @@ export function FactCellStories() {
               value="[Visa status]"
               note="size=lg"
               size="lg"
-              row="1 / 3"
+              className="row-span-2"
             />
             <FactCard label="Japanese" value="N5 →" note="size=md" />
             <FactCard label="Based in" value="Milano" note="size=md" />
-            <FactCard
-              label="Available from"
-              value="Apr 2027"
-              note="placeholder · brackets + muted until filled"
-              placeholder
-              col="2 / 4"
-            />
           </dl>
         </section>
         <figcaption className="font-mono text-meta leading-normal text-ink-3">
-          label · value · note · size: &apos;lg&apos; | &apos;md&apos; |
-          &apos;sm&apos; (mobile 20px) · the value never animates as a counter
+          label · value · note · size: &apos;lg&apos; | &apos;md&apos; · the
+          value never animates as a counter
         </figcaption>
       </figure>
     </Story>

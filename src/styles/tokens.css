@@ -85,16 +85,13 @@
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-bg-sunk: var(--bg-sunk);
   --color-bg-hover: var(--bg-hover);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
   --color-line: var(--line);
-  --color-line-soft: var(--line-soft);
   --color-line-faint: var(--line-faint);
   --color-line-strong: var(--line-strong);
-  --color-grid: var(--grid);
   --color-icon: var(--icon);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
@@ -154,7 +151,6 @@
   --spacing-logo: calc(var(--cell) * 3); /* the header's name mark: 3 cells */
   --spacing-cell-pad: var(--cell-pad);
   --spacing-inset: var(--inset);
-  --spacing-gutter: var(--gutter);
 
   --container-measure: var(--measure); /* max-w-measure: line length of prose */
 }
@@ -231,18 +227,16 @@
 :root {
   color-scheme: dark;
   --bg: #1b1b1c;
-  --bg-sunk: #141415;
   --bg-hover: #232325;
   --ink: #ececee;
   --ink-2: #a3a3ab;
   /*
     ink-3 adjusted from the design (#707078 / #76767e light) to reach WCAG AA 4.5:1 on bg,
-    bg-sunk, bg-hover and the grid lines (.grid-bg on <body>: --grid over bg, where small
+    bg-hover and the grid lines (.grid-bg on <body>: --grid over bg, where small
     text crosses a line). Dark 4.55 on a line, light 4.54.
   */
   --ink-3: #8f8f97;
   --line: rgba(255, 255, 255, 0.15);
-  --line-soft: rgba(255, 255, 255, 0.12);
   --line-faint: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.3);
   --grid: rgba(255, 255, 255, 0.06);
@@ -268,13 +262,11 @@
 :root[data-theme="light"] {
   color-scheme: light;
   --bg: #f1f1ef;
-  --bg-sunk: #e7e7e4;
   --bg-hover: #e4e4e0;
   --ink: #161618;
   --ink-2: #55555c;
   --ink-3: #64646c;
   --line: rgba(0, 0, 0, 0.14);
-  --line-soft: rgba(0, 0, 0, 0.1);
   --line-faint: rgba(0, 0, 0, 0.06);
   --line-strong: rgba(0, 0, 0, 0.3);
   --grid: rgba(0, 0, 0, 0.06);

@@ -1,5 +1,5 @@
 /**
- * Project registry: slug, image (public/images/work-*.webp), year, repo/live URLs, tech tags.
+ * Project registry: slug, image (public/images/work-*.webp), year, repo URL, tech tags.
  * Copy (title/description/role) lives in messages.work.projects[slug].
  *
  * Order is the carousel's order: newest first, as a Japanese career history (shokumukeirekisho) lists work. The slug is
@@ -22,7 +22,7 @@ type Project = {
   image: string;
   year: string;
   tech: readonly IconTechId[];
-  links: { code?: string; live?: string };
+  links: { code?: string };
 };
 
 export const projects = [

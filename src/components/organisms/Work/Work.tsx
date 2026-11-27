@@ -13,7 +13,7 @@
  * On phones 20px separate the heading from the carousel (the mobile design's gap under
  * every heading; the aside line otherwise touched the card); from md the heading is a
  * whole cell. The carousel rises into place as it scrolls in (motion.css .reveal-rise, CSS only); the
- * cards inside run the slide motion (ProjectCard motion="slide").
+ * cards inside zoom their image in as they slide in (ProjectCard).
  * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
  * only), so a project title in the list or the card never leaves one character on a line.
  */
@@ -49,7 +49,6 @@ export function Work() {
           image={{ src: project.image, alt: "" }}
           icons={[...project.tech]}
           links={project.links}
-          motion="slide"
           className="h-full"
         />
       ),

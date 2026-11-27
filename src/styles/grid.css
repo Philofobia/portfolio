@@ -88,17 +88,17 @@
 
   /* Hover only on real pointers (like Tailwind's hover:), so taps don't stick. */
   @media (hover: hover) {
-    :is(a, button).cell:hover {
+    button.cell:hover {
       background-color: var(--bg-hover);
     }
 
-    :is(a, button).cell-accent:hover {
+    button.cell-accent:hover {
       background-color: var(--accent-hover);
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    :is(a, button).cell {
+    button.cell {
       transition: background-color 200ms;
     }
   }

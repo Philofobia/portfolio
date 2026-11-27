@@ -25,9 +25,8 @@ export function ProjectCardStories() {
         <span className="text-ink">
           the site shows them in the Work carousel
         </span>{" "}
-        (Portfolio Wireframes 7a), one card per slide. Only motion: the card
-        fades up 24px once when it enters, the image scales 1.04 → 1 inside its
-        inset (in the carousel, as the card slides in).
+        (Portfolio Wireframes 7a), one card per slide. Only motion: the image
+        scales 1.04 → 1 inside its inset as the card slides into the carousel.
       </p>
 
       <figure className="flex flex-col gap-2">
@@ -48,7 +47,7 @@ export function ProjectCardStories() {
             "postgresql",
             "docker",
           ]}
-          links={{ caseStudy: "/", code: "https://github.com/" }}
+          links={{ code: "https://github.com/" }}
         />
         <figcaption className={caption}>
           layout=row · ≥ 48rem card · image 9 cells · icon rail 1 cell · body 8
@@ -69,7 +68,7 @@ export function ProjectCardStories() {
               alt: "",
             }}
             icons={["typescript", "react", "graphql", "storybook"]}
-            links={{ caseStudy: "/", live: "https://example.com/" }}
+            links={{ code: "https://github.com/" }}
           />
           <figcaption className={caption}>
             layout=stack · narrow card · icon rail goes horizontal · empty slot
@@ -92,13 +91,10 @@ export function ProjectCardStories() {
             <code className={code}>{"{ src, alt }"}</code>
           </StoryRow>
           <StoryRow label="links">
-            <code className={code}>{"{ caseStudy?, code?, live? }"}</code>
+            <code className={code}>{"{ code? }"}</code>
           </StoryRow>
           <StoryRow label="icons">
             <code className={code}>TechId[] (max 5)</code>
-          </StoryRow>
-          <StoryRow label="eager">
-            <code className={code}>boolean · the LCP card</code>
           </StoryRow>
         </StoryTable>
       </div>
@@ -118,8 +114,8 @@ export function ProjectCardStories() {
           links={{}}
         />
         <figcaption className={caption}>
-          no code, no live → secondary disabled &quot;Private —&quot; · layout
-          by the card&apos;s width, not the viewport
+          no code → secondary disabled &quot;Private —&quot; · layout by the
+          card&apos;s width, not the viewport
         </figcaption>
       </figure>
     </Story>

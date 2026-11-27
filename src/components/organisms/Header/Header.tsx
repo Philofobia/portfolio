@@ -54,7 +54,7 @@ export function Header() {
             <DualClock mutedClassName="hidden @clocks:flex" />
           </div>
           <LocaleSwitcher frame="bar" />
-          <ThemeToggle frame="bar" />
+          <ThemeToggle />
           <MobileMenu className="@nav:hidden" />
         </div>
       </div>

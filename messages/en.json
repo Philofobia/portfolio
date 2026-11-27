@@ -48,8 +48,6 @@
     "subtitle": "Client projects and a personal tool, 2023–2026.",
     "role": "Role — {role}",
     "code": "Code",
-    "live": "Live",
-    "caseStudy": "Case study",
     "private": "Private",
     "counter": "Project {index} of {total}",
     "stackLabel": "Built with",
