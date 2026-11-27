@@ -8,7 +8,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 
-export type CopyState = "idle" | "copied" | "failed";
+type CopyState = "idle" | "copied" | "failed";
 
 export function useCopyToClipboard(resetMs = 2000) {
   const [state, setState] = useState<CopyState>("idle");

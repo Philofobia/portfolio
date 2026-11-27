@@ -2,5 +2,3 @@
 # whatever src/app/global-error.tsx or the locale not-found contain.
 .next/server/app/_global-error.html
 .next/server/app/_not-found.html
-# Storybook is dev only: in production it prerenders as the same 404 shell.
-.next/server/app/*/storybook.html

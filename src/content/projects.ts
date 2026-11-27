@@ -1,5 +1,5 @@
 /**
- * Project registry: slug, image (public/images/work-*.webp), year, repo/live URLs, tech tags.
+ * Project registry: slug, image (public/images/work-*.webp), year, repo URL, tech tags.
  * Copy (title/description/role) lives in messages.work.projects[slug].
  *
  * Order is the carousel's order: newest first, as a Japanese career history (shokumukeirekisho) lists work. The slug is
@@ -17,12 +17,12 @@
  */
 import type { IconTechId } from "@/lib/tech-icons";
 
-export type Project = {
+type Project = {
   slug: string;
   image: string;
   year: string;
   tech: readonly IconTechId[];
-  links: { code?: string; live?: string };
+  links: { code?: string };
 };
 
 export const projects = [
@@ -69,7 +69,7 @@ export const projects = [
   },
 ] as const satisfies readonly Project[];
 
-export type ProjectSlug = (typeof projects)[number]["slug"];
+type ProjectSlug = (typeof projects)[number]["slug"];
 
 /** The slide's id, the target of its link in the project list. */
 export const projectAnchor = (slug: ProjectSlug) => `project-${slug}`;

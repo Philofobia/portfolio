@@ -11,7 +11,7 @@ export function LocaleSwitcherStories() {
     >
       <figure className="flex flex-col gap-3">
         <div className="flex border border-line bg-bg p-4">
-          <LocaleSwitcher />
+          <LocaleSwitcher frame="bar" />
         </div>
         <figcaption className="font-mono text-meta text-ink-3">
           Shows the language you can switch TO, in that language · same

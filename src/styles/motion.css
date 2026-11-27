@@ -12,7 +12,7 @@
   --marquee-speed is the seconds per copy on desktop (the design's 30s). Below md the copy
   is narrower (smaller type), so the duration shrinks with it (design: 22s at 390px) and
   the band moves at about the same pixels per second on every screen.
-  data-paused: the band's pause button (WCAG 2.2.2); data-direction="right": reversed.
+  data-paused: the band's pause button (WCAG 2.2.2).
 */
 @keyframes marquee {
   to {
@@ -28,10 +28,6 @@
       @media (width >= 48rem) {
         animation-duration: var(--marquee-speed, 30s);
       }
-    }
-
-    &[data-direction="right"] {
-      animation-direction: reverse;
     }
 
     &[data-paused] {
@@ -77,10 +73,9 @@
   Scroll-driven animations are Baseline Newly available (2026-10): decorative, so
   progressive enhancement with no fallback, as the guide says. The (animation-range: entry)
   test filters out browsers with partial support.
-  .reveal-rise: fades in and rises 24px (SectionHeading lines, ProjectCard).
-  .reveal-zoom: scales 1.04 → 1 inside its frame (ProjectCard image).
-  .reveal-zoom-inline: the same, as a card slides into a horizontal scroller (the Work
-  carousel, MWG carousel-slide-effects). Inside the track the nearest scroller is the track,
+  .reveal-rise: fades in and rises 24px (SectionHeading lines, the Work carousel…).
+  .reveal-zoom-inline: scales 1.04 → 1 inside its frame as a card slides into a horizontal
+  scroller (the ProjectCard image in the Work carousel, MWG carousel-slide-effects). Inside the track the nearest scroller is the track,
   which never scrolls vertically, so a block-axis view() would stay inactive there.
 */
 @keyframes reveal-rise {
@@ -103,12 +98,6 @@
         animation: reveal-rise auto linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 80%;
-      }
-
-      .reveal-zoom {
-        animation: reveal-zoom auto linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 50%;
       }
 
       .reveal-zoom-inline {

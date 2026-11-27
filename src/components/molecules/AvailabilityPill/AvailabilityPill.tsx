@@ -1,7 +1,5 @@
 /**
- * 'Available from [date]' pill/badge shown in the header (uses <Badge variant="accent" />).
- *
- * As built, after the design (Portfolio Desktop / Mobile, design library StatusDot "active"):
+ * 'Available from [date]' line. The scaffold planned a pill in the header; as built, after the design (Portfolio Desktop / Mobile, design library StatusDot "active"):
  * not a pill and not in the header. The hero's top line: an accent <StatusDot /> and a mono
  * line of text, 12 / 11 m, ink-2. The Header's doc notes the move ("the design keeps the
  * AvailabilityPill in the hero"); the folder keeps the scaffold's name.

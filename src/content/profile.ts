@@ -24,6 +24,10 @@
  * (nextjs-react: no current time rendered on the server).
  * siteUrl is the absolute origin for metadata, sitemap and robots: SITE_URL when set
  * (see .env.example), else the Vercel production domain, else the dev server. No trailing slash.
+ * contentUpdated is the day the page's copy or facts last changed (YYYY-MM-DD), updated by
+ * hand with them: the JSON-LD's ProfilePage.dateModified and the sitemap's lastModified
+ * read it. A build date would mark every deploy as a change, and crawlers learn to ignore
+ * that (geo-agent-readiness, structured-data step 7; nextjs-react seo-geo.md).
  */
 
 import type { Locale } from "next-intl";
@@ -31,6 +35,7 @@ import type { Locale } from "next-intl";
 export const name = "Marco Parisi";
 export const nameKatakana = "マルコ・パリージ";
 export const copyrightYear = 2026;
+export const contentUpdated = "2026-11-27";
 
 export const inTokyoFrom = "2026-12";
 

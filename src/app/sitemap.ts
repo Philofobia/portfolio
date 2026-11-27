@@ -1,9 +1,11 @@
 /**
  * sitemap.xml — the home page once per locale, each with hreflang alternates for all
  * locales. URLs come from lib/metadata's homePaths (getPathname), so `ja` is /jp.
+ * lastModified is content/profile's contentUpdated, the day the copy last changed, not the
+ * build time.
  */
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/content/profile";
+import { contentUpdated, siteUrl } from "@/content/profile";
 import { routing } from "@/i18n/routing";
 import { homePaths } from "@/lib/metadata";
 
@@ -15,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routing.locales.map((locale) => ({
     url: `${siteUrl}${paths[locale]}`,
-    lastModified: new Date(),
+    lastModified: contentUpdated,
     alternates: { languages },
   }));
 }

@@ -8,7 +8,7 @@
 import { cn } from "@/lib/cn";
 
 export type ButtonVariant = "primary" | "secondary";
-export type ButtonSize = "lg" | "md" | "sm" | "card" | "cta";
+export type ButtonSize = "lg" | "sm" | "card" | "cta";
 export type ButtonIcon = "↓" | "↗" | "→" | "⤓";
 
 const base =
@@ -23,7 +23,6 @@ const variantClass: Record<ButtonVariant, string> = {
 
 const sizeClass: Record<ButtonSize, string> = {
   lg: "h-cell-lg text-ui",
-  md: "h-bar text-ui",
   sm: "h-cell-sm text-ui-sm",
   // Card actions that follow the card's own width (an @container ancestor): sm and sharing
   // the row below a 48rem container (ProjectCard stack), lg at 150 wide from it (row).
@@ -88,26 +87,14 @@ export function buttonIconClasses(icon: ButtonIcon) {
 }
 
 /**
- * One grid cell for single-glyph controls: IconButton and the LocaleSwitcher link.
- * 56 wide on mobile (the design's mobile header row), one 75 cell from md.
- * frame 'box': freestanding, its own four borders, square.
- * frame 'bar': a cell of a bar (the header): only the start border, and the bar's height,
- * so the bar's bottom border stays on the last pixel of the grid cell; its focus ring is
- * drawn inside, 4px from every line (focus-ring-cell), not outside across the bar's border.
+ * One cell of a bar (the header, the marquee) for single-glyph controls: IconButton and the
+ * LocaleSwitcher link. 56 wide on mobile (the design's mobile header row), one 75 cell from
+ * md. Only the start border, and the bar's height, so the bar's bottom border stays on the
+ * last pixel of the grid cell; its focus ring is drawn inside, 4px from every line
+ * (focus-ring-cell), not outside across the bar's border.
  */
-export type SquareFrame = "box" | "bar";
-
-const squareFrameClass: Record<SquareFrame, string> = {
-  box: "size-bar border focus-visible:focus-ring md:size-cell",
-  bar: "w-bar border-s focus-visible:focus-ring-cell md:w-cell",
-};
-
-export function squareClasses(frame: SquareFrame = "box") {
-  return cn(
-    "grid shrink-0 cursor-pointer place-items-center border-line not-disabled:hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200",
-    squareFrameClass[frame],
-  );
-}
+export const squareClasses =
+  "grid w-bar shrink-0 cursor-pointer place-items-center border-s border-line not-disabled:hover:bg-bg-hover focus-visible:focus-ring-cell disabled:cursor-not-allowed disabled:text-ink-3 motion-safe:transition-colors motion-safe:duration-200 md:w-cell";
 
 /**
  * A quiet mono text link (the footer's locale switch and Back to top): ink-2, ink on

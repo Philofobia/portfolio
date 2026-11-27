@@ -3,7 +3,6 @@
  * photo treatment (saturate .85 · brightness .92). The frame is the parent: a media Card
  * (inset 15 / 10 m) or any box with a size; MediaFrame fills it.
  * Props: src, alt ('' when decorative), sizes (the rendered width: required with fill),
- * eager (the image is the LCP or above the fold: loads at once, high priority),
  * imageClassName (an effect on the image itself, e.g. the ProjectCard zoom reveal).
  * No corner marks: the design library never draws them.
  *
@@ -16,7 +15,7 @@
  *   sizes          fill: the image covers a frame whose width follows the layout; sizes
  *                  says how wide it renders, for the srcset;
  *   width, height  a fixed thumbnail (CSS px): a 1x / 2x srcset only, much shorter in the
- *                  HTML (ProjectListItem's 96 × 58).
+ *                  HTML (the Stack photos).
  * Either way the <img> is a static box sized by size-full inside the positioned frame.
  * quality: 75 by default, served as AVIF where the browser takes it (next.config), about
  * 40% lighter than WebP at the same setting with no visible loss. 60 is for decorative
@@ -31,7 +30,6 @@ type Sizing = { sizes: string } | { width: number; height: number };
 export function MediaFrame({
   src,
   alt,
-  eager = false,
   quality = 75,
   className,
   imageClassName,
@@ -39,7 +37,6 @@ export function MediaFrame({
 }: {
   src: string;
   alt: string;
-  eager?: boolean;
   quality?: 60 | 75;
   className?: string;
   imageClassName?: string;
@@ -53,7 +50,6 @@ export function MediaFrame({
     ...("sizes" in sizing
       ? { fill: true, sizes: sizing.sizes }
       : { width: sizing.width, height: sizing.height }),
-    ...(eager && { loading: "eager", fetchPriority: "high" }),
   });
   // Its inline style (fill's absolute inset, color: transparent) repeats what size-full and
   // the frame already do, in the HTML and again in the RSC payload: dropped.

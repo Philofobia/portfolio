@@ -59,7 +59,7 @@ export function NavBarStories() {
                 className="border-s border-line"
               />
               <LocaleSwitcher frame="bar" />
-              <ThemeToggle frame="bar" />
+              <ThemeToggle />
             </div>
           </div>
         </div>
@@ -74,8 +74,8 @@ export function NavBarStories() {
           <div className="flex h-bar w-96 max-w-full border border-line bg-bg md:h-cell">
             <Logo className="flex-1 ps-cell-pad" />
             <LocaleSwitcher frame="bar" />
-            <ThemeToggle frame="bar" />
-            <IconButton frame="bar" label={t("menu.open")}>
+            <ThemeToggle />
+            <IconButton label={t("menu.open")}>
               <BurgerIcon />
             </IconButton>
           </div>

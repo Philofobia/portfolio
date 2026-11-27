@@ -2,11 +2,9 @@
 
 /**
  * Infinite horizontal band; duplicates children for seamless loop; pauses on reduced motion.
- * Props: speed, direction, separator ('/' or '·').
- *
- * Also (design 10 Marquee): items (one cycle, ReactNode[]), size ('lg' 56 → 75 tall, the
- * hero's; 'sm' 56 at every width), repeat (cycles per copy, so one copy outruns the
- * widest screen; a copy is never narrower than the band either, so short ones still loop).
+ * Props (design 10 Marquee): items (one cycle, ReactNode[]), speed (seconds per copy),
+ * repeat (cycles per copy, so one copy outruns the widest screen; a copy is never narrower
+ * than the band either, so short ones still loop). 56 tall, 75 from md; '/' separators.
  * The motion is CSS only (.marquee-track in styles/motion.css): no GSAP, so the design's
  * "scroll velocity adds ±speed" is left out. Under reduced motion the band is static.
  *
@@ -23,26 +21,9 @@ import { Fragment, useState, type CSSProperties, type ReactNode } from "react";
 import { IconButton } from "@/components/atoms/IconButton";
 import { cn } from "@/lib/cn";
 
-export type MarqueeSize = "lg" | "sm";
-
-const sizeClass: Record<MarqueeSize, { band: string; separator: string }> = {
-  lg: {
-    band: "h-bar md:h-cell",
-    separator:
-      "px-4.5 text-[1.25rem] md:px-7.5 md:text-[1.875rem]" /* design 18/30 · 20/30px */,
-  },
-  sm: {
-    band: "h-bar",
-    separator: "px-4.5 text-[1.25rem]",
-  },
-};
-
 type MarqueeProps = {
   items: ReactNode[];
   speed?: number;
-  direction?: "left" | "right";
-  separator?: "/" | "·";
-  size?: MarqueeSize;
   repeat?: number;
   className?: string;
 };
@@ -50,15 +31,11 @@ type MarqueeProps = {
 export function Marquee({
   items,
   speed = 30,
-  direction = "left",
-  separator = "/",
-  size = "lg",
   repeat = 3,
   className,
 }: MarqueeProps) {
   const t = useTranslations("marquee");
   const [paused, setPaused] = useState(false);
-  const classes = sizeClass[size];
 
   const copy = (hidden: boolean) => (
     <div
@@ -76,10 +53,11 @@ export function Marquee({
               className={cn(
                 "font-mono leading-none",
                 index === 0 ? "text-accent" : "text-ink-3",
-                classes.separator,
+                // design 18/30 · 20/30px
+                "px-4.5 text-[1.25rem] md:px-7.5 md:text-[1.875rem]",
               )}
             >
-              {separator}
+              /
             </span>
           </Fragment>
         )),
@@ -89,12 +67,14 @@ export function Marquee({
 
   return (
     <div
-      className={cn("flex border-y border-line bg-bg", classes.band, className)}
+      className={cn(
+        "flex h-bar border-y border-line bg-bg md:h-cell",
+        className,
+      )}
     >
       <div className="@container flex min-w-0 flex-1 items-center overflow-hidden whitespace-nowrap">
         <div
           className="marquee-track flex w-max"
-          data-direction={direction}
           data-paused={paused || undefined}
           style={{ "--marquee-speed": `${speed}s` } as CSSProperties}
         >
@@ -103,7 +83,6 @@ export function Marquee({
         </div>
       </div>
       <IconButton
-        frame="bar"
         label={t(paused ? "play" : "pause")}
         onClick={() => setPaused((value) => !value)}
         className="motion-reduce:hidden"

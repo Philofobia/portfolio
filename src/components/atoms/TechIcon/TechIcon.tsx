@@ -15,7 +15,7 @@ const sizeClass = {
   cell: "size-4.5 md:size-5",
 } as const;
 
-export type TechIconSize = keyof typeof sizeClass;
+type TechIconSize = keyof typeof sizeClass;
 
 export function TechIcon({ id, size }: { id: IconTechId; size: TechIconSize }) {
   return (

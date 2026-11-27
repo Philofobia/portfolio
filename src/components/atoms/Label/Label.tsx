@@ -1,6 +1,6 @@
 /**
  * Mono uppercase caption (12 / 11 m, .16em) — '01. POSITIONING', 'ROLE — Solo build', 'RESIDENCE STATUS'…
- * Props: as ('span' default | 'p' | 'dt': the caller picks the element its context needs),
+ * Props: as ('p' | 'dt': the caller picks the element its context needs),
  * tone ('ink-2' default | 'ink-3'), children.
  */
 import type { ReactNode } from "react";
@@ -12,12 +12,12 @@ const toneClass = {
 } as const;
 
 export function Label({
-  as: Element = "span",
+  as: Element,
   tone = "ink-2",
   className,
   children,
 }: {
-  as?: "span" | "p" | "dt";
+  as: "p" | "dt";
   tone?: keyof typeof toneClass;
   className?: string;
   children: ReactNode;

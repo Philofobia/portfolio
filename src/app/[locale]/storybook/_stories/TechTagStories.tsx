@@ -14,7 +14,7 @@ const rail: IconTechId[] = [
   "nextdotjs",
   "nodedotjs",
   "postgresql",
-  "redis",
+  "docker",
 ];
 const tags: TechId[] = ["typescript", "react", "agile", "docker", "teams"];
 const all = techIds;

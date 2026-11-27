@@ -12,7 +12,6 @@ import { Story, StoryRow, StoryTable } from "../_components/Story";
 
 const sizes: { size: ButtonSize; label: string; use: string }[] = [
   { size: "lg", label: "lg · 75", use: "Desktop hero" },
-  { size: "md", label: "md · 56", use: "Mobile CTA" },
   { size: "sm", label: "sm · 50", use: "Card actions" },
   {
     size: "cta",

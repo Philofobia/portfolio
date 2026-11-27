@@ -69,7 +69,6 @@ export function MobileMenu({ className }: { className?: string }) {
   return (
     <>
       <IconButton
-        frame="bar"
         label={t("menu.open")}
         aria-haspopup="dialog"
         commandfor={dialogId}

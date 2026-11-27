@@ -9,8 +9,6 @@ export const clocks = [
   highlight: boolean;
 }[];
 
-export type ClockId = (typeof clocks)[number]["id"];
-
 const partsFormatters = new Map<string, Intl.DateTimeFormat>();
 
 function wallClock(date: Date, timeZone: Timezone) {

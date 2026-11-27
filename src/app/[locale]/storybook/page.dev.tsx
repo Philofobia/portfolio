@@ -1,11 +1,12 @@
 /**
  * STORYBOOK (dev only) — every ui component in each of its variants and states, laid out
- * like the design's Component Library. 404 in production builds and kept out of search
- * indexes. One file per component in _stories/, rendered here in build order.
+ * like the design's Component Library. A .dev.tsx page: next.config.ts lists that extension
+ * only under `next dev`, so production builds have no storybook route and none of its code
+ * (the URL is a plain 404 there). noindex too, in case a dev server is ever exposed.
+ * One file per component in _stories/, rendered here in build order.
  * Stories are specimens: components in fixed states, not the live site (no site header).
  */
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import { ButtonStories } from "./_stories/ButtonStories";
 import { CellStories } from "./_stories/CellStories";
@@ -33,8 +34,6 @@ export const metadata: Metadata = {
 };
 
 export default function StorybookPage() {
-  if (process.env.NODE_ENV === "production") notFound();
-
   return (
     <main>
       <div className="grid-container flex flex-col gap-section py-section">

@@ -37,7 +37,7 @@ export function MenuSheet({
         <div className="grid-wide flex h-full max-md:ms-0 max-md:w-full">
           <Logo onClick={onNavigate} className="flex-1 ps-cell-pad" />
           <form method="dialog" className="contents">
-            <IconButton type="submit" frame="bar" label={t("menu.close")}>
+            <IconButton type="submit" label={t("menu.close")}>
               <span aria-hidden="true" className="text-lg leading-none">
                 ×
               </span>

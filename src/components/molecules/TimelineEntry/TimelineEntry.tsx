@@ -13,8 +13,10 @@
  * Props: start, end (YYYY-MM, formatted with the named format month: "Jul 2026" /
  * 「2026年7月」; or YYYY, shown as written; both are the <time dateTime>; no end and not
  * current = a single date, an exam), current (accent square; with no end, "now"), title,
- * org, bullets, headingLevel ('h3' default | 'h4' under a group heading).
+ * org, bullets (rendered nodes, so the caller can mark Japanese words with lang),
+ * headingLevel ('h3' default | 'h4' under a group heading).
  */
+import type { ReactNode } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import { StatusDot } from "@/components/atoms/StatusDot";
 import { cn } from "@/lib/cn";
@@ -35,7 +37,7 @@ export function TimelineEntry({
   current?: boolean;
   title: string;
   org: string;
-  bullets?: string[];
+  bullets?: ReactNode[];
   headingLevel?: "h3" | "h4";
   className?: string;
 }) {
@@ -64,16 +66,21 @@ export function TimelineEntry({
         className="absolute -start-1 top-0.5 md:top-[2.0625rem]"
       />
       <p className="font-mono text-meta text-ink-2 max-md:uppercase md:p-6 md:text-ui-xs md:leading-normal">
-        {date(start)}
-        {end ? <> — {date(end)}</> : current && <> — {t("now")}</>}
+        {/* The range's separator is the message's: " — " in English, 〜 in Japanese. */}
+        {end || current
+          ? t.rich("range", {
+              from: () => date(start),
+              to: () => (end ? date(end) : t("now")),
+            })
+          : date(start)}
       </p>
       <div className="pt-2.5 md:px-8 md:pt-6 md:pb-7">
-        <Heading className="text-h4 uppercase">{title}</Heading>
+        <Heading className="text-h4 uppercase ja:normal-case">{title}</Heading>
         <p className="mt-1 text-ink-2">{org}</p>
         {bullets && bullets.length > 0 && (
           <ul role="list" className="mt-2.5 grid gap-2 text-ink-2 md:mt-4">
-            {bullets.map((bullet) => (
-              <li key={bullet} className="relative md:ps-5">
+            {bullets.map((bullet, index) => (
+              <li key={index} className="relative md:ps-5">
                 <StatusDot
                   tone="muted"
                   size={4}

@@ -16,9 +16,12 @@
  */
 
 // Keys are the simple-icons slugs (the design's `slug` prop) unless noted above; values
-// the design's labels.
+// the design's labels, except three that name the product in full (2026-11-27, GEO: a
+// crawler or a person reading "DevTools", "Actions" or "Analytics" can't tell which
+// product it is): Chrome DevTools, GitHub Actions, Google Analytics. The JSON-LD
+// knowsAbout reads the same names.
 const iconTechNames = {
-  chromedevtools: "DevTools",
+  chromedevtools: "Chrome DevTools",
   claude: "Claude",
   confluence: "Confluence",
   docker: "Docker",
@@ -26,14 +29,11 @@ const iconTechNames = {
   figma: "Figma",
   git: "Git",
   github: "GitHub",
-  githubactions: "Actions",
-  go: "Go",
-  googleanalytics: "Analytics",
-  googlecloud: "GCP",
+  githubactions: "GitHub Actions",
+  googleanalytics: "Google Analytics",
   googlegemini: "Gemini",
   grafana: "Grafana",
   graphql: "GraphQL",
-  greensock: "GSAP",
   jira: "Jira",
   linux: "Linux",
   mongodb: "MongoDB",
@@ -45,12 +45,9 @@ const iconTechNames = {
   prisma: "Prisma",
   python: "Python",
   react: "React",
-  redis: "Redis",
   sqlite: "SQLite",
   storybook: "Storybook",
-  stripe: "Stripe",
   tailwindcss: "Tailwind",
-  terraform: "Terraform",
   typeorm: "TypeORM",
   typescript: "TypeScript",
 } as const;

@@ -8,10 +8,7 @@ import {
   getStoredTheme,
   readTheme,
   writeTheme,
-  type Theme,
 } from "@/lib/theme";
-
-export type { Theme };
 
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);

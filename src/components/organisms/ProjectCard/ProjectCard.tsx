@@ -1,6 +1,6 @@
 /**
  * Work card (design 12 ProjectCard): <MediaFrame image /> · tech icon rail · counter · title ·
- * description · 'ROLE — …' mono line · actions (Case study → / Code ↗ / Live ↗).
+ * description · 'ROLE — …' mono line · action (Code ↗, or a disabled "Private —").
  * Placed by the Work section in its carousel (organisms/WorkCarousel), one card per slide;
  * the card fills the slide's height, so cards of different lengths keep their actions on
  * the same line. (Portfolio Desktop and the design library stack the cards instead; the
@@ -17,14 +17,10 @@
  * Props: index / total (1-based), title, description, role, image { src, alt: '' for a
  * mood photo that does not show the product (WAI decorative images: ambiance / eye candy),
  * a description for a screenshot }, icons
- * (IconTechId[]: techs with a glyph, max 5: empty rail slots stay blank cells), links { caseStudy?, code?, live? }
- * (caseStudy an internal path, code / live external URLs; neither code nor live → a disabled
- * "Private —"), eager (the card's image is above the fold or the LCP).
- * Motion (CSS only, motion.css), by where the card sits (motion prop):
- *   page  (default) the card rises 24px as it scrolls in, the image settles from 1.04 to 1
- *         inside its inset, on the page's scroll;
- *   slide inside a horizontal scroller (the carousel): only the image settles, as the
- *         card slides in (view(inline)); the carousel rises as a whole.
+ * (IconTechId[]: techs with a glyph, max 5: empty rail slots stay blank cells), links
+ * { code? } (an external URL; none → a disabled "Private —").
+ * Motion (CSS only, motion.css): the image settles from 1.04 to 1 inside its inset as the
+ * card slides into the carousel (view(inline)); the carousel rises as a whole.
  * Action links carry the title in visually hidden text ("Code: Freight tracking platform"),
  * so a list of links stays unambiguous out of context (MWG card); the "Private —" dash is
  * hidden from screen readers.
@@ -44,7 +40,7 @@ import type { IconTechId } from "@/lib/tech-icons";
 
 const RAIL_SLOTS = 5;
 
-export type ProjectCardProps = {
+type ProjectCardProps = {
   index: number;
   total: number;
   title: string;
@@ -52,9 +48,7 @@ export type ProjectCardProps = {
   role: string;
   image: { src: string; alt: string };
   icons: IconTechId[];
-  links: { caseStudy?: string; code?: string; live?: string };
-  eager?: boolean;
-  motion?: "page" | "slide";
+  links: { code?: string };
   className?: string;
 };
 
@@ -67,31 +61,19 @@ export function ProjectCard({
   image,
   icons,
   links,
-  eager = false,
-  motion = "page",
   className,
 }: ProjectCardProps) {
   const t = useTranslations("work");
-  const forTitle = <span className="sr-only">: {title}</span>;
 
   return (
-    <article
-      className={cn(
-        "@container border border-line bg-bg",
-        motion === "page" && "reveal-rise",
-        className,
-      )}
-    >
+    <article className={cn("@container border border-line bg-bg", className)}>
       <div className="grid h-full grid-rows-[auto_auto_1fr] @3xl:min-h-cells-5 @3xl:grid-cols-[minmax(0,1fr)_var(--cell)_minmax(21.25rem,1fr)] @3xl:grid-rows-1">
         <div className="cell-media h-50 border-b border-line @3xl:h-auto @3xl:border-e @3xl:border-b-0">
           <MediaFrame
             src={image.src}
             alt={image.alt}
             sizes="(min-width: 90rem) 37.5rem, (min-width: 61.875rem) calc(50vw - 7rem), (min-width: 48rem) calc(100vw - 7.5rem), 100vw"
-            eager={eager}
-            imageClassName={
-              motion === "page" ? "reveal-zoom" : "reveal-zoom-inline"
-            }
+            imageClassName="reveal-zoom-inline"
           />
         </div>
 
@@ -102,33 +84,22 @@ export function ProjectCard({
               total={total}
               label={t("counter", { index, total })}
             />
-            <h3 className="text-h3 uppercase">{title}</h3>
+            <h3 className="text-h3 uppercase ja:normal-case">{title}</h3>
             <p className="text-ink-2">{description}</p>
-            <p className="font-mono text-meta leading-normal text-ink-3 uppercase">
-              {t("role")} — {role}
+            {/* Japanese keeps its Latin words as written ("Web", not "WEB"); the role line's
+                separator is the message's (Role — … / 担当：…). */}
+            <p className="font-mono text-meta leading-normal text-ink-3 uppercase ja:normal-case">
+              {t("role", { role })}
             </p>
           </div>
 
           <footer className="mt-auto flex border-t border-line *:-my-px *:first:-ms-px">
-            {links.caseStudy && (
-              <Button href={links.caseStudy} size="card" icon="→">
-                {t("caseStudy")}
-                {forTitle}
-              </Button>
-            )}
-            {links.code && (
+            {links.code ? (
               <Button href={links.code} size="card" icon="↗">
                 {t("code")}
-                {forTitle}
+                <span className="sr-only">: {title}</span>
               </Button>
-            )}
-            {links.live && (
-              <Button href={links.live} size="card" icon="↗">
-                {t("live")}
-                {forTitle}
-              </Button>
-            )}
-            {!links.code && !links.live && (
+            ) : (
               <Button size="card" disabled>
                 {t("private")}
                 <span aria-hidden="true"> —</span>

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Marco Parisi — Full-Stack Engineer",
-    "description": "Full-stack engineer from Italy building fast, high-traffic web apps for luxury and e-commerce brands. In Tokyo from December 2026, open to roles in Japan."
+    "title": "Marco Parisi, Full-Stack Engineer in Tokyo (React, Next.js)",
+    "description": "Full-stack engineer with 4 years of React, Next.js and web performance for luxury and e-commerce brands. In Tokyo from December 2026, open to full-time roles."
   },
   "header": {
     "skipToContent": "Skip to content",
@@ -29,11 +29,10 @@
     }
   },
   "hero": {
-    "label": "Positioning",
     "title": "Full-Stack <br></br>Engineer",
-    "subtitle": "Open to roles <br></br>in Japan",
+    "subtitle": "Open to full-time <br></br>roles in Japan",
     "availability": "In Tokyo from <time>{date}</time>",
-    "intro": "Four years building fast web apps for luxury and e-commerce brands. In Tokyo from December 2026 to study Japanese, and looking for a role to build a long-term career in Japan.",
+    "intro": "Four years building web apps for luxury and e-commerce brands, mostly in React and Next.js, and now focused on web performance. In Tokyo from December 2026 to study Japanese, and looking for a full-time role to build a long-term career in Japan.",
     "ctaWork": "View work",
     "ctaCv": "Download CV",
     "ctaCvShort": "CV",
@@ -46,11 +45,9 @@
   "work": {
     "number": "02.",
     "title": "Selected work",
-    "subtitle": "Client work and my own tooling, 2023–2026.",
-    "role": "Role",
+    "subtitle": "Client projects and a personal tool, 2023–2026.",
+    "role": "Role — {role}",
     "code": "Code",
-    "live": "Live",
-    "caseStudy": "Case study",
     "private": "Private",
     "counter": "Project {index} of {total}",
     "stackLabel": "Built with",
@@ -66,27 +63,27 @@
     "projects": {
       "eyewear": {
         "title": "Eyewear web performance",
-        "description": "Web performance for a global eyewear brand's e-commerce site. Audits with WebPageTest, Grafana, Contentsquare and Core Web Vitals field data become prioritised tickets for the development teams, and performance budgets are set when a feature starts, not after launch. I lead the recurring performance reviews and work with Google on the Core Web Vitals strategy.",
+        "description": "Web performance for the online stores of a global eyewear brand. Audits combine WebPageTest, Grafana, Contentsquare and Core Web Vitals field data, and each problem found reaches the development teams as a prioritised fix with a planned release. Core Web Vitals on the sites pass Google's thresholds, and the fixes still open follow a release plan handed over to the application maintenance team.",
         "role": "Web performance analyst, {year}"
       },
       "ai": {
         "title": "AI-assisted performance reports",
-        "description": "performance-report: a Python tool that came out of the eyewear work and runs on any site. Headless Chromium measures pages across device and network profiles, Grafana adds real-user data, and an LLM grounded in a performance knowledge base explains the results in a fixed-structure PDF. Built with AI coding agents from written specs, with 812 tests and CI. The agent skills I wrote for Next.js, accessibility, semantic HTML, CSS, GEO and web performance will be published in the same repository.",
-        "role": "Own project, {year}"
+        "description": "Performance-report is a Python tool that audits the web performance of any site and explains the results in a PDF report. Headless Chromium measures Core Web Vitals across device and network profiles, and real-user data from Grafana is added to the lab results. An LLM grounded in a curated performance knowledge base writes the analysis, in a report whose structure stays the same from run to run. The tool came out of the eyewear work and was built by AI coding agents from written specs, with tests running on GitHub Actions.",
+        "role": "Personal project, {year}"
       },
       "fashion": {
         "title": "Luxury fashion e-commerce",
-        "description": "Front-end features for the web and e-commerce sites of two Italian luxury fashion brands: new site sections, a shared component library in Storybook, and GraphQL API integration on the front end.",
+        "description": "Front-end development for the websites and online stores of two Italian luxury fashion brands. New site sections were built on a shared component library in Storybook, with their data read from GraphQL APIs.",
         "role": "Frontend engineer, {year}"
       },
       "appliances": {
         "title": "Home-appliance e-commerce",
-        "description": "Faster page loads on a home-appliance brand's e-commerce site with the Speculation Rules API (prefetching and prerendering). I rebuilt the product listing and product detail pages and added A/B-test components tracked in Google Analytics. On a second appliance brand's site, front-end work with teams in Germany and Spain.",
+        "description": "Faster page loads for the online store of a home-appliance brand, using the Speculation Rules API to prefetch and prerender the page a shopper is likely to open next. The product listing and product detail pages were rebuilt, with A/B-test components tracked in Google Analytics. On a second appliance brand's store, the front end was developed together with teams in Germany and Spain.",
         "role": "Frontend engineer, {year}"
       },
       "ticketing": {
         "title": "Event ticketing platform",
-        "description": "Full-stack: the public website where visitors browse events and buy tickets, with a secure payment-gateway integration, and the backend and back office behind it. Designed and shipped end to end.",
+        "description": "An event ticketing platform built full stack, from design to release. Visitors browse events and buy tickets on the public site, which connects to a secure payment gateway, and the back end and back office behind it manage the events and sales.",
         "role": "Web engineer, {year}"
       }
     }
@@ -98,33 +95,33 @@
     "groups": {
       "frontend": {
         "title": "Frontend",
-        "description": "Most projects are e-commerce sites built with React and Next.js in TypeScript. For two luxury fashion brands the work covered new site sections and a shared component library in Storybook."
+        "description": "Front ends are written in TypeScript with React and Next.js, with application state in Redux or TanStack. Interfaces are built from reusable components documented in Storybook, styled with Tailwind CSS or SCSS, or with libraries such as MUI, shadcn and Radix."
       },
       "backend": {
         "title": "Backend",
-        "description": "Server code runs on Node.js with NestJS or Express. Past projects include the back office of a ticketing platform, a reservations back end and microservices for cart, sales and discount coupons connected to external XML services."
+        "description": "Server code is written for Node.js with NestJS or Express, as REST APIs or as microservices that connect to external services. Services are packaged with Docker, run on Linux and are monitored in Grafana."
       },
       "data": {
         "title": "Data & APIs",
-        "description": "APIs are built as REST, and front ends read their data from GraphQL. Databases are SQL or MongoDB, reached through Prisma or TypeORM, and the self-built audit tool keeps its measurements in SQLite."
+        "description": "APIs are built as REST, and GraphQL APIs are integrated into front ends. Data is stored in SQL databases, SQLite or MongoDB, and modelled through Prisma or TypeORM."
       },
       "performance": {
         "title": "Web performance",
-        "description": "The current focus. Audits run in Chrome DevTools and WebPageTest, real-user data comes from mPulse, Grafana and Contentsquare, and performance budgets are agreed with the team when a feature is planned."
+        "description": "Web performance has been the main focus since July 2026, from lab audits in Chrome DevTools and WebPageTest to real-user data in mPulse, Grafana and Contentsquare. Findings become prioritised fixes and performance budgets for new features."
       },
       "ways": {
         "title": "Ways of working",
-        "description": "Agile teams across Italy, Germany and Spain, working from Figma designs. Personal projects are coded by AI agents from written specs and tested on GitHub Actions."
+        "description": "Client work runs in international Agile teams, planned in Jira and Confluence from Figma designs. Personal projects are coded by AI agents such as Claude from written specs, versioned in Git and tested on GitHub Actions."
       }
     }
   },
   "experience": {
     "number": "04.",
     "title": "Experience",
-    "subtitle": "A detailed <ja>職務経歴書</ja> is in the documents below.",
-    "range": "{from} — {to}",
+    "subtitle": "A detailed career history (<ja>職務経歴書</ja>) is in the documents below.",
+    "range": "<from></from> — <to></to>",
     "now": "now",
-    "intro": "Web development since 2023, after retraining in software through two accredited programs in Turin. The first projects were public portals and back ends, followed by e-commerce front ends for international brands and, since July 2026, web performance.",
+    "intro": "Web development since 2023, after retraining in software through two accredited programs in Turin. The first projects were public portals and back ends. E-commerce front ends for international brands followed in 2025, and web performance became the focus in July 2026.",
     "workLabel": "Work",
     "educationLabel": "Education and certification",
     "work": {
@@ -132,8 +129,9 @@
         "title": "Web Performance Analyst",
         "org": "Rextart, for Reply",
         "bullets": [
-          "Monitoring and auditing the website of an international eyewear brand with WebPageTest, Grafana, Contentsquare and Core Web Vitals field data. Findings go to the development teams as prioritised tickets.",
-          "Performance requirements are set when a new feature is planned. Recurring performance meetings with the development teams and the client, and direct contact with Google on Core Web Vitals."
+          "Monitoring and auditing the websites of an international eyewear brand with WebPageTest, Grafana, Contentsquare and Core Web Vitals field data. Findings go to the development teams as prioritised tickets.",
+          "Performance requirements are set when a new feature is planned. Recurring performance meetings with the development teams and the client, and direct contact with Google on Core Web Vitals.",
+          "Agent skills for AI coding agents, with rules and review checklists for Next.js, accessibility, semantic HTML, CSS, GEO and web performance. Agents use them when they write or review code."
         ]
       },
       "frontend": {
@@ -141,7 +139,7 @@
         "org": "Rextart, for Reply",
         "bullets": [
           "Front-end features and GraphQL integration for two luxury fashion brands, including new site sections and a shared component library in Storybook.",
-          "Faster page loads on a home appliance e-commerce site with the Speculation Rules API, along with rebuilt product listing and product pages and A/B test components.",
+          "Faster page loads on a home appliance e-commerce site with the Speculation Rules API, along with rebuilt product listing and product detail pages and A/B test components.",
           "Front-end development of another e-commerce site, with Reply teams in Germany and Spain."
         ]
       },
@@ -160,7 +158,7 @@
         "title": "Fundamental IT Engineer Examination (FE)",
         "org": "ITPEC (PhilNITS)",
         "bullets": [
-          "The ITPEC edition of Japan's national Fundamental Information Technology Engineer Examination, set by PhilNITS (Philippines) under a mutual recognition agreement with Japan's IPA."
+          "The ITPEC edition of Japan's national Fundamental Information Technology Engineer Examination (<ja>基本情報技術者試験</ja>), set by PhilNITS (Philippines) under a mutual recognition agreement with Japan's IPA."
         ]
       },
       "its": {

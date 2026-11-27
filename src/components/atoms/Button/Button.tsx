@@ -39,7 +39,7 @@ type ButtonAsButton = ButtonOwnProps &
 type ButtonAsLink = ButtonOwnProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
-export type ButtonProps = ButtonAsButton | ButtonAsLink;
+type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 // '/work' but not '//cdn.example.com': the locale prefix only applies to app routes.
 const isInternalPath = (href: string) => /^\/(?!\/)/.test(href);

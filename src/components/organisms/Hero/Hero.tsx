@@ -41,6 +41,11 @@
  * the 応募書類 on /jp (履歴書 + 職務経歴書 in one file); hreflang is the document's
  * language, type="application/pdf".
  * The '01.' number is hidden from assistive tech, as in SectionHeading.
+ * The label is the name (content/profile: "Marco Parisi" on /en, its katakana on /jp;
+ * 2026-11-27), in place of the design's 'Positioning'. The hero is where a reader and an
+ * answer engine look for who the page is about, and a sentence about "Marco" in the intro
+ * read like a third-party bio: as a label it reads like the other sections' ("02.
+ * Selected work") and adds no prose. The h1 stays the job title.
  * Typography (MWG improve-text-layout-and-legibility): text-wrap: pretty on the intro, a
  * progressive enhancement (Limited availability; ignored elsewhere). The headline and
  * subtitle break by hand, so they need no balance.
@@ -51,13 +56,14 @@ import { Label } from "@/components/atoms/Label";
 import { AvailabilityPill } from "@/components/molecules/AvailabilityPill";
 import { HeroEmblem } from "@/components/molecules/HeroEmblem";
 import { HeroMarquee } from "@/components/molecules/HeroMarquee";
-import { cv, heroCv, inTokyoFrom } from "@/content/profile";
+import { cv, heroCv, inTokyoFrom, name, nameKatakana } from "@/content/profile";
 import { cn } from "@/lib/cn";
 import { heroGrid, heroPlacement } from "./hero.styles";
 
 export function Hero() {
   const t = useTranslations("hero");
-  const cvDocument = cv[heroCv[useLocale()]];
+  const locale = useLocale();
+  const cvDocument = cv[heroCv[locale]];
 
   return (
     <section
@@ -90,7 +96,7 @@ export function Hero() {
           >
             <Label as="p" tone="ink-3">
               <span aria-hidden="true">01. </span>
-              {t("label")}
+              {locale === "ja" ? nameKatakana : name}
             </Label>
             <p className="text-[1.125rem] leading-[1.1] font-extralight text-ink-2 uppercase md:text-h4 md:leading-[1.1] ja:text-base md:ja:text-[1.25rem] md:ja:leading-[1.3]">
               {t.rich("subtitle", {
