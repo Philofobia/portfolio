@@ -22,6 +22,10 @@ pnpm dev
 
 Then open [http://localhost:3000](http://localhost:3000).
 
+The component storybook is at [/en/storybook](http://localhost:3000/en/storybook), under `pnpm dev`
+only: its page is `page.dev.tsx`, an extension `next.config.ts` reads only in development, so
+production builds (Vercel) leave it out entirely.
+
 ## Scripts
 
 | Script                | Description                                                       |

@@ -20,6 +20,10 @@ const contentSecurityPolicy = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // The storybook (src/app/[locale]/storybook/page.dev.tsx) is a route only under
+  // `next dev`: production builds do not see the .dev.tsx extension, so the page and the
+  // stories it imports are left out of the build entirely.
+  pageExtensions: ["tsx", "ts", "jsx", "js", ...(isDev ? ["dev.tsx"] : [])],
   reactCompiler: true,
   poweredByHeader: false,
   images: {
