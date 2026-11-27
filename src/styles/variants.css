@@ -24,6 +24,19 @@
 */
 @custom-variant ja (&:lang(ja));
 
+/*
+  tall: — from md, on a window at least 900px high: the header (one cell), one cell of air
+  and a middle section's 750px of content (Work, Stack: heading to foot) fit in it. There
+  an anchor jump keeps that cell of air above the section's heading, so the section reads
+  centred instead of leaving its slack at the bottom (2026-11-27); shorter windows keep the
+  heading right under the header, or the section's foot would be cut.
+*/
+@custom-variant tall {
+  @media (width >= 48rem) and (height >= 56.25rem) {
+    @slot;
+  }
+}
+
 @custom-variant current-section {
   &[aria-current="true"]:not(:where(.scroll-target-group *)) {
     @slot;
@@ -118,12 +131,14 @@
   as their content, so on a screen taller than that the next section's title showed at
   the bottom of the window (1920 × 1080, 2026-11-27).
   min-block-size-screen-N: at least the screen's height less N cells, rounded up to whole
-  cells. A section whose anchor jump puts its heading under the header needs N = 1 when
-  the next section opens with two cells of air, N = 0 before Contact (one cell of air):
-  the next title then starts at or below the window's bottom edge.
-  min-block-size-first-screen: the hero, which starts under the one-cell header: the
-  screen less that cell, rounded down, so the marquee at its foot is always wholly in the
-  first view and the next title (two cells of air further) never is.
+  cells, so after an anchor jump the next section's title starts at or below the window's
+  bottom edge. N is the cells above the heading that the jump leaves in view (the header's
+  one, plus the cell of air on tall: windows) and the cells of air the next section opens
+  with less two: md:…-1 tall:…-2 for Work, Stack and Experience (two cells before the next
+  title), md:…-0 tall:…-1 for Japan (Contact opens with one).
+  The hero uses N = 3: it starts under the one-cell header and Work opens with two cells
+  of air, so at least the screen less three cells keeps the Work title out of the first
+  view.
   round() needs Firefox 118 / Chrome 125 / Safari 15.4; elsewhere the plain calc().
 */
 @utility min-block-size-screen-* {
@@ -135,14 +150,6 @@
       100svh - var(--cell) * --value(integer),
       var(--cell)
     );
-  }
-}
-
-@utility min-block-size-first-screen {
-  min-block-size: calc(100svh - var(--cell));
-
-  @supports (width: round(1px, 1px)) {
-    min-block-size: round(down, 100svh - var(--cell), var(--cell));
   }
 }
 

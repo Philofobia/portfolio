@@ -10,7 +10,9 @@
      is a cell of its own and lands right under the header on the grid lines; one on
      mobile, where the heading has no row and keeps one cell of air. Without that, a jump
      left two empty cells above the heading and cut the section's foot off on 768–800px
-     tall screens (measured 2026-11-23). */
+     tall screens (measured 2026-11-23). On windows at least 900px high (tall: variant,
+     variants.css) the middle sections skip one cell only, keeping one above the heading,
+     so they sit centred in the window (2026-11-27). */
   html {
     scroll-padding-top: var(--bar);
   }

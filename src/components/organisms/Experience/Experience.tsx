@@ -24,8 +24,10 @@
  * 2026年12月 or a heading like 日本での就労について never splits mid-word.
  * Server component, no client code. The list rises into place as it scrolls in
  * (motion.css .reveal-rise, CSS only).
- * From md at least the screen less the header's cell (min-block-size-screen-1), so after a
- * nav jump the next section's title stays below the window (variants.css).
+ * An anchor jump lands with the heading under the header, or one cell of air above it on
+ * tall: windows (≥ 900px high), so the section reads centred rather than top-heavy.
+ * From md at least the screen less those cells (min-block-size-screen-1, -2 on tall:), so
+ * after a nav jump the next section's title stays below the window (variants.css).
  */
 import type { ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -111,7 +113,7 @@ export function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-title"
-      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section md:min-block-size-screen-1 ja:[word-break:auto-phrase]"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section tall:-scroll-mt-cell md:min-block-size-screen-1 tall:min-block-size-screen-2 ja:[word-break:auto-phrase]"
     >
       <div className="grid-container @container">
         <SectionHeading

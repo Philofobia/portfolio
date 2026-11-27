@@ -15,8 +15,11 @@
  * 2026年12月 or a heading like 日本での就労について never splits mid-word.
  * Server component, no client code. The facts rise into place as they scroll in
  * (motion.css .reveal-rise, CSS only).
- * From md at least the screen's height (min-block-size-screen-0: Contact opens with one
- * cell of air, not two), so after a nav jump the Contact title stays below the window.
+ * An anchor jump lands with the heading under the header, or one cell of air above it on
+ * tall: windows (≥ 900px high), so the section reads centred rather than top-heavy.
+ * From md at least the screen's height less those cells (min-block-size-screen-0, -1 on
+ * tall:; Contact opens with one cell of air, not two), so after a nav jump the Contact
+ * title stays below the window (variants.css).
  */
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { FactCard } from "@/components/molecules/FactCard";
@@ -73,7 +76,7 @@ export function Japan() {
     <section
       id="japan"
       aria-labelledby="japan-title"
-      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section md:min-block-size-screen-0 ja:[word-break:auto-phrase]"
+      className="-scroll-mt-cell pt-section snap-block-cells md:-scroll-mt-section tall:-scroll-mt-cell md:min-block-size-screen-0 tall:min-block-size-screen-1 ja:[word-break:auto-phrase]"
     >
       <div className="grid-container @container">
         <SectionHeading
