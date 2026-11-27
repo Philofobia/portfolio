@@ -13,6 +13,10 @@
  *           in src/ (the hero band's terms, the language switcher, the name; comments
  *           left out, they never render). About 50 characters, ~8 KB per weight.
  *   ja      every character either page uses: the Japanese page's own, complete file.
+ *   og      the ja characters again, as TrueType, at 400 only: for the Open Graph image
+ *           (app/[locale]/opengraph-image.tsx). next/og draws text with satori, which
+ *           reads TTF, OTF or WOFF but not WOFF2. Read at build time only, never sent to
+ *           a browser.
  * The English page's font stacks list the shared face, then the ja face with a
  * unicode-range over the Japanese blocks: every character it shows is in the shared file,
  * so it never requests the ja one. The Japanese page's stacks (tokens.css,
@@ -32,15 +36,28 @@ import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
 const fontsDir = join(root, "src/fonts");
-const weights = [300, 400];
+// format: the font format Google Fonts is asked for; uses: which character set it holds.
 const subsets = {
   shared: {
     file: (weight) => `ibm-plex-sans-jp-shared-${weight}.woff2`,
     chars: join(fontsDir, "ibm-plex-sans-jp-shared.chars.txt"),
+    weights: [300, 400],
+    format: "woff2",
+    uses: "shared",
   },
   ja: {
     file: (weight) => `ibm-plex-sans-jp-${weight}.woff2`,
     chars: join(fontsDir, "ibm-plex-sans-jp.chars.txt"),
+    weights: [300, 400],
+    format: "woff2",
+    uses: "ja",
+  },
+  og: {
+    file: (weight) => `ibm-plex-sans-jp-og-${weight}.ttf`,
+    chars: join(fontsDir, "ibm-plex-sans-jp-og.chars.txt"),
+    weights: [400],
+    format: "truetype",
+    uses: "ja",
   },
 };
 
@@ -84,7 +101,9 @@ async function check() {
   let failed = false;
   for (const [name, subset] of Object.entries(subsets)) {
     const have = await readFile(subset.chars, "utf8").catch(() => "");
-    const missing = [...used[name]].filter((char) => !have.includes(char));
+    const missing = [...used[subset.uses]].filter(
+      (char) => !have.includes(char),
+    );
     if (missing.length) {
       console.error(
         `IBM Plex Sans JP ${name} subset is missing ${missing.length} character(s): ${missing.join("")}`,
@@ -103,15 +122,16 @@ async function check() {
 
 async function download() {
   const used = await usedCharacters();
-  // A current browser user agent, or Google serves TTF instead of woff2.
-  const headers = {
+  // A current browser user agent gets woff2; with none, Google serves TrueType.
+  const browser = {
     "User-Agent":
       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36",
   };
 
   for (const [name, subset] of Object.entries(subsets)) {
-    const chars = used[name];
-    for (const weight of weights) {
+    const chars = used[subset.uses];
+    const headers = subset.format === "woff2" ? browser : {};
+    for (const weight of subset.weights) {
       const css = await fetch(
         `https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@${weight}&text=${encodeURIComponent(chars)}`,
         { headers },
@@ -119,8 +139,13 @@ async function download() {
         if (!res.ok) throw new Error(`Google Fonts CSS: HTTP ${res.status}`);
         return res.text();
       });
-      const url = css.match(/url\((https:[^)]+)\)\s*format\('woff2'\)/)?.[1];
-      if (!url) throw new Error(`No woff2 URL for ${name} ${weight}:\n${css}`);
+      const url = css.match(
+        new RegExp(`url\\((https:[^)]+)\\)\\s*format\\('${subset.format}'\\)`),
+      )?.[1];
+      if (!url)
+        throw new Error(
+          `No ${subset.format} URL for ${name} ${weight}:\n${css}`,
+        );
 
       const font = Buffer.from(
         await (await fetch(url, { headers })).arrayBuffer(),

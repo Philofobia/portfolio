@@ -17,7 +17,7 @@
  * Japanese wraps by phrase (word-break: auto-phrase, as in Japan and Experience; Chromium
  * only), so a project title in the list or the card never leaves one character on a line.
  */
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { SectionHeading } from "@/components/molecules/SectionHeading";
 import { ProjectCard } from "@/components/organisms/ProjectCard";
 import { WorkCarousel } from "@/components/organisms/WorkCarousel";
@@ -25,6 +25,7 @@ import { projectAnchor, projects } from "@/content/projects";
 
 export function Work() {
   const t = useTranslations("work");
+  const locale = useLocale();
   const total = projects.length;
 
   const items = projects.map((project, i) => {
@@ -40,7 +41,11 @@ export function Work() {
           total={total}
           title={title}
           description={t(`projects.${project.slug}.description`)}
-          role={t(`projects.${project.slug}.role`, { year: project.year })}
+          role={t(`projects.${project.slug}.role`, {
+            // "2023–25" reads "2023〜25年" in Japanese.
+            year:
+              locale === "ja" ? project.year.replace("–", "〜") : project.year,
+          })}
           image={{ src: project.image, alt: "" }}
           icons={[...project.tech]}
           links={project.links}

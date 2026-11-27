@@ -35,9 +35,15 @@ export function TechTag({ id, as = "tag", className }: TechTagProps) {
           className,
         )}
       >
-        <TechIcon id={id} size="cell" />
-        {/* Design: 9px mono, 6px from the bottom. Visually hidden until hover, still read as the item's name. */}
-        <span className="absolute bottom-1.5 font-mono text-[0.5625rem] leading-none whitespace-nowrap text-ink opacity-0 group-hover:opacity-100 motion-safe:transition-opacity motion-safe:duration-200">
+        {/* Below md the rail's cells are 50px tall, too short for a two-line name under the
+            icon: there the name takes the icon's place on hover (or tap) instead of covering it. */}
+        <span className="grid place-items-center motion-safe:transition-opacity motion-safe:duration-200 max-md:group-hover:opacity-0">
+          <TechIcon id={id} size="cell" />
+        </span>
+        {/* Design: 9px mono, 6px from the bottom. Visually hidden until hover, still read as
+            the item's name. A long name ("Google Analytics", ~86px) breaks onto a second line,
+            centred, instead of running into the next cell. */}
+        <span className="absolute inset-x-1 bottom-1.5 text-center font-mono text-[0.5625rem] leading-[1.15] text-ink opacity-0 group-hover:opacity-100 motion-safe:transition-opacity motion-safe:duration-200">
           {name}
         </span>
       </li>

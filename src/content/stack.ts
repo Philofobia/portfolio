@@ -8,7 +8,8 @@
  * Linux moved to backend, Actions to ways. Ids are TechIds, with a glyph or text only
  * (lib/tech-icons). Every tech is one the CV, a project or Marco names (DevTools as the
  * performance tool, mPulse, Confluence, Teams, Agile, Slack and Figma came from Marco,
- * 2026-11-23).
+ * 2026-11-23). Python left the performance group (2026-11-27): its text no longer names it,
+ * and the Performance-report card's icon rail still shows it.
  * Order is the page's: cells A.–E. key is the group's key in messages stack.groups (title,
  * description).
  */
@@ -40,7 +41,6 @@ export const stackGroups = [
       "mpulse",
       "grafana",
       "contentsquare",
-      "python",
     ],
   },
   {

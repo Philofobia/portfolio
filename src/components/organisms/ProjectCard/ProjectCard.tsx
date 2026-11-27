@@ -102,10 +102,12 @@ export function ProjectCard({
               total={total}
               label={t("counter", { index, total })}
             />
-            <h3 className="text-h3 uppercase">{title}</h3>
+            <h3 className="text-h3 uppercase ja:normal-case">{title}</h3>
             <p className="text-ink-2">{description}</p>
-            <p className="font-mono text-meta leading-normal text-ink-3 uppercase">
-              {t("role")} — {role}
+            {/* Japanese keeps its Latin words as written ("Web", not "WEB"); the role line's
+                separator is the message's (Role — … / 担当：…). */}
+            <p className="font-mono text-meta leading-normal text-ink-3 uppercase ja:normal-case">
+              {t("role", { role })}
             </p>
           </div>
 

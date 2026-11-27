@@ -5,7 +5,8 @@
  * to the 職務経歴書 among the CVs, Japanese marked with lang on the English page), the range
  * of years (read from content/experience) and a two-sentence intro, then the timeline: a
  * Work and an Education group, each an ordered list of entries (<h4>s), newest first. Data
- * in content/experience, copy in messages experience (bullets read as arrays). The education
+ * in content/experience, copy in messages experience (bullets are arrays, each rendered with
+ * t.rich, so a bullet can mark Japanese words with <ja>, as the subtitle does). The education
  * group also holds the FE exam ("Education and certification").
  * Each group is an accordion item at every width (Marco, 2026-11-23): a native <details>,
  * Work open and Education closed on load, not exclusive (MWG accordion: both may be open).
@@ -24,6 +25,7 @@
  * Server component, no client code. The list rises into place as it scrolls in
  * (motion.css .reveal-rise, CSS only).
  */
+import type { ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { SectionHeading } from "@/components/molecules/SectionHeading";
 import { TimelineEntry } from "@/components/molecules/TimelineEntry";
@@ -48,6 +50,14 @@ export function Experience() {
   const t = useTranslations("experience");
   const locale = useLocale();
   const { from, to } = timelineRange([...work, ...education]);
+  // Japanese words on the English page carry lang="ja" (on /jp the page is already ja).
+  const ja = (chunks: ReactNode) =>
+    locale === "ja" ? chunks : <span lang="ja">{chunks}</span>;
+  // Each bullet by its index in the array, through t.rich (t.raw would show <ja> as text).
+  const bullets = (path: Parameters<typeof t.raw>[0]) =>
+    (t.raw(path) as string[]).map((_, index) =>
+      t.rich(`${path}.${index}` as Parameters<typeof t.rich>[0], { ja }),
+    );
 
   // Each group translated with its own literal keys (content/experience mirrors the
   // message tree, so a missing entry is a type error).
@@ -55,13 +65,13 @@ export function Experience() {
     ...item,
     title: t(`work.${item.key}.title`),
     org: t(`work.${item.key}.org`),
-    bullets: t.raw(`work.${item.key}.bullets`) as string[],
+    bullets: bullets(`work.${item.key}.bullets`),
   }));
   const educationEntries = education.map((item) => ({
     ...item,
     title: t(`education.${item.key}.title`),
     org: t(`education.${item.key}.org`),
-    bullets: t.raw(`education.${item.key}.bullets`) as string[],
+    bullets: bullets(`education.${item.key}.bullets`),
   }));
 
   const group = (
@@ -69,7 +79,7 @@ export function Experience() {
     entries: (TimelineItem & {
       title: string;
       org: string;
-      bullets: string[];
+      bullets: ReactNode[];
     })[],
     open: boolean,
   ) => (
@@ -105,16 +115,13 @@ export function Experience() {
         <SectionHeading
           index={t("number")}
           title={t("title")}
-          aside={t.rich("subtitle", {
-            ja: (chunks) =>
-              locale === "ja" ? chunks : <span lang="ja">{chunks}</span>,
-          })}
+          aside={t.rich("subtitle", { ja })}
           titleId="experience-title"
         />
         <div className={experienceGrid}>
           <div className={experienceIntro}>
             <p className="font-mono text-meta text-ink-3">
-              {t("range", { from, to })}
+              {t.rich("range", { from: () => from, to: () => to })}
             </p>
             <p className="max-w-measure text-ink-2">{t("intro")}</p>
           </div>
